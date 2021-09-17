@@ -1,78 +1,75 @@
 export class Rate {
-    private _id: number
-    private _technology_id: number
-    private _seniority: string
-    private _language: string
-    private _average_salary: string
-    private _gross_margin: string
-    private _currency: string
+    private id: number
+    private technologyId: number
+    private seniority: string
+    private language: string
+    private averageSalary: string
+    private grossMargin: string
+    private currency: string
 
-    constructor(idConstructor:number, technology_idConstructor: number,
+    constructor(technologyIdConstructor: number,
          seniorityConstructor: string, languageConstructor:string, 
-         average_salaryConstructor: string, gross_marginConstructor: string, 
+         averageSalaryConstructor: string, grossMarginConstructor: string, 
          currencyConstructor:string){
-             this._id = idConstructor
-             this._technology_id = technology_idConstructor
-             this._seniority = seniorityConstructor
-             this._language = languageConstructor
-             this._average_salary = average_salaryConstructor
-             this._gross_margin = gross_marginConstructor
-             this._currency = currencyConstructor
+             this.technologyId = technologyIdConstructor
+             this.seniority = seniorityConstructor
+             this.language = languageConstructor
+             this.averageSalary = averageSalaryConstructor
+             this.grossMargin = grossMarginConstructor
+             this.currency = currencyConstructor
          }
+
     //Id
-    public get id(){
-        return this._id
-    }
-    public set id(idParametro: number){
-        this._id = idParametro
+    public get Id(){
+        return this.id
     }
 
     //Technology id
-    public get technology_id(){
-        return this._technology_id
+    public get TechnologyId(){
+        return this.technologyId
     }
-    public set technology_id(technology_idParametro: number){
-        this._technology_id = technology_idParametro
+    public set TechnologyId(technologyIdParametro: number){
+        this.technologyId = technologyIdParametro
     }
 
     //Seniority
-    public get seniority(){
-        return this._seniority
+    public get Seniority(){
+        return this.seniority
     }
-    public set seniority(seniorityParametro: string){
-        this._seniority = seniorityParametro
+    public set Seniority(seniorityParametro: string){
+        this.seniority = seniorityParametro
     }
 
     //Language
-    public get language(){
-        return this._language
+    public get Language(){
+        return this.language
     }
-    public set language(languageParametro: string){
-        this._language = languageParametro
+    public set Language(languageParametro: string){
+        this.language = languageParametro
     }
 
     //Average_salary
-    public get average_salary(){
-        return this._average_salary
+    public get AverageSalary(){
+        return this.averageSalary
     }
-    public set average_salary(average_salaryParametro: string){
-        this._average_salary = average_salaryParametro
+    public set Average_salary(averageSalaryParametro: string){
+        this.averageSalary = averageSalaryParametro
     }
 
     //Gross_margin
-    public get gross_margin(){
-        return this._gross_margin
+    public get GrossMargin(){
+        return this.grossMargin
     }
-    public set gross_margin(gross_marginParametro: string){
-        this._gross_margin = gross_marginParametro
+    public set GrossMargin(grossMarginParametro: string){
+        this.grossMargin = grossMarginParametro
     }
 
     //Currency
-    public get currency(){
-        return this._currency
+    public get Currency(){
+        return this.currency
     }
-    public set currency(currencyParametro: string){
-        this._currency = currencyParametro
+    public set Currency(currencyParametro: string){
+        this.currency = currencyParametro
     }
 
 }

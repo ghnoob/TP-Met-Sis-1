@@ -1,23 +1,19 @@
 export class Technology {
-    private _id: number;
-    private _name: string;
+    private id: number;
+    private name: string;
 
-    constructor (idConstruct: number, nameConstruct: string) {
-        this._id = idConstruct;
-        this._name = nameConstruct;
-    }
-
-    public get id() {
-        return this._id;
-    }
-    public set id(idParam: number) {
-        this._id = idParam;
+    constructor (nameConstruct: string) {
+        this.name = nameConstruct;
     }
 
-    public get name() {
-        return this._name;
+    public get Id() {
+        return this.id;
     }
-    public set name(nameParam: string) {
-        this._name = nameParam;
+   
+    public get Name() {
+        return this.name;
+    }
+    public set Name(nameParam: string) {
+        this.name = nameParam;
     }
 }

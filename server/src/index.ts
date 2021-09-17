@@ -4,6 +4,7 @@ import { log } from 'debug';
 import expressWinston from 'express-winston';
 import winston from 'winston';
 import CommonRoutes from './http/routes/common.routes';
+import RateRoutes from './http/routes/rate.routes';
 
 const app: express.Application = express();
 
@@ -25,6 +26,8 @@ app.use(expressWinston.logger(loggerOptions));
 const routes: Array<CommonRoutes> = [];
 app.use(cors());
 app.use(express.json());
+
+routes.push(new RateRoutes(app));
 
 app.listen(3000, () => {
   routes.forEach((route: CommonRoutes) => {

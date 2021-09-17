@@ -1,6 +1,6 @@
 import { Application } from "express";
 import CommonRoutes from "./common.routes";
-import CreateRateAction from "../actions/create.rate.action"
+/* import CreateRateAction from "../actions/create.rate.action" */
 
 class RateRoutes extends CommonRoutes {
     constructor (app: Application){
@@ -12,7 +12,7 @@ class RateRoutes extends CommonRoutes {
 
             // this.app.get('/rates', ListRateAction.run);
     
-            this.app.post('/rates', CreateRateAction.run);
+            //this.app.post('/rates', CreateRateAction.run);
     
             // this.app.put('/rates', UpdateRateAction.run);
     
