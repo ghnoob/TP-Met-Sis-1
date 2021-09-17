@@ -1,9 +1,12 @@
+import shortid from "shortid";
+
 export class Technology {
-    private id: number;
+    private id: string;
     private name: string;
 
-    constructor (nameConstruct: string) {
-        this.name = nameConstruct;
+    constructor (name: string) {
+        this.id = shortid.generate();
+        this.name = name;
     }
 
     public get Id() {
@@ -13,7 +16,7 @@ export class Technology {
     public get Name() {
         return this.name;
     }
-    public set Name(nameParam: string) {
-        this.name = nameParam;
+    public set Name(name: string) {
+        this.name = name;
     }
 }

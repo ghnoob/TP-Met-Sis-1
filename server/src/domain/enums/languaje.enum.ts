@@ -1,4 +1,4 @@
-export enum SeniorityEnum { 
+export enum LanguageEnum { 
     english = 'EN',
     spanish = 'ES',
 }
