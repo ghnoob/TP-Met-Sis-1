@@ -58,30 +58,3 @@ class RateRepository {
 }
 
 export default new RateRepository();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
