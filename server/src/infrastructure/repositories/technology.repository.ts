@@ -8,12 +8,12 @@ class TechnologyRepository {
   }
 
   async findOneById(id: string): Promise<Technology | null> {
-    const technology = this.technologies.find(t => t.Id === id);
+    const technology = this.technologies.find(t => t.getId() === id);
     return (technology) ? technology : null;
   }
 
   async findOneByName(name: string): Promise<Technology | null> {
-    const technology = this.technologies.find(t => t.Name === name);
+    const technology = this.technologies.find(t => t.getName() === name);
     return (technology) ? technology : null;
   }
 
@@ -26,7 +26,7 @@ class TechnologyRepository {
   }
 
   async deleteById(id: string): Promise<void> {
-    this.technologies = this.technologies.filter(t => t.Id !== id);
+    this.technologies = this.technologies.filter(t => t.getId() !== id);
   }
 }
 

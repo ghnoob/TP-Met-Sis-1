@@ -2,15 +2,13 @@
 
 export default class DeleteCommandRates {
 
-    private id: number;
+    private id: string;
 
-    constructor(
-        id: number
-    ) {
+    constructor(id: string) {
         this.id = id;
     }
 
-    public get Id(){
+    public getId(){
         return this.id;
     }
 }

@@ -1,22 +1,17 @@
-import rateRepository from "../../infrastructure/repositories/rate.repository";
-import {UpdateRateCommand} from "../commands/update.rate.command"
+import RateRepository from "../../../infrastructure/repositories/rate.repository";
+import UpdateCommandRates from "../../commands/update.command.rates";
 
 class UpdateRateHandler{
-    async execute(command:UpdateRateCommand){
-        const rate = await rateRepository.findOneById(command.id);
+    async execute(command:UpdateCommandRates){
+        const rate = await RateRepository.findOneById(command.getId());
 
         if(!rate){
             throw new Error("Not found");
         }
-
-        rate.technology = command.technology;
-        rate.seniority = command.seniority;
-        rate.language = command.language;
-        rate.averageSalary = command.averageSalary;
-        rate.grossMargin = command.grossMargin;
-        rate.currency = command.currency;
+        rate.setAverageSalary(command.getAverageSalary());
+        rate.setGrossMargin(command.getGrossMargin());
        
-        await rateRepository.save(rate);
+        await RateRepository.save(rate);
     }
 }
 export default new UpdateRateHandler();

@@ -1,11 +1,10 @@
-import { Technology } from "../../domain/entities/technology.entity";
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
 import { LanguageEnum } from "../../domain/enums/languaje.enum";
 
 
 export default class UpdateCommandRates {
-
-    private technology: Technology;
+    private id: string;
+    private technology: string;
     private seniority: SeniorityEnum;
     private language: LanguageEnum;
     private averageSalary: string;
@@ -13,13 +12,15 @@ export default class UpdateCommandRates {
     private currency: string;
 
     constructor(
-        technology: Technology,
+        id: string,
+        technology: string,
         seniority: SeniorityEnum,
         language: LanguageEnum,
         averageSalary: string,
         grossMargin: string,
         currency: string
     ) {
+        this.id = id;
         this.technology = technology;
         this.seniority = seniority;
         this.language = language;
@@ -28,45 +29,31 @@ export default class UpdateCommandRates {
         this.currency = currency;
     }
 
-    public get Technology(){
+    public getId() {
+        return this.id;
+    }
+
+    public getTechnology(){
         return this.technology;
     }
-    public set Technology(technology: Technology){
-        this.technology = technology;
-    }
 
-    public get Seniority(){
+    public getSeniority(){
         return this.seniority;
     }
-    public set Seniority(seniority: SeniorityEnum){
-        this.seniority = seniority;
-    }
 
-    public get Language(){
+    public getLanguage(){
         return this.language;
     }
-    public set Language(language: LanguageEnum){
-        this.language = language;
-    }
 
-    public get AverageSalary(){
+    public getAverageSalary(){
         return this.averageSalary;
     }
-    public set AverageSalary(averageSalary: string){
-        this.averageSalary = averageSalary;
-    }
 
-    public get GrossMargin(){
+    public getGrossMargin(){
         return this.grossMargin;
     }
-    public set GrossMargin(grossMargin: string){
-        this.grossMargin = grossMargin;
-    }
 
-    public get Currency(){
+    public getCurrency(){
         return this.currency;
-    }
-    public set Currency(currency: string){
-        this.currency = currency;
     }
 }

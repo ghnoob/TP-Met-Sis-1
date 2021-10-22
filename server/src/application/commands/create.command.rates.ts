@@ -1,11 +1,10 @@
-import { Technology } from "../../domain/entities/technology.entity";
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
 import { LanguageEnum } from "../../domain/enums/languaje.enum";
 
 
 export default class CreateCommandRates {
 
-    private technology: Technology;
+    private technology: string;
     private seniority: SeniorityEnum;
     private language: LanguageEnum;
     private averageSalary: string;
@@ -13,7 +12,7 @@ export default class CreateCommandRates {
     private currency: string;
 
     constructor(
-        technology: Technology,
+        technology: string,
         seniority: SeniorityEnum,
         language: LanguageEnum,
         averageSalary: string,
@@ -28,27 +27,27 @@ export default class CreateCommandRates {
         this.currency = currency;
     }
 
-    public set Technology(technology: Technology) {
-        this.technology = technology;
+    public getTechnology() {
+        return this.technology;
     }
 
-    public set Seniority(seniority: SeniorityEnum) {
-        this.seniority = seniority;
+    public getSeniority() {
+        return this.seniority;
     }
 
-    public set Language(language: LanguageEnum) {
-        this.language = language;
+    public getLanguage() {
+        return this.language;
     }
 
-    public set AverageSalary(averageSalary: string) {
-        this.averageSalary = averageSalary;
+    public getAverageSalary() {
+        return this.averageSalary;
     }
 
-    public set GrossMargin(grossMargin: string) {
-        this.grossMargin = grossMargin;
+    public getGrossMargin() {
+        return this.grossMargin;
     }
 
-    public set Currency(currency: string) {
-        this.currency = currency;
+    public getCurrency() {
+        return this.currency;
     }
 }

@@ -1,20 +1,19 @@
-import { Rate } from "../../domain/entities/rate.entity";
-import rateRepository from "../../infrastructure/repositories/rate.repository"
-import {CreateRateCommand} from "../commands/rates/create.command.rates"
+import { Rate } from "../../../domain/entities/rate.entity";
+import RateRepository from "../../../infrastructure/repositories/rate.repository";
+import CreateCommandRates from "../../commands/create.command.rates";
+import TechnologyRepository from "../../../infrastructure/repositories/technology.repository";
 
 class CreateRateHandler {
-    async execute(command: CreateRateCommand){
+    async execute(command: CreateCommandRates){
         const rate: Rate = {
-            technology: command.technology,
-            seniority: command.seniority,
-            language: command.language,
-            averageSalary: command.averageSalary,
-            grossMargin: command.grossMargin,
-            currency: command.currency
-
-
+            technology: command.getTechnology(),
+            seniority: command.getSeniority(),
+            language: command.getLanguage(),
+            averageSalary: command.getAverageSalary(),
+            grossMargin: command.getGrossMargin(),
+            currency: command.getCurrency()
         };
-        await rateRepository.save(rate)
+        await RateRepository.save(rate)
     }
 }
 export default new CreateRateHandler();
