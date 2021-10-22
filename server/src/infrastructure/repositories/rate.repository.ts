@@ -11,7 +11,7 @@ class RateRepository {
     }
 
     async findOneById(id: string): Promise<Rate | null> {
-        const rate = this.rates.find(r => r.Id === id);
+        const rate = this.rates.find(r => r.getId() === id);
 
         return (rate) ? rate : null;
     }
@@ -21,25 +21,31 @@ class RateRepository {
     }
 
     async save(rate: Rate): Promise<void> {
-        if (!rate.Id) {
+        if (!rate.getId()) {
             this.rates.push(rate);
         } else {
             this.rates = this.rates.map(function(r) {
-                return r.Id === rate.Id ? rate : r; 
+                return r.getId() === rate.getId() ? rate : r; 
             });
         }
     }
 
     async deleteById(id: string): Promise<void> {
-        this.rates = this.rates.filter(r => r.Id !== id);
+        this.rates = this.rates.filter(r => r.getId() !== id);
     }
 
     async findAllBy(technologyId: string, seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string): Promise<Rate[] | null> {
-        let rates = this.rates.filter(r => r.Technology.Id === technologyId);
+        let rates = this.rates.filter(r => r.getTechnology().getId() === technologyId);
 
-        if (seniority) rates.filter(r => r.Seniority == seniority);
-        if (language) rates.filter(r => r.Language == language);
-        if (currency) rates.filter(r => r.Currency == currency);
+        if (seniority) {
+            rates.filter(r => r.getSeniority() == seniority)
+        };
+        if (language) {
+            rates.filter(r => r.getLanguage() == language)
+        };
+        if (currency) {
+            rates.filter(r => r.getCurrency() == currency)
+        };
 
         return (rates) ? rates : null;
     }
@@ -47,10 +53,10 @@ class RateRepository {
     async exists(technologyId: string, seniority: SeniorityEnum, language: LanguageEnum, currency: string) : Promise<boolean> {
 
         const exists = this.rates.some((element) => {
-            element.Technology.Id == technologyId &&
-            element.Seniority == seniority &&
-            element.Language == language &&
-            element.Currency == currency
+            element.getTechnology().getId() == technologyId &&
+            element.getSeniority() == seniority &&
+            element.getLanguage() == language &&
+            element.getCurrency() == currency
         });
         
         return exists;

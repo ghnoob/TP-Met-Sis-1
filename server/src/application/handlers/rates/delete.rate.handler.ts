@@ -1,16 +1,16 @@
-import rateRepository from "../../infrastructure/repositories/rate.repository";
-import {UpdateRateCommand} from "../commands/update.rate.command"
+import RateRepository from "../../../infrastructure/repositories/rate.repository";
+import UpdateCommandRates from "../../commands/update.command.rates";
 
 class UpdateRateHandler{
-    async execute(command:UpdateRateCommand){
-        const rate = await rateRepository.findOneById(command.id);
+    async execute(command:UpdateCommandRates){
+        const rate = await RateRepository.findOneById(command.getId());
 
         if(!rate){
             throw new Error("Not found");
         }
 
         
-        await rateRepository.deleteById(rate);
+        await RateRepository.deleteById(rate.getId());
     }
 }
 export default new UpdateRateHandler();

@@ -29,49 +29,49 @@ export class Rate {
              this.currency = currency;
          }
 
-    public get Id(){
+    public getId(){
         return this.id;
     }
 
-    public get Technology(){
+    public getTechnology(){
         return this.technology;
     }
-    public set Technology(technology: Technology){
+    public setTechnology(technology: Technology){
         this.technology = technology;
     }
 
-    public get Seniority(){
+    public getSeniority(){
         return this.seniority;
     }
-    public set Seniority(seniority: SeniorityEnum){
+    public setSeniority(seniority: SeniorityEnum){
         this.seniority = seniority;
     }
 
-    public get Language(){
+    public getLanguage(){
         return this.language;
     }
-    public set Language(language: LanguageEnum){
+    public setLanguage(language: LanguageEnum){
         this.language = language;
     }
 
-    public get AverageSalary(){
+    public getAverageSalary(){
         return this.averageSalary;
     }
-    public set AverageSalary(averageSalary: string){
+    public setAverageSalary(averageSalary: string){
         this.averageSalary = averageSalary;
     }
 
-    public get GrossMargin(){
+    public getGrossMargin(){
         return this.grossMargin;
     }
-    public set GrossMargin(grossMargin: string){
+    public setGrossMargin(grossMargin: string){
         this.grossMargin = grossMargin;
     }
 
-    public get Currency(){
+    public getCurrency(){
         return this.currency;
     }
-    public set Currency(currency: string){
+    public setCurrency(currency: string){
         this.currency = currency;
     }
 
