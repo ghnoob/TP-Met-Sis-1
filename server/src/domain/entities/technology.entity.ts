@@ -9,14 +9,14 @@ export class Technology {
         this.name = name;
     }
 
-    public get Id() {
+    public getId() {
         return this.id;
     }
    
-    public get Name() {
+    public getName() {
         return this.name;
     }
-    public set Name(name: string) {
+    public setName(name: string) {
         this.name = name;
     }
 }
