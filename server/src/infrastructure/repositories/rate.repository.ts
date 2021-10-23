@@ -34,20 +34,22 @@ class RateRepository {
         this.rates = this.rates.filter(r => r.getId() !== id);
     }
 
-    async findAllBy(technologyId: string, seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string): Promise<Rate[] | null> {
-        let rates = this.rates.filter(r => r.getTechnology().getId() === technologyId);
+    async findAllBy(technologyIds: string[], seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string): Promise<Rate[]> {
+        let rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
 
         if (seniority) {
             rates.filter(r => r.getSeniority() == seniority)
-        };
+        }
+
         if (language) {
             rates.filter(r => r.getLanguage() == language)
-        };
+        }
+
         if (currency) {
             rates.filter(r => r.getCurrency() == currency)
-        };
+        }
 
-        return (rates) ? rates : null;
+        return rates;
     }
 
     async exists(technologyId: string, seniority: SeniorityEnum, language: LanguageEnum, currency: string) : Promise<boolean> {
@@ -58,7 +60,7 @@ class RateRepository {
             element.getLanguage() == language &&
             element.getCurrency() == currency
         });
-        
+
         return exists;
     }
 }
