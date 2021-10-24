@@ -4,6 +4,10 @@ import type { Rate } from '../../../domain/entities/rate.entity';
 
 class FilterRateHandler {
     async execute(command: FilterCommandRate): Promise<Rate[]> {
+        if (!command.getTechnologies()) {
+            throw new Error("technologyIds array must be sent in request body.");
+        }
+
         const filteredRates: Rate[] = await rateRepository.findAllBy(
             command.getTechnologies(),
             command.getSeniority(),

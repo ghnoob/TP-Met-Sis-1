@@ -6,15 +6,18 @@ import type { Rate } from "../../domain/entities/rate.entity";
 class FilterRateAction {
     async run(req: Request, res: Response) {
         const command: FilterCommandRates = new FilterCommandRates(
-            req.body.technologies,
+            req.body.technologyIds,
             req.body.seniority,
             req.body.language,
             req.body.currency
         );
 
-        const filteredRates: Rate[] = await FilterRateHandler.execute(command);
-
-        return res.status(200).json(filteredRates);
+        try {
+            const filteredRates: Rate[] = await FilterRateHandler.execute(command);
+            return res.status(200).json(filteredRates);
+        } catch (error) {
+            return res.status(400).send((error as Error).message);
+        }
     }
 }
 
