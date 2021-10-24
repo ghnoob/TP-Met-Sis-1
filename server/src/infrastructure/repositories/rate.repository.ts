@@ -38,15 +38,15 @@ class RateRepository {
         let rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
 
         if (seniority) {
-            rates.filter(r => r.getSeniority() == seniority)
+            rates = rates.filter(r => r.getSeniority().toLowerCase() == seniority.toLowerCase());
         }
 
         if (language) {
-            rates.filter(r => r.getLanguage() == language)
+            rates = rates.filter(r => r.getLanguage().toLowerCase() == language.toLowerCase());
         }
 
         if (currency) {
-            rates.filter(r => r.getCurrency() == currency)
+            rates = rates.filter(r => r.getCurrency().toLowerCase() == currency.toLowerCase());
         }
 
         return rates;
