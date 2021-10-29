@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import FilterRateHandler from "../../application/handlers/rates/filter.rate.handler";
-import FilterCommandRates from "../../application/commands/filter.command.rates";
-import type { Rate } from "../../domain/entities/rate.entity";
+import FilterRateHandler from "../../../application/handlers/rates/filter.rate.handler";
+import FilterRatesCommand from "../../../application/commands/rates/filter.rates.command";
+import type { Rate } from "../../../domain/entities/rate.entity";
 
 class FilterRateAction {
     async run(req: Request, res: Response) {
-        const command: FilterCommandRates = new FilterCommandRates(
+        const command: FilterRatesCommand = new FilterRatesCommand(
             req.body.technologyIds,
             req.body.seniority,
             req.body.language,

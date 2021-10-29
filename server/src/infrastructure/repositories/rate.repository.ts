@@ -1,5 +1,5 @@
 import { Rate } from "../../domain/entities/rate.entity";
-import { LanguageEnum } from "../../domain/enums/languaje.enum";
+import { LanguageEnum } from "../../domain/enums/language.enum";
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
 
 

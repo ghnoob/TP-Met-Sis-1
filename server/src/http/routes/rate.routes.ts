@@ -1,8 +1,8 @@
 import { Application } from "express";
 import CommonRoutes from "./common.routes";
-import CreateRateAction from "../actions/create.rate.action";
-import ListRateAction from "../actions/list.rate.action";
-import FilterRateAction from "../actions/filter.rate.action";
+import CreateRateAction from "../actions/rates/create.rate.action";
+import ListRateAction from "../actions/rates/list.rate.action";
+import FilterRateAction from "../actions/rates/filter.rate.action";
 
 
 class RateRoutes extends CommonRoutes {

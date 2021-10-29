@@ -1,8 +1,8 @@
-import { SeniorityEnum } from "../../domain/enums/seniority.enum";
-import { LanguageEnum } from "../../domain/enums/languaje.enum";
+import { SeniorityEnum } from "../../../domain/enums/seniority.enum";
+import { LanguageEnum } from "../../../domain/enums/language.enum";
 
 
-export default class CreateCommandRates {
+export default class CreateRateCommand {
 
     private technology: string;
     private seniority: SeniorityEnum;
