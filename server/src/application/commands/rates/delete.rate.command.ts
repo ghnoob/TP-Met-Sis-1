@@ -1,6 +1,4 @@
-
-
-export default class DeleteCommandRates {
+export default class DeleteRateCommand {
 
     private id: string;
 

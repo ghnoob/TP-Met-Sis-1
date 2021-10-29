@@ -1,12 +1,12 @@
 import { Rate } from "../../../domain/entities/rate.entity";
 import RateRepository from "../../../infrastructure/repositories/rate.repository";
-import CreateCommandRates from "../../commands/create.command.rates";
+import CreateRateCommand from "../../commands/create.command.rates";
 import TechnologyRepository from "../../../infrastructure/repositories/technology.repository";
 import { Technology } from "../../../domain/entities/technology.entity";
 
 class CreateRateHandler {
 
-    async execute(command: CreateCommandRates){
+    async execute(command: CreateRateCommand){
 
         const technology: Technology | null = await TechnologyRepository.findOneById(command.getTechnology());
 
