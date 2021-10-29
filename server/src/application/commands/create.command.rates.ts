@@ -1,5 +1,6 @@
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
 import { LanguageEnum } from "../../domain/enums/languaje.enum";
+import { CurencyEnum } from "../../domain/enums/curency.enum";
 
 
 export default class CreateCommandRates {
@@ -19,6 +20,9 @@ export default class CreateCommandRates {
         grossMargin: string,
         currency: string
     ) {
+        if(currency != CurencyEnum.usd && currency != CurencyEnum.ars){
+            throw new Error("Moneda no reconocida")
+        }
         this.technology = technology;
         this.seniority = seniority;
         this.language = language;
