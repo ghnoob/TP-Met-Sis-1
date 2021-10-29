@@ -1,5 +1,5 @@
 import RateRepository from "../../../infrastructure/repositories/rate.repository";
-import UpdateRateCommand from "../../commands/update.command.rates";
+import UpdateRateCommand from "../../commands/rates/update.rate.command";
 
 class UpdateRateHandler{
     async execute(command:UpdateRateCommand){

@@ -1,5 +1,5 @@
 import rateRepository from '../../../infrastructure/repositories/rate.repository';
-import FilterCommandRate from '../../commands/filter.command.rates';
+import FilterCommandRate from '../../commands/rates/filter.rates.command';
 import type { Rate } from '../../../domain/entities/rate.entity';
 
 class FilterRateHandler {

@@ -1,6 +1,6 @@
 import { Rate } from "../../../domain/entities/rate.entity";
 import RateRepository from "../../../infrastructure/repositories/rate.repository";
-import CreateRateCommand from "../../commands/create.command.rates";
+import CreateRateCommand from "../../commands/rates/create.rate.command";
 import TechnologyRepository from "../../../infrastructure/repositories/technology.repository";
 import { Technology } from "../../../domain/entities/technology.entity";
 

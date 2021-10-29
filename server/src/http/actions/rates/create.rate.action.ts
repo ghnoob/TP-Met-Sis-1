@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import CreateRateHandler from "../../application/handlers/rates/create.rate.handler";
-import CreateRateCommand from "../../application/commands/create.command.rates";
+import CreateRateHandler from "../../../application/handlers/rates/create.rate.handler";
+import CreateRateCommand from "../../../application/commands/rates/create.rate.command";
 
 class CreateUserAction {
     async run(req: Request, res: Response) {
