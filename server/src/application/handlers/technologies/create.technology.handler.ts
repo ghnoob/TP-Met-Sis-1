@@ -1,6 +1,6 @@
 import { Technology } from "../../../domain/entities/technology.entity";
 import TechnologyRepository from "../../../infrastructure/repositories/technology.repository";
-import CreateTechnologyCommand from "../../commands/technology/create.technology.command";
+import CreateTechnologyCommand from "../../commands/technologies/create.technology.command";
 
 
 class CreateTechologyHandler {
