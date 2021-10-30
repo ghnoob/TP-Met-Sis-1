@@ -6,9 +6,11 @@ import CreateTechnologyCommand from "../../commands/technologies/create.technolo
 class CreateTechologyHandler {
 
     async execute(command: CreateTechnologyCommand){
-         
-        
-        if(await TechnologyRepository.findOneByName(command.getName())){
+        if (!command.getName()) {
+            throw new Error("Technology name not specified");
+        }
+
+        if (await TechnologyRepository.findOneByName(command.getName().toLowerCase())){
             throw new Error("Technology already exists");
         }
 

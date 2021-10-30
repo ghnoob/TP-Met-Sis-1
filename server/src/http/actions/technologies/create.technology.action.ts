@@ -5,11 +5,15 @@ import CreateTechnologyHandler from "../../../application/handlers/technologies/
 
 class CreateTechnologyAction {
     async run(req: Request, res: Response) {
-        const command: CreateTechnologyCommand = req.body;
-        
-        await CreateTechnologyHandler.execute(command);
-        
-        return res.status(201).json({message: "Technology created"});
+        const command: CreateTechnologyCommand = new CreateTechnologyCommand(req.body.name);
+
+        try {
+            await CreateTechnologyHandler.execute(command);
+
+            return res.status(201).json({message: "Technology created"});
+        } catch (error) {
+            return res.status(400).json({ message: (error as Error).message });
+        }
     }
 }
 
