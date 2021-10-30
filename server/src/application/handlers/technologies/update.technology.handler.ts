@@ -13,11 +13,11 @@ class UpdateTechnologyHandler{
             throw new Error("Name not specified");
         }
 
-        if (await TechnologyRepository.findOneByName(command.getName().toLowerCase())) {
+        if (await TechnologyRepository.findOneByName(command.getName())) {
             throw new Error("Technology already exists")
         }
 
-        technology.setName(command.getName().toLowerCase());
+        technology.setName(command.getName());
     }
 }
 export default new UpdateTechnologyHandler();

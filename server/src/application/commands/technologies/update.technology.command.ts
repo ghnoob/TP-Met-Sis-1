@@ -8,7 +8,7 @@ export default class UpdateTechnologyCommand {
         name: string
     ) {
         this.id = id;
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public getId() {

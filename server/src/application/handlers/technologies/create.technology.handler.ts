@@ -10,11 +10,11 @@ class CreateTechologyHandler {
             throw new Error("Technology name not specified");
         }
 
-        if (await TechnologyRepository.findOneByName(command.getName().toLowerCase())){
+        if (await TechnologyRepository.findOneByName(command.getName())){
             throw new Error("Technology already exists");
         }
 
-        const technology : Technology = new Technology(command.getName().toLowerCase());
+        const technology : Technology = new Technology(command.getName());
 
         await TechnologyRepository.save(technology);
 

@@ -3,7 +3,7 @@ export default class CreateTechnologyCommand {
     private name: string;
 
     constructor(name: string) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public getName() {
