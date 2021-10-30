@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import CreateTechnologyCommand from "../../../application/commands/technologies/create.technology.command";
+import type ApplicationError from "../../../application/customErrors/application.error";
 import CreateTechnologyHandler from "../../../application/handlers/technologies/create.technology.handler";
 
 
@@ -12,7 +13,8 @@ class CreateTechnologyAction {
 
             return res.status(201).json({message: "Technology created"});
         } catch (error) {
-            return res.status(400).json({ message: (error as Error).message });
+            const err = error as ApplicationError;
+            return res.status(err.status).json({ message: err.message });
         }
     }
 }
