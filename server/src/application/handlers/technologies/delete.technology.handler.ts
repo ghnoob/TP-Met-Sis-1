@@ -1,5 +1,5 @@
-import TechnologyRepository from "../../../infrastructure/repositories/rate.repository";
-import DeleteTechnologyCommand from "../../commands/rates/delete.rate.command";
+import TechnologyRepository from "../../../infrastructure/repositories/technology.repository";
+import DeleteTechnologyCommand from "../../commands/technologies/delete.technology.command";
 
 class DeleteTechnologyHandler{
     async execute(command: DeleteTechnologyCommand){

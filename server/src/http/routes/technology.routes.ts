@@ -1,6 +1,6 @@
 import { Application } from "express";
 import CreateTechnologyAction from "../actions/technologies/create.technology.action";
-// import DeleteTechnologyAction from "../actions/technologies/delete.technology.action";
+import DeleteTechnologyAction from "../actions/technologies/delete.technology.action";
 import ListTechnologyAction from "../actions/technologies/list.technology.action";
 import UpdateTechnologyAction from "../actions/technologies/update.technology.action";
 import CommonRoutes from "./common.routes";
@@ -20,7 +20,7 @@ class TechnologyRoutes extends CommonRoutes {
 
         this.app.put('/technologies/:id', UpdateTechnologyAction.run);
 
-        // this.app.delete('/technologies', DeleteTechnologyAction.run);
+        this.app.delete('/technologies/:id', DeleteTechnologyAction.run);
 
         return this.app;
 
