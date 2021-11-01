@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import CreateRateHandler from "../../application/handlers/rates/create.rate.handler";
-import CreateCommandRates from "../../application/commands/create.command.rates";
+import CreateRateHandler from "../../../application/handlers/rates/create.rate.handler";
+import CreateRateCommand from "../../../application/commands/rates/create.rate.command";
 
 class CreateRateAction {
     async run(req: Request, res: Response) {
-        const command: CreateCommandRates = req.body;
+        const command: CreateRateCommand = req.body;
         
         await CreateRateHandler.execute(command);
         

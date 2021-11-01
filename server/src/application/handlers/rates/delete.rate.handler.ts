@@ -1,8 +1,8 @@
 import RateRepository from "../../../infrastructure/repositories/rate.repository";
-import UpdateCommandRates from "../../commands/update.command.rates";
+import DeleteRateCommand from "../../commands/rates/delete.rate.command";
 
-class UpdateRateHandler{
-    async execute(command:UpdateCommandRates){
+class DeleteRateHandler{
+    async execute(command: DeleteRateCommand){
         const rate = await RateRepository.findOneById(command.getId());
 
         if(!rate){
@@ -13,4 +13,4 @@ class UpdateRateHandler{
         await RateRepository.deleteById(rate.getId());
     }
 }
-export default new UpdateRateHandler();
+export default new DeleteRateHandler();
