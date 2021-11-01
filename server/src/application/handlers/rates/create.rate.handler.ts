@@ -22,8 +22,8 @@ class CreateRateHandler {
             );
 
 
-        if (!existsRate) {
-            throw new Error("Rate not found");
+        if (existsRate) {
+            throw new Error("Rate already exists");
         }
 
 
