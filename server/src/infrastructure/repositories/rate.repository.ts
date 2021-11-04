@@ -24,6 +24,12 @@ class RateRepository {
         this.rates.push(rate);
     }
 
+    async update(rate: Rate) : Promise<void> {
+        let index = this.rates.findIndex((r => r.getId() == rate.getId()));
+
+        this.rates[index] = rate;
+    }
+
     async deleteById(id: string): Promise<void> {
         this.rates = this.rates.filter(r => r.getId() !== id);
     }
@@ -57,6 +63,8 @@ class RateRepository {
 
         return exists;
     }
+
+
 }
 
 export default new RateRepository();
