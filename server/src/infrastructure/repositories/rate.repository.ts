@@ -49,10 +49,10 @@ class RateRepository {
     async exists(technologyId: string, seniority: SeniorityEnum, language: LanguageEnum, currency: string) : Promise<boolean> {
 
         const exists = this.rates.some((element) => {
-            element.getTechnology().getId() == technologyId &&
-            element.getSeniority() == seniority &&
-            element.getLanguage() == language &&
-            element.getCurrency() == currency
+            return element.getTechnology().getId() == technologyId &&
+                element.getSeniority() == seniority &&
+                element.getLanguage() == language &&
+                element.getCurrency() == currency
         });
 
         return exists;
