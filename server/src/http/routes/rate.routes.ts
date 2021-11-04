@@ -18,7 +18,7 @@ class RateRoutes extends CommonRoutes {
     
             this.app.post('/rates', CreateRateAction.run);
     
-            this.app.put('/rates', updateRateAction.run);
+            this.app.put('/rates/:id', updateRateAction.run);
     
             this.app.delete('/rates', deleteRateAction.run);
 
