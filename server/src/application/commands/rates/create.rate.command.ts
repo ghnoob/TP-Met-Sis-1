@@ -9,7 +9,7 @@ export default class CreateRateCommand {
     private language: LanguageEnum;
     private averageSalary: string;
     private grossMargin: string;
-    private currency: string;
+    private currency: CurrencyEnum;
 
     constructor(
         technology: string,
@@ -17,16 +17,13 @@ export default class CreateRateCommand {
         language: LanguageEnum,
         averageSalary: string,
         grossMargin: string,
-        currency: string
+        currency: CurrencyEnum,
     ) {
-        if(currency != CurrencyEnum.usd && currency != CurrencyEnum.ars){
-            throw new Error("Moneda no reconocida")
-        }
         this.technology = technology;
         this.seniority = seniority;
         this.language = language;
-        this.averageSalary = averageSalary;
-        this.grossMargin = grossMargin;
+        this.averageSalary = averageSalary?.toString() ?? '0';
+        this.grossMargin = grossMargin?.toString() ?? '0';
         this.currency = currency;
     }
 

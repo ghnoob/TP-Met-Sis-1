@@ -21,13 +21,7 @@ class RateRepository {
     }
 
     async save(rate: Rate): Promise<void> {
-        if (!rate.getId()) {
-            this.rates.push(rate);
-        } else {
-            this.rates = this.rates.map(function(r) {
-                return r.getId() === rate.getId() ? rate : r; 
-            });
-        }
+        this.rates.push(rate);
     }
 
     async deleteById(id: string): Promise<void> {
@@ -55,10 +49,10 @@ class RateRepository {
     async exists(technologyId: string, seniority: SeniorityEnum, language: LanguageEnum, currency: string) : Promise<boolean> {
 
         const exists = this.rates.some((element) => {
-            element.getTechnology().getId() == technologyId &&
-            element.getSeniority() == seniority &&
-            element.getLanguage() == language &&
-            element.getCurrency() == currency
+            return element.getTechnology().getId() == technologyId &&
+                element.getSeniority() == seniority &&
+                element.getLanguage() == language &&
+                element.getCurrency() == currency
         });
 
         return exists;
