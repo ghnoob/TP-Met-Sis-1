@@ -21,13 +21,7 @@ class RateRepository {
     }
 
     async save(rate: Rate): Promise<void> {
-        if (!rate.getId()) {
-            this.rates.push(rate);
-        } else {
-            this.rates = this.rates.map(function(r) {
-                return r.getId() === rate.getId() ? rate : r; 
-            });
-        }
+        this.rates.push(rate);
     }
 
     async deleteById(id: string): Promise<void> {
