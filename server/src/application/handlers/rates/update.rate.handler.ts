@@ -9,19 +9,11 @@ class UpdateRateHandler{
             throw new Error("Not found");
         }
 
-        if(
-        rate.getTechnology().getId() != command.getTechnology() ||
-        rate.getSeniority() != command.getSeniority() ||
-        rate.getCurrency() != command.getCurrency() ||
-        rate.getLanguage() != command.getLanguage()
-        ) 
-        {
-            throw new Error("You can only modify 'averageSalary' and 'grossMargin'.");
-        }
-
         if (command.getAverageSalary()) {
             if (isNaN(Number(command.getAverageSalary()))) {
                 throw new Error("Wrong format for 'averageSalary'");
+            } else if (typeof command.getAverageSalary() !== "string") {
+                throw new Error("'averageSalary' must be string");
             }
             
             rate.setAverageSalary(command.getAverageSalary());
@@ -32,6 +24,8 @@ class UpdateRateHandler{
         if (command.getGrossMargin()) {
             if (isNaN(Number(command.getGrossMargin()))) {
                 throw new Error("Wrong format for 'grossMargin'");
+            } else if (typeof command.getGrossMargin() !== "string") {
+                throw new Error("'averageSalary' must be string");
             }
             
             rate.setGrossMargin(command.getGrossMargin());

@@ -9,10 +9,10 @@ class DeleteRateAction {
 
         try {
             await DeleteRateHandler.execute(command);
+            return res.status(200).json({message: "Rate deleted"});
         } catch (error) {
             return res.status(404).json({message: error})
         }
-        return res.status(204).send();
     }
 }
 export default new DeleteRateAction();

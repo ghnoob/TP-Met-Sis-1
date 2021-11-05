@@ -6,7 +6,7 @@ class DeleteRateHandler{
         const rate = await RateRepository.findOneById(command.getId());
 
         if(!rate){
-            throw new Error("Not found");
+            throw new Error("Rate not found");
         }
 
         
