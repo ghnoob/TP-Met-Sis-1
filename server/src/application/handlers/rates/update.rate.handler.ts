@@ -12,8 +12,6 @@ class UpdateRateHandler{
 
         rate.setAverageSalary(command.getAverageSalary());
         rate.setGrossMargin(command.getGrossMargin());
-
-        await RateRepository.save(rate);
     }
 }
 export default new UpdateRateHandler();

@@ -3,13 +3,12 @@ import CommonRoutes from "./common.routes";
 import CreateRateAction from "../actions/rates/create.rate.action";
 import ListRateAction from "../actions/rates/list.rate.action";
 import FilterRateAction from "../actions/rates/filter.rate.action";
-import updateRateAction from "../actions/rates/update.rate.action";
-import deleteRateAction from "../actions/rates/delete.rate.action";
 import { body } from "express-validator";
 import { CurrencyEnum } from "../../domain/enums/currency.enum";
 import { LanguageEnum } from "../../domain/enums/language.enum";
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
-
+import UpdateRateAction from "../actions/rates/update.rate.action";
+import DeleteRateAction from "../actions/rates/delete.rate.action";
 class RateRoutes extends CommonRoutes {
     constructor (app: Application){
         super(app, "Rate")
@@ -48,16 +47,16 @@ class RateRoutes extends CommonRoutes {
             );
 
             this.app.put(
-                '/rates',
+                '/rates/:id',
                 body(
                     ['averageSalary', 'grossMargin'],
                     'value must be a numeric string, positive, up to 2 decimal places',
                 ).isString().trim().matches(/^\d+(\.\d{1,2})?$/),
 
-                updateRateAction.run,
+                UpdateRateAction.run,
             );
     
-            this.app.delete('/rates', deleteRateAction.run);
+            this.app.delete('/rates/:id', DeleteRateAction.run);
 
             this.app.post(
                 '/rates/filter',

@@ -10,11 +10,12 @@ class DeleteTechnologyAction {
 
         try {
             await DeleteTechnologyHandler.execute(command);
+
+            return res.status(200).json({message: "Technology deleted"});
         } catch (error) {
             const err = error as ApplicationError;
             return res.status(err.status).json({ message: err.message });
         }
-        return res.status(204).json({ message: "Technology deleted" });
     }
 }
 

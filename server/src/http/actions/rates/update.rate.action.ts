@@ -14,12 +14,9 @@ class UpdateRateAction {
 
         const command: UpdateRateCommand = new UpdateRateCommand(
             req.params.id, 
-            req.body.technology,
-            req.body.seniority,
-            req.body.language,
             req.body.averageSalary,
-            req.body.grossMargin,
-            req.body.currency);
+            req.body.grossMargin
+        )
 
         try {
             await updateRateHandler.execute(command);
