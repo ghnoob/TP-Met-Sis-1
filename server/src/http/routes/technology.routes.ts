@@ -19,13 +19,13 @@ class TechnologyRoutes extends CommonRoutes {
 
         this.app.post(
             '/technologies',
-            body('name').trim().toLowerCase().notEmpty(),
+            body('name', 'value must not be empty').trim().toLowerCase().notEmpty(),
             CreateTechnologyAction.run,
         );
 
         this.app.put(
             '/technologies/:id',
-            body('name').trim().toLowerCase().notEmpty(),
+            body('name', 'value must not be empty').trim().toLowerCase().notEmpty(),
             UpdateTechnologyAction.run,
         );
 
