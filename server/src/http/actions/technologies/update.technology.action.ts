@@ -1,26 +1,20 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import UpdateTechnologyCommand from "../../../application/commands/technologies/update.technology.command";
 import UpdateTechnologyHandler from "../../../application/handlers/technologies/update.technology.handler";
-import type ApplicationError from "../../../application/customErrors/application.error";
 
 class UpdateTechnologyAction {
-    async run(req: Request, res: Response) {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
-
+    async run(req: Request, res: Response, next: NextFunction) {
         try {
+            validationResult(req).throw();
+
+            const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
+
             await UpdateTechnologyHandler.execute(command);
 
             return res.status(201).json({message: "Technology updated"});
         } catch (error) {
-            const err = error as ApplicationError;
-            return res.status(err.status).json({ message: err.message });
+            return next(error);
         }
     }
 }
