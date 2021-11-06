@@ -1,21 +1,14 @@
-export default class UpdateTechnologyCommand {
+import CreateTechnologyCommand from "./create.technology.command";
 
+export default class UpdateTechnologyCommand extends CreateTechnologyCommand {
     private id: string;
-    private name: string;
 
-    constructor(
-        id: string, 
-        name: string
-    ) {
+    constructor(id: string, name: string) {
+        super(name);
         this.id = id;
-        this.name = name?.toString().toLowerCase();
     }
 
     public getId() {
         return this.id;
-    }
-
-    public getName() {
-        return this.name;
     }
 }
