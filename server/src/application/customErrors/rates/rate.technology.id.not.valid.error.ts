@@ -1,11 +1,10 @@
 import ApplicationError from '../application.error';
 
-export default class RateTechnologyIdInvalid extends ApplicationError {
+export default class RateTechnologyIdNotValidError extends ApplicationError {
     constructor() {
         super(
-            'RateTechnologyIdInvalid',
+            'RateTechnologyIdNotValidError',
             'The id of an existent technology must be provided in the request body.',
-            400,
         );
     }
 }
