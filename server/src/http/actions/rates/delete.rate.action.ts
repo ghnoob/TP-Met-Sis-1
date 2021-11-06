@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import DeleteRateCommand from "../../../application/commands/rates/delete.rate.command";
+import ApplicationError from "../../../application/customErrors/application.error";
 import DeleteRateHandler from "../../../application/handlers/rates/delete.rate.handler";
 
 class DeleteRateAction {
@@ -10,7 +11,8 @@ class DeleteRateAction {
         try {
             await DeleteRateHandler.execute(command);
         } catch (error) {
-            return res.status(404).json({message: error})
+            const err = error as ApplicationError;
+            return res.status(err.status).json({ message: err.message });
         }
         return res.status(204).send();
     }

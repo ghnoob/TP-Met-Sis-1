@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import UpdateRateCommand from "../../../application/commands/rates/update.rate.command";
+import ApplicationError from "../../../application/customErrors/application.error";
 import updateRateHandler from "../../../application/handlers/rates/update.rate.handler";
 
 class UpdateRateAction {
@@ -25,9 +26,8 @@ class UpdateRateAction {
 
             return res.status(201).json({message: "Rate updated"});
         } catch (error) {
-            const message: string = (error as Error).message;
-
-            return res.status(message === "Not found" ? 404 : 400).json({ message });
+            const err = error as ApplicationError;
+            return res.status(err.status).json({ message: err.message });
         }
     }
 }
