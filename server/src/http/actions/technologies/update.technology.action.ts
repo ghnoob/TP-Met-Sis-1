@@ -1,10 +1,17 @@
 import { Request, Response } from "express";
+import { validationResult } from "express-validator";
 import UpdateTechnologyCommand from "../../../application/commands/technologies/update.technology.command";
 import UpdateTechnologyHandler from "../../../application/handlers/technologies/update.technology.handler";
 import type ApplicationError from "../../../application/customErrors/application.error";
 
 class UpdateTechnologyAction {
     async run(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
 
         try {
