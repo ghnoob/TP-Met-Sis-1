@@ -1,4 +1,5 @@
 import { Application } from "express";
+import { body } from "express-validator";
 import CreateTechnologyAction from "../actions/technologies/create.technology.action";
 import DeleteTechnologyAction from "../actions/technologies/delete.technology.action";
 import ListTechnologyAction from "../actions/technologies/list.technology.action";
@@ -16,9 +17,17 @@ class TechnologyRoutes extends CommonRoutes {
 
         this.app.get('/technologies', ListTechnologyAction.run);
 
-        this.app.post('/technologies', CreateTechnologyAction.run);
+        this.app.post(
+            '/technologies',
+            body('name').trim().toLowerCase().notEmpty(),
+            CreateTechnologyAction.run,
+        );
 
-        this.app.put('/technologies/:id', UpdateTechnologyAction.run);
+        this.app.put(
+            '/technologies/:id',
+            body('name').trim().toLowerCase().notEmpty(),
+            UpdateTechnologyAction.run,
+        );
 
         this.app.delete('/technologies/:id', DeleteTechnologyAction.run);
 
