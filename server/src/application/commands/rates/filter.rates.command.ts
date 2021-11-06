@@ -4,13 +4,13 @@ import { LanguageEnum } from "../../../domain/enums/language.enum";
 
 export default class FilterRatesCommand {
 
-    private technologies: string[];
+    private technologies?: string[];
     private seniority?: SeniorityEnum;
     private language?: LanguageEnum;
     private currency?: string;
 
     constructor(
-        technologies: string[],
+        technologies?: string[],
         seniority?: SeniorityEnum,
         language?: LanguageEnum,
         currency?: string
