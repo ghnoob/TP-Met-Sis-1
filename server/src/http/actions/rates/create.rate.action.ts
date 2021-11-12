@@ -1,11 +1,13 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import CreateRateHandler from "../../../application/handlers/rates/create.rate.handler";
 import CreateRateCommand from "../../../application/commands/rates/create.rate.command";
-import type ApplicationError from "../../../application/customErrors/application.error";
+import { validationResult } from "express-validator";
 
 class CreateRateAction {
-    async run(req: Request, res: Response) {
+    async run(req: Request, res: Response, next: NextFunction) {
         try {
+            validationResult(req).throw();
+
             const command: CreateRateCommand = new CreateRateCommand(
                 req.body.technology,
                 req.body.seniority,
@@ -17,8 +19,7 @@ class CreateRateAction {
             await CreateRateHandler.execute(command);
             return res.status(201).json({message: "Rate created"});
         } catch (error) {
-            const err: ApplicationError = error as ApplicationError;
-            return res.status(err.status).json({ message: err.message });
+            return next(error);
         }
     }
 }

@@ -24,29 +24,32 @@ class RateRepository {
         this.rates.push(rate);
     }
 
-    async update(rate: Rate) : Promise<void> {
-        let index = this.rates.findIndex((r => r.getId() == rate.getId()));
-
-        this.rates[index] = rate;
-    }
-
     async deleteById(id: string): Promise<void> {
         this.rates = this.rates.filter(r => r.getId() !== id);
     }
 
-    async findAllBy(technologyIds: string[], seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string): Promise<Rate[]> {
-        let rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
+    async findAllBy(
+        technologyIds?: string[],
+        seniority?: SeniorityEnum,
+        language?: LanguageEnum,
+        currency?: string
+    ): Promise<Rate[]> {
+        let rates = this.rates;
+
+        if (technologyIds) {
+            this.rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
+        }
 
         if (seniority) {
-            rates = rates.filter(r => r.getSeniority().toLowerCase() == seniority.toLowerCase());
+            rates = rates.filter(r => r.getSeniority() == seniority);
         }
 
         if (language) {
-            rates = rates.filter(r => r.getLanguage().toLowerCase() == language.toLowerCase());
+            rates = rates.filter(r => r.getLanguage() == language);
         }
 
         if (currency) {
-            rates = rates.filter(r => r.getCurrency().toLowerCase() == currency.toLowerCase());
+            rates = rates.filter(r => r.getCurrency() == currency);
         }
 
         return rates;
@@ -63,8 +66,6 @@ class RateRepository {
 
         return exists;
     }
-
-
 }
 
 export default new RateRepository();

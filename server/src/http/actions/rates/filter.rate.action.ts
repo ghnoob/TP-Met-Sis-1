@@ -12,12 +12,8 @@ class FilterRateAction {
             req.body.currency
         );
 
-        try {
-            const filteredRates: Rate[] = await FilterRateHandler.execute(command);
-            return res.status(200).json(filteredRates);
-        } catch (error) {
-            return res.status(400).send((error as Error).message);
-        }
+        const filteredRates: Rate[] = await FilterRateHandler.execute(command);
+        return res.status(200).json(filteredRates);
     }
 }
 
