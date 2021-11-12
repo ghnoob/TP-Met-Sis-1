@@ -1,16 +1,16 @@
 import RateRepository from "../../../infrastructure/repositories/rate.repository";
-import UpdateCommandRates from "../../commands/update.command.rates";
+import DeleteRateCommand from "../../commands/rates/delete.rate.command";
+import RateNotFoundError from "../../customErrors/rates/rate.not.found.error";
 
-class UpdateRateHandler{
-    async execute(command:UpdateCommandRates){
+class DeleteRateHandler{
+    async execute(command: DeleteRateCommand){
         const rate = await RateRepository.findOneById(command.getId());
 
-        if(!rate){
-            throw new Error("Not found");
+        if (!rate) {
+            throw new RateNotFoundError();
         }
 
-        
         await RateRepository.deleteById(rate.getId());
     }
 }
-export default new UpdateRateHandler();
+export default new DeleteRateHandler();

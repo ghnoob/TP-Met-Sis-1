@@ -1,5 +1,5 @@
 export enum SeniorityEnum { 
-    junior = 'Junior',
-    semi_senior = 'Semi Senior',
-    senior = 'Senior',
+    junior = 'junior',
+    semi_senior = 'semi senior',
+    senior = 'senior',
 }

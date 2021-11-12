@@ -1,59 +1,53 @@
-import { SeniorityEnum } from "../../domain/enums/seniority.enum";
-import { LanguageEnum } from "../../domain/enums/languaje.enum";
+import { SeniorityEnum } from "../../../domain/enums/seniority.enum";
+import { LanguageEnum } from "../../../domain/enums/language.enum";
+import { CurrencyEnum } from "../../../domain/enums/currency.enum";
 
+export default class CreateRateCommand {
 
-export default class UpdateCommandRates {
-    private id: string;
     private technology: string;
     private seniority: SeniorityEnum;
     private language: LanguageEnum;
     private averageSalary: string;
     private grossMargin: string;
-    private currency: string;
+    private currency: CurrencyEnum;
 
     constructor(
-        id: string,
         technology: string,
         seniority: SeniorityEnum,
         language: LanguageEnum,
         averageSalary: string,
         grossMargin: string,
-        currency: string
+        currency: CurrencyEnum,
     ) {
-        this.id = id;
         this.technology = technology;
         this.seniority = seniority;
         this.language = language;
-        this.averageSalary = averageSalary;
-        this.grossMargin = grossMargin;
+        this.averageSalary = averageSalary?.toString() ?? '0';
+        this.grossMargin = grossMargin?.toString() ?? '0';
         this.currency = currency;
     }
 
-    public getId() {
-        return this.id;
-    }
-
-    public getTechnology(){
+    public getTechnology() {
         return this.technology;
     }
 
-    public getSeniority(){
+    public getSeniority() {
         return this.seniority;
     }
 
-    public getLanguage(){
+    public getLanguage() {
         return this.language;
     }
 
-    public getAverageSalary(){
+    public getAverageSalary() {
         return this.averageSalary;
     }
 
-    public getGrossMargin(){
+    public getGrossMargin() {
         return this.grossMargin;
     }
 
-    public getCurrency(){
+    public getCurrency() {
         return this.currency;
     }
 }

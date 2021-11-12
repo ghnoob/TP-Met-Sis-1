@@ -1,6 +1,4 @@
-
-
-export default class DeleteCommandRates {
+export default class DeleteTechnologyCommand {
 
     private id: string;
 
@@ -8,7 +6,7 @@ export default class DeleteCommandRates {
         this.id = id;
     }
 
-    public getId(){
+    public getId() {
         return this.id;
     }
 }
