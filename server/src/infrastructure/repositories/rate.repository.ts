@@ -1,4 +1,5 @@
 import { Rate } from "../../domain/entities/rate.entity";
+import { Technology } from "../../domain/entities/technology.entity";
 import { LanguageEnum } from "../../domain/enums/language.enum";
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
 
@@ -65,6 +66,10 @@ class RateRepository {
         });
 
         return exists;
+    }
+
+    async technologyHasRates(technology: Technology): Promise<boolean> {
+        return this.rates.filter((r) => r.getTechnology() == technology).length > 0;
     }
 }
 

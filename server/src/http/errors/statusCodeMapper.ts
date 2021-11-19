@@ -7,6 +7,7 @@ const statusCodeMap = new Map<string, number>([
     ['RateTechnologyIdNotValidError', StatusCodes.BadRequest],
     ['TechnologyAlreadyExistsError', StatusCodes.UnproccessableEntity],
     ['TechnologyNotFoundError', StatusCodes.NotFound],
+    ['TechnologyHasRatesError', StatusCodes.UnproccessableEntity],
     ['SyntaxError', StatusCodes.BadRequest],
     ['Error', StatusCodes.BadRequest], // validation error
 ]);
