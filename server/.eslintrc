@@ -1,9 +1,16 @@
 {
-    "extends": ["eslint:recommended", "plugin:json/recommended"],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:json/recommended",
+      "plugin:prettier/recommended"
+    ],
     "parserOptions": {
       "ecmaVersion": 8
     },
     "plugins": [
+      "@typescript-eslint",
+      "prettier",
       "json"
     ],
     "rules": {
