@@ -1,39 +1,32 @@
-import { SeniorityEnum } from "../../../domain/enums/seniority.enum";
-import { LanguageEnum } from "../../../domain/enums/language.enum";
-
+import { SeniorityEnum } from '../../../domain/enums/seniority.enum';
+import { LanguageEnum } from '../../../domain/enums/language.enum';
 
 export default class FilterRatesCommand {
+  private technologies?: string[];
+  private seniority?: SeniorityEnum;
+  private language?: LanguageEnum;
+  private currency?: string;
 
-    private technologies?: string[];
-    private seniority?: SeniorityEnum;
-    private language?: LanguageEnum;
-    private currency?: string;
+  constructor(technologies?: string[], seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string) {
+    this.technologies = technologies;
+    this.seniority = seniority;
+    this.language = language;
+    this.currency = currency;
+  }
 
-    constructor(
-        technologies?: string[],
-        seniority?: SeniorityEnum,
-        language?: LanguageEnum,
-        currency?: string
-    ) {
-        this.technologies = technologies;
-        this.seniority = seniority;
-        this.language = language;
-        this.currency = currency;
-    }
+  public getTechnologies() {
+    return this.technologies;
+  }
 
-    public getTechnologies() {
-        return this.technologies;
-    }
+  public getSeniority() {
+    return this.seniority;
+  }
 
-    public getSeniority() {
-        return this.seniority;
-    }
+  public getLanguage() {
+    return this.language;
+  }
 
-    public getLanguage() {
-        return this.language;
-    }
-
-    public getCurrency() {
-        return this.currency;
-    }
+  public getCurrency() {
+    return this.currency;
+  }
 }

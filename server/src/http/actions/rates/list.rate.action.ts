@@ -1,14 +1,13 @@
-import { Request, Response } from "express";
-import { Rate } from "../../../domain/entities/rate.entity";
-import RateRepository from "../../../infrastructure/repositories/rate.repository";
+import { Request, Response } from 'express';
+import { Rate } from '../../../domain/entities/rate.entity';
+import RateRepository from '../../../infrastructure/repositories/rate.repository';
 
 class ListRateAction {
-      async run( _req: Request, res: Response) {
-           const rates: Rate[] = await RateRepository.findAll();
+  async run(_req: Request, res: Response) {
+    const rates: Rate[] = await RateRepository.findAll();
 
-	   return res.status(200).json(rates);
-
-	}
+    return res.status(200).json(rates);
+  }
 }
 
-export default new ListRateAction();  
+export default new ListRateAction();

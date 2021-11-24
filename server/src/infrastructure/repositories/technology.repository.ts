@@ -1,4 +1,4 @@
-import { Technology } from "../../domain/entities/technology.entity";
+import { Technology } from '../../domain/entities/technology.entity';
 
 class TechnologyRepository {
   private technologies: Technology[];
@@ -9,12 +9,12 @@ class TechnologyRepository {
 
   async findOneById(id: string): Promise<Technology | null> {
     const technology = this.technologies.find(t => t.getId() === id);
-    return (technology) ? technology : null;
+    return technology ? technology : null;
   }
 
   async findOneByName(name: string): Promise<Technology | null> {
     const technology = this.technologies.find(t => t.getName() === name);
-    return (technology) ? technology : null;
+    return technology ? technology : null;
   }
 
   async findAll(): Promise<Technology[]> {

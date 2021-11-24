@@ -1,76 +1,81 @@
-import { Rate } from "../../domain/entities/rate.entity";
-import { Technology } from "../../domain/entities/technology.entity";
-import { LanguageEnum } from "../../domain/enums/language.enum";
-import { SeniorityEnum } from "../../domain/enums/seniority.enum";
-
+import { Rate } from '../../domain/entities/rate.entity';
+import { Technology } from '../../domain/entities/technology.entity';
+import { LanguageEnum } from '../../domain/enums/language.enum';
+import { SeniorityEnum } from '../../domain/enums/seniority.enum';
 
 class RateRepository {
-    private rates: Rate[];
+  private rates: Rate[];
 
-    constructor() {
-        this.rates = [];
+  constructor() {
+    this.rates = [];
+  }
+
+  async findOneById(id: string): Promise<Rate | null> {
+    const rate = this.rates.find(r => r.getId() === id);
+
+    return rate ? rate : null;
+  }
+
+  async findAll(): Promise<Rate[]> {
+    return this.rates;
+  }
+
+  async save(rate: Rate): Promise<void> {
+    this.rates.push(rate);
+  }
+
+  async deleteById(id: string): Promise<void> {
+    this.rates = this.rates.filter(r => r.getId() !== id);
+  }
+
+  async findAllBy(
+    technologyIds?: string[],
+    seniority?: SeniorityEnum,
+    language?: LanguageEnum,
+    currency?: string,
+  ): Promise<Rate[]> {
+    let rates = this.rates;
+
+    if (technologyIds) {
+      this.rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
     }
 
-    async findOneById(id: string): Promise<Rate | null> {
-        const rate = this.rates.find(r => r.getId() === id);
-
-        return (rate) ? rate : null;
+    if (seniority) {
+      rates = rates.filter(r => r.getSeniority() == seniority);
     }
 
-    async findAll(): Promise<Rate[]> {
-        return this.rates;
+    if (language) {
+      rates = rates.filter(r => r.getLanguage() == language);
     }
 
-    async save(rate: Rate): Promise<void> {
-        this.rates.push(rate);
+    if (currency) {
+      rates = rates.filter(r => r.getCurrency() == currency);
     }
 
-    async deleteById(id: string): Promise<void> {
-        this.rates = this.rates.filter(r => r.getId() !== id);
-    }
+    return rates;
+  }
 
-    async findAllBy(
-        technologyIds?: string[],
-        seniority?: SeniorityEnum,
-        language?: LanguageEnum,
-        currency?: string
-    ): Promise<Rate[]> {
-        let rates = this.rates;
+  async exists(
+    technologyId: string,
+    seniority: SeniorityEnum,
+    language: LanguageEnum,
+    currency: string,
+  ): Promise<boolean> {
+    const exists = this.rates.some(element => {
+      return (
+        element.getTechnology().getId() == technologyId &&
+        element.getSeniority() == seniority &&
+        element.getLanguage() == language &&
+        element.getCurrency() == currency
+      );
+    });
 
-        if (technologyIds) {
-            this.rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
-        }
+    return exists;
+  }
 
-        if (seniority) {
-            rates = rates.filter(r => r.getSeniority() == seniority);
-        }
-
-        if (language) {
-            rates = rates.filter(r => r.getLanguage() == language);
-        }
-
-        if (currency) {
-            rates = rates.filter(r => r.getCurrency() == currency);
-        }
-
-        return rates;
-    }
-
-    async exists(technologyId: string, seniority: SeniorityEnum, language: LanguageEnum, currency: string) : Promise<boolean> {
-
-        const exists = this.rates.some((element) => {
-            return element.getTechnology().getId() == technologyId &&
-                element.getSeniority() == seniority &&
-                element.getLanguage() == language &&
-                element.getCurrency() == currency
-        });
-
-        return exists;
-    }
-
-    async technologyHasRates(technology: Technology): Promise<boolean> {
-        return this.rates.filter((r) => r.getTechnology() == technology).length > 0;
-    }
+  async technologyHasRates(technology: Technology): Promise<boolean> {
+    return this.rates.filter(r => r.getTechnology() == technology).length > 0;
+  }
 }
 
 export default new RateRepository();

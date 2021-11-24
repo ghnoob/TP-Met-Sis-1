@@ -1,11 +1,11 @@
 export default class FindTechnologyByIdCommand {
-    private id: string;
+  private id: string;
 
-    constructor(id: string) {
-        this.id = id;
-    }
+  constructor(id: string) {
+    this.id = id;
+  }
 
-    getId(): string {
-        return this.id;
-    }
+  getId(): string {
+    return this.id;
+  }
 }

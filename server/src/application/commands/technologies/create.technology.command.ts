@@ -1,11 +1,11 @@
 export default class CreateTechnologyCommand {
-    private name: string;
+  private name: string;
 
-    constructor(name: string) {
-        this.name = name;
-    }
+  constructor(name: string) {
+    this.name = name;
+  }
 
-    public getName() {
-        return this.name
-    }
+  public getName() {
+    return this.name;
+  }
 }

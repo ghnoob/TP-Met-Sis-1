@@ -1,12 +1,11 @@
 export default class DeleteTechnologyCommand {
+  private id: string;
 
-    private id: string;
+  constructor(id: string) {
+    this.id = id;
+  }
 
-    constructor(id: string) {
-        this.id = id;
-    }
-
-    public getId() {
-        return this.id;
-    }
+  public getId() {
+    return this.id;
+  }
 }

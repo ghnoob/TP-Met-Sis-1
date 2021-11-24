@@ -13,14 +13,14 @@ const app: express.Application = express();
 const loggerOptions: expressWinston.LoggerOptions = {
   transports: [new winston.transports.Console()],
   format: winston.format.combine(
-      winston.format.json(),
-      winston.format.prettyPrint(),
-      winston.format.colorize({ all: true })
+    winston.format.json(),
+    winston.format.prettyPrint(),
+    winston.format.colorize({ all: true }),
   ),
 };
 
 if (!process.env.DEBUG) {
-    loggerOptions.meta = false; // when not debugging, log requests as one-liners
+  loggerOptions.meta = false; // when not debugging, log requests as one-liners
 }
 
 app.use(expressWinston.logger(loggerOptions));

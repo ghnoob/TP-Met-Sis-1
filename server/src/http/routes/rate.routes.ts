@@ -1,76 +1,73 @@
-import { Application } from "express";
-import CommonRoutes from "./common.routes";
-import CreateRateAction from "../actions/rates/create.rate.action";
-import ListRateAction from "../actions/rates/list.rate.action";
-import FilterRateAction from "../actions/rates/filter.rate.action";
-import { body } from "express-validator";
-import { CurrencyEnum } from "../../domain/enums/currency.enum";
-import { LanguageEnum } from "../../domain/enums/language.enum";
-import { SeniorityEnum } from "../../domain/enums/seniority.enum";
-import UpdateRateAction from "../actions/rates/update.rate.action";
-import DeleteRateAction from "../actions/rates/delete.rate.action";
-import findRateByIdAction from "../actions/rates/find.rate.by.id.action";
+import { Application } from 'express';
+import CommonRoutes from './common.routes';
+import CreateRateAction from '../actions/rates/create.rate.action';
+import ListRateAction from '../actions/rates/list.rate.action';
+import FilterRateAction from '../actions/rates/filter.rate.action';
+import { body } from 'express-validator';
+import { CurrencyEnum } from '../../domain/enums/currency.enum';
+import { LanguageEnum } from '../../domain/enums/language.enum';
+import { SeniorityEnum } from '../../domain/enums/seniority.enum';
+import UpdateRateAction from '../actions/rates/update.rate.action';
+import DeleteRateAction from '../actions/rates/delete.rate.action';
+import findRateByIdAction from '../actions/rates/find.rate.by.id.action';
 class RateRoutes extends CommonRoutes {
-    constructor (app: Application){
-        super(app, "Rate")
-    }
-    
-        setUpRoutes(): Application {
+  constructor(app: Application) {
+    super(app, 'Rate');
+  }
 
-            this.app.get('/rates', ListRateAction.run);
+  setUpRoutes(): Application {
+    this.app.get('/rates', ListRateAction.run);
 
-            this.app.get('/rates/:id', findRateByIdAction.run);
-    
-            this.app.post(
-                '/rates',
+    this.app.get('/rates/:id', findRateByIdAction.run);
 
-                body('technology', 'value must not be empty').trim().notEmpty(),
+    this.app.post(
+      '/rates',
 
-                body(
-                    'seniority',
-                    `invalid value. Allowed: ${Object.values(SeniorityEnum).join(', ')}`
-                ).trim().toLowerCase().isIn(Object.values(SeniorityEnum)),
+      body('technology', 'value must not be empty').trim().notEmpty(),
 
-                body(
-                    'language',
-                    `invalid value. Allowed: ${Object.values(LanguageEnum).join(', ')}`
-                ).trim().toLowerCase().isIn(Object.values(LanguageEnum)),
+      body('seniority', `invalid value. Allowed: ${Object.values(SeniorityEnum).join(', ')}`)
+        .trim()
+        .toLowerCase()
+        .isIn(Object.values(SeniorityEnum)),
 
-                body(
-                    ['averageSalary', 'grossMargin'],
-                    'value must be a numeric string, positive, up to 2 decimal places',
-                ).isString().trim().matches(/^\d+(\.\d{1,2})?$/),
+      body('language', `invalid value. Allowed: ${Object.values(LanguageEnum).join(', ')}`)
+        .trim()
+        .toLowerCase()
+        .isIn(Object.values(LanguageEnum)),
 
-                body(
-                    'currency',
-                    `invalid value. Allowed: ${Object.values(CurrencyEnum).join(', ')}`
-                ).trim().toUpperCase().isIn(Object.values(CurrencyEnum)),
+      body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
+        .isString()
+        .trim()
+        .matches(/^\d+(\.\d{1,2})?$/),
 
-                CreateRateAction.run,
-            );
+      body('currency', `invalid value. Allowed: ${Object.values(CurrencyEnum).join(', ')}`)
+        .trim()
+        .toUpperCase()
+        .isIn(Object.values(CurrencyEnum)),
 
-            this.app.put(
-                '/rates/:id',
-                body(
-                    ['averageSalary', 'grossMargin'],
-                    'value must be a numeric string, positive, up to 2 decimal places',
-                ).isString().trim().matches(/^\d+(\.\d{1,2})?$/),
+      CreateRateAction.run,
+    );
 
-                UpdateRateAction.run,
-            );
-    
-            this.app.delete('/rates/:id', DeleteRateAction.run);
+    this.app.put(
+      '/rates/:id',
+      body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
+        .isString()
+        .trim()
+        .matches(/^\d+(\.\d{1,2})?$/),
 
-            this.app.post(
-                '/rates/filter',
-                body(['seniority', 'language']).trim().toLowerCase(),
-                body('currency').trim().toUpperCase(),
-                FilterRateAction.run
-            )
-            
-    
-            return this.app;
+      UpdateRateAction.run,
+    );
 
-        }
+    this.app.delete('/rates/:id', DeleteRateAction.run);
+
+    this.app.post(
+      '/rates/filter',
+      body(['seniority', 'language']).trim().toLowerCase(),
+      body('currency').trim().toUpperCase(),
+      FilterRateAction.run,
+    );
+
+    return this.app;
+  }
 }
 export default RateRoutes;
