@@ -1,34 +1,27 @@
 {
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:json/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 8
-    },
-    "plugins": [
-      "@typescript-eslint",
-      "prettier",
-      "json"
-    ],
-    "rules": {
-      "require-jsdoc": 0,
-      "indent": ["error", 2],
-      "max-len": ["error", {
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true
-      }],
-      "json/*": ["error", {"allowComments": true}]
-    },
-    "env": {
-      "node": true,
-      "mocha": true,
-      "es6": true
-    },
-    "globals": {
-      "expect": true,
-      "assert": true
-    }
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:json/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "json"
+  ],
+  "rules": {
+    "json/*": ["error", {"allowComments": true}]
+  },
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "globals": {
+    "expect": true,
+    "assert": true
   }
+}
