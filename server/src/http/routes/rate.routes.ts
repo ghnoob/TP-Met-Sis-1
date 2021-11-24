@@ -9,6 +9,7 @@ import { LanguageEnum } from "../../domain/enums/language.enum";
 import { SeniorityEnum } from "../../domain/enums/seniority.enum";
 import UpdateRateAction from "../actions/rates/update.rate.action";
 import DeleteRateAction from "../actions/rates/delete.rate.action";
+import findRateByIdAction from "../actions/rates/find.rate.by.id.action";
 class RateRoutes extends CommonRoutes {
     constructor (app: Application){
         super(app, "Rate")
@@ -17,6 +18,8 @@ class RateRoutes extends CommonRoutes {
         setUpRoutes(): Application {
 
             this.app.get('/rates', ListRateAction.run);
+
+            this.app.get('/rates/:id', findRateByIdAction.run);
     
             this.app.post(
                 '/rates',
