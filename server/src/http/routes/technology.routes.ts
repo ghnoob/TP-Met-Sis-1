@@ -120,17 +120,8 @@ class TechnologyRoutes extends CommonRoutes {
    *         name: id
    *         example: eWRhpRV
    *     responses:
-   *       '200':
+   *       '204':
    *         description: Technology delete sucessfully
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   readOnly: true
-   *                   default: Technology deleted.
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *

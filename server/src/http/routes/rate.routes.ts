@@ -155,17 +155,8 @@ class RateRoutes extends CommonRoutes {
    *         required: true
    *         description: id of the rate to delete
    *     responses:
-   *       '200':
+   *       '204':
    *         description: Rate delete sucessfully
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   readOnly: true
-   *                   default: Rate deleted.
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
    *

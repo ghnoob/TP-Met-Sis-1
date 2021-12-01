@@ -8,7 +8,7 @@ class DeleteRateAction {
 
     try {
       await DeleteRateHandler.execute(command);
-      return res.status(200).json({ message: 'Rate deleted' });
+      return res.status(204).end();
     } catch (error) {
       return next(error);
     }
