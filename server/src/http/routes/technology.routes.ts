@@ -76,7 +76,7 @@ class TechnologyRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/Technology'
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
-   *   put:
+   *   patch:
    *     summary: Edit an existing technology.
    *     tags: [Technologies]
    *     parameters:
@@ -171,7 +171,7 @@ class TechnologyRoutes extends CommonRoutes {
       CreateTechnologyAction.run,
     );
 
-    this.app.put(
+    this.app.patch(
       '/technologies/:id',
       body('name', 'value must not be empty').trim().toLowerCase().notEmpty(),
       UpdateTechnologyAction.run,

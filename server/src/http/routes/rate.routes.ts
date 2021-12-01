@@ -94,7 +94,7 @@ class RateRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/Rate'
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
-   *   put:
+   *   patch:
    *     summary: Edit an existing rate.
    *     tags: [Rates]
    *     parameters:
@@ -217,7 +217,7 @@ class RateRoutes extends CommonRoutes {
       CreateRateAction.run,
     );
 
-    this.app.put(
+    this.app.patch(
       '/rates/:id',
       body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
         .isString()
