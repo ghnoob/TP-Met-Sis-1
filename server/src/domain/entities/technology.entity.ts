@@ -1,5 +1,25 @@
 import shortid from 'shortid';
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Technology:
+ *       type: object
+ *       required:
+ *         - id
+ *         - name
+ *       properties:
+ *         id:
+ *           type: string
+ *           readOnly: true
+ *           description: The technology ID.
+ *           example: eWRhpRV
+ *         name:
+ *           type: string
+ *           description: The technology name.
+ *           example: javascript
+ */
 export class Technology {
   private id: string;
   private name: string;

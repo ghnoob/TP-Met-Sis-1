@@ -3,6 +3,56 @@ import { LanguageEnum } from '../enums/language.enum';
 import { SeniorityEnum } from '../enums/seniority.enum';
 import { Technology } from './technology.entity';
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Rate:
+ *       type: object
+ *       required:
+ *         - id
+ *         - technology
+ *         - seniority
+ *         - language
+ *         - averageSalary
+ *         - grossMargin
+ *         - currency
+ *       properties:
+ *         id:
+ *           type: string
+ *           readOnly: true
+ *           description: The rate ID.
+ *           example: 23TplPdS
+ *         technology:
+ *           $ref: '#/components/schemas/Technology'
+ *         seniority:
+ *           type: string
+ *           description: The seniority level required for the rate
+ *           enum:
+ *             - 'junior'
+ *             - 'semi senior'
+ *             - 'senior'
+ *         language:
+ *           type: string
+ *           description: The language required for the rate, as a two letter ISO code
+ *           enum:
+ *             - 'en'
+ *             - 'es'
+ *         averageSalary:
+ *           type: string
+ *           description: Average salary of the devs with this rate, as a numeric string
+ *           example: '75000'
+ *         grossMargin:
+ *           type: string
+ *           description: Gross margin taken as a retribution to the community. Usually it's 1% of the salary
+ *           example: '750'
+ *         currency:
+ *           type: string
+ *           description: Currenct of the rate, as a 3 letter ISO code
+ *           enum:
+ *             - 'ARS'
+ *             - 'USD'
+ */
 export class Rate {
   private id: string;
   private technology: Technology;

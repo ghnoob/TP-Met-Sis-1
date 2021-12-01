@@ -3,6 +3,8 @@ import cors from 'cors';
 import { log } from 'debug';
 import expressWinston from 'express-winston';
 import winston from 'winston';
+import swaggerJSDoc from 'swagger-jsdoc';
+import { serve, setup } from 'swagger-ui-express';
 import CommonRoutes from './http/routes/common.routes';
 import RateRoutes from './http/routes/rate.routes';
 import TechnologyRoutes from './http/routes/technology.routes';
@@ -30,6 +32,28 @@ app.use(cors());
 app.use(express.json());
 
 routes.push(new RateRoutes(app), new TechnologyRoutes(app));
+
+const options: swaggerJSDoc.Options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Dev salary calculator',
+      description: 'Trabajo final para la materia Metodología de Sistemas I - UTN San Francisco.',
+      version: '1.0.0',
+      servers: ['http://localhost:3000'],
+    },
+  },
+  apis: [
+    `${__dirname}/http/routes/*.routes.ts`,
+    `${__dirname}/domain/entities/*.entity.ts`,
+    `${__dirname}/application/commands/**/*.command.ts`,
+    `${__dirname}/http/errors/errorHandler.ts`,
+  ],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+
+app.use('/api', serve, setup(swaggerSpec));
 
 app.use(errorHandler);
 
