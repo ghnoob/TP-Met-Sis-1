@@ -49,16 +49,11 @@ class RateRoutes extends CommonRoutes {
    *             $ref: '#/components/schemas/CreateRateCommand'
    *     responses:
    *       '201':
-   *         description: Rate created sucessfully
+   *         description: The created rate
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   readOnly: true
-   *                   default: Rate created.
+   *               $ref: '#/components/schemas/Rate'
    *       '400':
    *         description: Validation error or technology does not exist
    *         content:

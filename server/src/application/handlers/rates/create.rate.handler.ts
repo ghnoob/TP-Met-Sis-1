@@ -7,7 +7,7 @@ import RateAlreadyExistsError from '../../customErrors/rates/rate.already.exists
 import RateTechnologyIdNotValidError from '../../customErrors/rates/rate.technology.id.not.valid.error';
 
 class CreateRateHandler {
-  async execute(command: CreateRateCommand) {
+  async execute(command: CreateRateCommand): Promise<Rate> {
     const technology: Technology | null = await TechnologyRepository.findOneById(command.getTechnology());
 
     if (!technology) {
@@ -35,6 +35,8 @@ class CreateRateHandler {
     );
 
     await RateRepository.save(rate);
+
+    return rate;
   }
 }
 export default new CreateRateHandler();

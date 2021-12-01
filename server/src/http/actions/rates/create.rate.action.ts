@@ -16,8 +16,10 @@ class CreateRateAction {
         req.body.grossMargin,
         req.body.currency,
       );
-      await CreateRateHandler.execute(command);
-      return res.status(201).json({ message: 'Rate created' });
+
+      const rate = await CreateRateHandler.execute(command);
+
+      return res.status(201).json(rate);
     } catch (error) {
       return next(error);
     }
