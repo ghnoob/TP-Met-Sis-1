@@ -168,7 +168,7 @@ class RateRoutes extends CommonRoutes {
    *                   default: Rate deleted.
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
-   * 
+   *
    * /rates/filter:
    *   post:
    *     summary: Search rates with a filter
@@ -189,8 +189,8 @@ class RateRoutes extends CommonRoutes {
    *               type: array
    *               items:
    *                 $ref: '#/components/schemas/Rate'
-   *     
-   * 
+   *
+   *
    * components:
    *   responses:
    *     RateNotFound:

@@ -133,7 +133,7 @@ class TechnologyRoutes extends CommonRoutes {
    *                   default: Technology deleted.
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
-   * 
+   *
    * components:
    *   responses:
    *     TechnologyNotFound:
@@ -145,7 +145,7 @@ class TechnologyRoutes extends CommonRoutes {
    *           example:
    *             statusCode: 404
    *             message: Technology not found.
-   * 
+   *
    *     TechnologyValidationError:
    *       description: Validation error
    *       content:
@@ -159,7 +159,7 @@ class TechnologyRoutes extends CommonRoutes {
    *                 message: value must not be empty
    *                 param: name
    *                 location: body
-   * 
+   *
    *     TechnologyAlreadyExists:
    *       description: The technology already exists
    *       content:
