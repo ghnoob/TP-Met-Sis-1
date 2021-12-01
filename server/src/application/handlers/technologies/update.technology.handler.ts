@@ -2,10 +2,11 @@ import TechnologyRepository from '../../../infrastructure/repositories/technolog
 import UpdateTechnologyCommand from '../../commands/technologies/update.technology.command';
 import TechnologyAlreadyExistsError from '../../customErrors/technologies/technology.already.exists.error';
 import TechnologyNotFoundError from '../../customErrors/technologies/technology.not.found.error';
+import type { Technology } from '../../../domain/entities/technology.entity';
 
 class UpdateTechnologyHandler {
-  async execute(command: UpdateTechnologyCommand) {
-    const technology = await TechnologyRepository.findOneById(command.getId());
+  async execute(command: UpdateTechnologyCommand): Promise<Technology> {
+    const technology: Technology | null = await TechnologyRepository.findOneById(command.getId());
 
     if (!technology) {
       throw new TechnologyNotFoundError();
@@ -16,6 +17,8 @@ class UpdateTechnologyHandler {
     }
 
     technology.setName(command.getName());
+
+    return technology;
   }
 }
 export default new UpdateTechnologyHandler();

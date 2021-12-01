@@ -90,17 +90,12 @@ class TechnologyRoutes extends CommonRoutes {
    *           schema:
    *             $ref: '#/components/schemas/UpdateTechnologyCommand'
    *     responses:
-   *       '201':
-   *         description: Technology updated sucessfully
+   *       '200':
+   *         description: The updated technology
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   readOnly: true
-   *                   default: Technology updated.
+   *               $ref: '#/components/schemas/Technology'
    *       '400':
    *         $ref: '#/components/responses/TechnologyValidationError'
    *       '404':

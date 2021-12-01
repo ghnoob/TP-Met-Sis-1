@@ -10,9 +10,9 @@ class UpdateTechnologyAction {
 
       const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
 
-      await UpdateTechnologyHandler.execute(command);
+      const technology = await UpdateTechnologyHandler.execute(command);
 
-      return res.status(201).json({ message: 'Technology updated' });
+      return res.status(200).json(technology);
     } catch (error) {
       return next(error);
     }
