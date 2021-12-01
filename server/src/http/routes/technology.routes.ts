@@ -121,9 +121,18 @@ class TechnologyRoutes extends CommonRoutes {
    *         example: eWRhpRV
    *     responses:
    *       '204':
-   *         description: Technology delete sucessfully
+   *         description: Technology deleted sucessfully
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
+   *       '422':
+   *         description: The technology cannot be deleted bacause there are rates associated with it
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *             example:
+   *               statusCode: 422
+   *               message: This technology has rates associated with it. Delete them before deleting this.
    *
    * components:
    *   responses:
