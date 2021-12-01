@@ -14,9 +14,9 @@ class UpdateRateAction {
         req.body.grossMargin,
       );
 
-      await updateRateHandler.execute(command);
+      const rate = await updateRateHandler.execute(command);
 
-      return res.status(201).json({ message: 'Rate updated' });
+      return res.status(201).json(rate);
     } catch (error) {
       return next(error);
     }

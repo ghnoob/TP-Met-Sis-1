@@ -112,17 +112,12 @@ class RateRoutes extends CommonRoutes {
    *           schema:
    *             $ref: '#/components/schemas/UpdateRateCommand'
    *     responses:
-   *       '201':
-   *         description: Rate updated sucessfully
+   *       '200':
+   *         description: The updated rate
    *         content:
    *           application/json:
    *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   readOnly: true
-   *                   default: Rate updated.
+   *               $ref: '#/components/schemas/Rate'
    *       '400':
    *         description: Validation error
    *         content:
