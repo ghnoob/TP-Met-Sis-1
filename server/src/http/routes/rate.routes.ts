@@ -220,6 +220,7 @@ class RateRoutes extends CommonRoutes {
     this.app.patch(
       '/rates/:id',
       body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
+        .optional()
         .isString()
         .trim()
         .matches(/^\d+(\.\d{1,2})?$/),

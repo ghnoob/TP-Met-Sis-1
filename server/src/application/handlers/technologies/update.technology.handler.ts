@@ -16,7 +16,9 @@ class UpdateTechnologyHandler {
       throw new TechnologyAlreadyExistsError();
     }
 
-    technology.setName(command.getName());
+    if (command.getName()) {
+      technology.setName(command.getName());
+    }
 
     return technology;
   }

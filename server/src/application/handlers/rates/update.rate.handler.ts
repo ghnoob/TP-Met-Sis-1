@@ -11,8 +11,13 @@ class UpdateRateHandler {
       throw new RateNotFoundError();
     }
 
-    rate.setAverageSalary(command.getAverageSalary());
-    rate.setGrossMargin(command.getGrossMargin());
+    if (command.getAverageSalary()) {
+      rate.setAverageSalary(command.getAverageSalary());
+    }
+
+    if (command.getGrossMargin()) {
+      rate.setGrossMargin(command.getGrossMargin());
+    }
 
     return rate;
   }

@@ -173,7 +173,7 @@ class TechnologyRoutes extends CommonRoutes {
 
     this.app.patch(
       '/technologies/:id',
-      body('name', 'value must not be empty').trim().toLowerCase().notEmpty(),
+      body('name', 'value must not be empty').optional().trim().toLowerCase().notEmpty(),
       UpdateTechnologyAction.run,
     );
 
