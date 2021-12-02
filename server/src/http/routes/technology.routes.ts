@@ -62,9 +62,8 @@ class TechnologyRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
+   *         type: string
    *         example: eWRhpRV
-   *         schema:
-   *           type: string
    *         required: true
    *         description: id of the technology to get
    *     responses:
@@ -82,6 +81,8 @@ class TechnologyRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
+   *         type: string
+   *         required: true
    *         example: eWRhpRV
    *     requestBody:
    *       description: The properties to update
@@ -108,6 +109,8 @@ class TechnologyRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
+   *         type: string
+   *         required: true
    *         example: eWRhpRV
    *     responses:
    *       '204':
