@@ -3,13 +3,11 @@ import CommonRoutes from './common.routes';
 import CreateRateAction from '../actions/rates/create.rate.action';
 import ListRateAction from '../actions/rates/list.rate.action';
 import FilterRateAction from '../actions/rates/filter.rate.action';
-import { body } from 'express-validator';
-import { CurrencyEnum } from '../../domain/enums/currency.enum';
-import { LanguageEnum } from '../../domain/enums/language.enum';
-import { SeniorityEnum } from '../../domain/enums/seniority.enum';
 import UpdateRateAction from '../actions/rates/update.rate.action';
 import DeleteRateAction from '../actions/rates/delete.rate.action';
 import findRateByIdAction from '../actions/rates/find.rate.by.id.action';
+import createRateValidator from '../../application/validators/create.rate.validator';
+import updateRateValidator from '../../application/validators/update.rate.validator';
 
 /**
  * @swagger
@@ -189,53 +187,13 @@ class RateRoutes extends CommonRoutes {
 
     this.app.get('/rates/:id', findRateByIdAction.run);
 
-    this.app.post(
-      '/rates',
+    this.app.post('/rates', createRateValidator.validate(), CreateRateAction.run);
 
-      body('technology', 'value must not be empty').trim().notEmpty(),
-
-      body('seniority', `invalid value. Allowed: ${Object.values(SeniorityEnum).join(', ')}`)
-        .trim()
-        .toLowerCase()
-        .isIn(Object.values(SeniorityEnum)),
-
-      body('language', `invalid value. Allowed: ${Object.values(LanguageEnum).join(', ')}`)
-        .trim()
-        .toLowerCase()
-        .isIn(Object.values(LanguageEnum)),
-
-      body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
-        .isString()
-        .trim()
-        .matches(/^\d+(\.\d{1,2})?$/),
-
-      body('currency', `invalid value. Allowed: ${Object.values(CurrencyEnum).join(', ')}`)
-        .trim()
-        .toUpperCase()
-        .isIn(Object.values(CurrencyEnum)),
-
-      CreateRateAction.run,
-    );
-
-    this.app.patch(
-      '/rates/:id',
-      body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
-        .optional()
-        .isString()
-        .trim()
-        .matches(/^\d+(\.\d{1,2})?$/),
-
-      UpdateRateAction.run,
-    );
+    this.app.patch('/rates/:id', updateRateValidator.validate(), UpdateRateAction.run);
 
     this.app.delete('/rates/:id', DeleteRateAction.run);
 
-    this.app.post(
-      '/rates/filter',
-      body(['seniority', 'language']).trim().toLowerCase(),
-      body('currency').trim().toUpperCase(),
-      FilterRateAction.run,
-    );
+    this.app.post('/rates/filter', FilterRateAction.run);
 
     return this.app;
   }

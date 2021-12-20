@@ -1,11 +1,11 @@
 import { Application } from 'express';
-import { body } from 'express-validator';
 import CreateTechnologyAction from '../actions/technologies/create.technology.action';
 import DeleteTechnologyAction from '../actions/technologies/delete.technology.action';
 import ListTechnologyAction from '../actions/technologies/list.technology.action';
 import findTechnologyByIdAction from '../actions/technologies/find.technology.by.id.action';
 import UpdateTechnologyAction from '../actions/technologies/update.technology.action';
 import CommonRoutes from './common.routes';
+import createTechnologyValidator from '../../application/validators/create.technology.validator';
 
 /**
  * @swagger
@@ -168,17 +168,9 @@ class TechnologyRoutes extends CommonRoutes {
 
     this.app.get('/technologies/:id', findTechnologyByIdAction.run);
 
-    this.app.post(
-      '/technologies',
-      body('name', 'value must not be empty').trim().toLowerCase().notEmpty(),
-      CreateTechnologyAction.run,
-    );
+    this.app.post('/technologies', createTechnologyValidator.validate(), CreateTechnologyAction.run);
 
-    this.app.patch(
-      '/technologies/:id',
-      body('name', 'value must not be empty').optional().trim().toLowerCase().notEmpty(),
-      UpdateTechnologyAction.run,
-    );
+    this.app.patch('/technologies/:id', createTechnologyValidator.validate(), UpdateTechnologyAction.run);
 
     this.app.delete('/technologies/:id', DeleteTechnologyAction.run);
 
