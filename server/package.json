@@ -6,7 +6,8 @@
   "scripts": {
     "test": "prettier --check 'src/**/*.ts' && yarn eslint",
     "start": "tsnd --respawn ./src/index.ts",
-    "run:prettier": "prettier --write './src/**/*.ts'"
+    "run:prettier": "prettier --write './src/**/*.ts'",
+    "lint": "eslint --fix './src/**/*.ts'"
   },
   "keywords": [],
   "author": "",
