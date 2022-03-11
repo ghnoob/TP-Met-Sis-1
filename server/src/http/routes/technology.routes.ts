@@ -7,6 +7,7 @@ import findTechnologyByIdAction from '../actions/technologies/find.technology.by
 import UpdateTechnologyAction from '../actions/technologies/update.technology.action';
 import CommonRoutes from './common.routes';
 import createTechnologyValidator from '../../infrastructure/middlewares/validators/create.technology.validator';
+import validate from '../../infrastructure/middlewares/validator.middleware';
 
 /**
  * @swagger
@@ -170,9 +171,9 @@ class TechnologyRoutes extends CommonRoutes {
 
     this.getRouter().get('/:id', findTechnologyByIdAction.run);
 
-    this.getRouter().post('/', createTechnologyValidator, CreateTechnologyAction.run);
+    this.getRouter().post('/', createTechnologyValidator, validate, CreateTechnologyAction.run);
 
-    this.getRouter().patch('/:id', createTechnologyValidator, UpdateTechnologyAction.run);
+    this.getRouter().patch('/:id', createTechnologyValidator, validate, UpdateTechnologyAction.run);
 
     this.getRouter().delete('/:id', DeleteTechnologyAction.run);
 

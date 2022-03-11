@@ -10,6 +10,7 @@ import findRateByIdAction from '../actions/rates/find.rate.by.id.action';
 import createRateValidator from '../../infrastructure/middlewares/validators/create.rate.validator';
 import updateRateValidator from '../../infrastructure/middlewares/validators/update.rate.validator';
 import filterRateSanitizer from '../../infrastructure/middlewares/validators/filter.rate.validator';
+import validate from '../../infrastructure/middlewares/validator.middleware';
 
 /**
  * @swagger
@@ -190,9 +191,9 @@ class RateRoutes extends CommonRoutes {
 
     this.getRouter().get('/:id', findRateByIdAction.run);
 
-    this.getRouter().post('/', createRateValidator, CreateRateAction.run);
+    this.getRouter().post('/', createRateValidator, validate, CreateRateAction.run);
 
-    this.getRouter().patch('/:id', updateRateValidator, UpdateRateAction.run);
+    this.getRouter().patch('/:id', updateRateValidator, validate, UpdateRateAction.run);
 
     this.getRouter().delete('/:id', DeleteRateAction.run);
 
