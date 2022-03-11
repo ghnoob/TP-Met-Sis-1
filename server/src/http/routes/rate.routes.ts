@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { Service } from 'typedi';
 import CommonRoutes from './common.routes';
 import CreateRateAction from '../actions/rates/create.rate.action';
 import ListRateAction from '../actions/rates/list.rate.action';
@@ -15,6 +16,7 @@ import updateRateValidator from '../../application/validators/update.rate.valida
  *   name: Rates
  *   description: All about /rates
  */
+@Service({ id: 'routes', multiple: true })
 class RateRoutes extends CommonRoutes {
   constructor() {
     super('/rates');

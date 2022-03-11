@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { Service } from 'typedi';
 import CreateTechnologyAction from '../actions/technologies/create.technology.action';
 import DeleteTechnologyAction from '../actions/technologies/delete.technology.action';
 import ListTechnologyAction from '../actions/technologies/list.technology.action';
@@ -13,6 +14,7 @@ import createTechnologyValidator from '../../application/validators/create.techn
  *   name: Technologies
  *   description: All about /technologies
  */
+@Service({ id: 'routes', multiple: true })
 class TechnologyRoutes extends CommonRoutes {
   constructor() {
     super('/technologies');

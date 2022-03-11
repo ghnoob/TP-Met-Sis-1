@@ -2,35 +2,34 @@ import express from 'express';
 import cors from 'cors';
 import swaggerJSDoc from 'swagger-jsdoc';
 import { serve, setup } from 'swagger-ui-express';
-import { Service } from 'typedi';
+import { Container, InjectMany, Service } from 'typedi';
 import { Logger } from 'winston';
 import CommonRoutes from '../../http/routes/common.routes';
 import errorHandler from '../../http/errors/errorHandler';
 import ErrorLogger from '../decorators/error.logger.decorator';
-import RateRoutes from '../../http/routes/rate.routes';
 import RequestLogger from '../decorators/request.logger.decorator';
-import TechnologyRoutes from '../../http/routes/technology.routes';
 import Log from '../decorators/logger.decorator';
+import TechnologyRoutes from '../../http/routes/technology.routes';
+import RateRoutes from '../../http/routes/rate.routes';
 
 @Service()
 export default class ExpressService {
   private readonly app: express.Application;
-  private readonly routes: CommonRoutes[];
 
   constructor(
     @Log() private readonly logger: Logger,
     @RequestLogger() private readonly requestLogger: express.RequestHandler,
     @ErrorLogger() private readonly errorLogger: express.ErrorRequestHandler,
+    @InjectMany('routes') private readonly routes: CommonRoutes[],
   ) {
+    Container.import([TechnologyRoutes, RateRoutes]);
+
     this.app = express();
-    this.routes = [];
 
     this.app.use(this.requestLogger);
 
     this.app.use(cors());
     this.app.use(express.json());
-
-    this.routes.push(new RateRoutes(), new TechnologyRoutes());
 
     this.routes.forEach((route: CommonRoutes) => {
       this.app.use(route.getName(), route.getRouter());
