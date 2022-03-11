@@ -1,4 +1,4 @@
-import { Application } from 'express';
+import { Router } from 'express';
 import CommonRoutes from './common.routes';
 import CreateRateAction from '../actions/rates/create.rate.action';
 import ListRateAction from '../actions/rates/list.rate.action';
@@ -16,8 +16,8 @@ import updateRateValidator from '../../application/validators/update.rate.valida
  *   description: All about /rates
  */
 class RateRoutes extends CommonRoutes {
-  constructor(app: Application) {
-    super(app, 'Rate');
+  constructor() {
+    super('/rates');
   }
 
   /**
@@ -182,20 +182,20 @@ class RateRoutes extends CommonRoutes {
    *               statusCode: 404
    *               message: Rate not found.
    */
-  setUpRoutes(): Application {
-    this.app.get('/rates', ListRateAction.run);
+  setUpRoutes(): Router {
+    this.getRouter().get('/', ListRateAction.run);
 
-    this.app.get('/rates/:id', findRateByIdAction.run);
+    this.getRouter().get('/:id', findRateByIdAction.run);
 
-    this.app.post('/rates', createRateValidator.validate(), CreateRateAction.run);
+    this.getRouter().post('/', createRateValidator.validate(), CreateRateAction.run);
 
-    this.app.patch('/rates/:id', updateRateValidator.validate(), UpdateRateAction.run);
+    this.getRouter().patch('/:id', updateRateValidator.validate(), UpdateRateAction.run);
 
-    this.app.delete('/rates/:id', DeleteRateAction.run);
+    this.getRouter().delete('/:id', DeleteRateAction.run);
 
-    this.app.post('/rates/filter', FilterRateAction.run);
+    this.getRouter().post('/filter', FilterRateAction.run);
 
-    return this.app;
+    return this.getRouter();
   }
 }
 export default RateRoutes;

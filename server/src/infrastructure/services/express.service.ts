@@ -30,7 +30,12 @@ export default class ExpressService {
     this.app.use(cors());
     this.app.use(express.json());
 
-    this.routes.push(new RateRoutes(this.app), new TechnologyRoutes(this.app));
+    this.routes.push(new RateRoutes(), new TechnologyRoutes());
+
+    this.routes.forEach((route: CommonRoutes) => {
+      this.app.use(route.getName(), route.getRouter());
+      this.logger.info(`Routes configured for ${route.getName()}`);
+    });
 
     const options: swaggerJSDoc.Options = {
       definition: {
@@ -61,9 +66,6 @@ export default class ExpressService {
 
   listen(port: number) {
     this.app.listen(port, () => {
-      this.routes.forEach((route: CommonRoutes) => {
-        this.logger.info(`Routes configured for ${route.getName()}`);
-      });
       this.logger.info('Server listening on port 3000');
     });
   }
