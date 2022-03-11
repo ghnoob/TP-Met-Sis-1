@@ -6,6 +6,7 @@ import { Service } from 'typedi';
 import { Logger } from 'winston';
 import CommonRoutes from '../../http/routes/common.routes';
 import errorHandler from '../../http/errors/errorHandler';
+import ErrorLogger from '../decorators/error.logger.decorator';
 import RateRoutes from '../../http/routes/rate.routes';
 import RequestLogger from '../decorators/request.logger.decorator';
 import TechnologyRoutes from '../../http/routes/technology.routes';
@@ -19,7 +20,7 @@ export default class ExpressService {
   constructor(
     @Log() private readonly logger: Logger,
     @RequestLogger() private readonly requestLogger: express.RequestHandler,
-    private readonly errorLogger: express.ErrorRequestHandler,
+    @ErrorLogger() private readonly errorLogger: express.ErrorRequestHandler,
   ) {
     this.app = express();
     this.routes = [];
