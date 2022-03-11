@@ -8,12 +8,9 @@
   "parserOptions": {
     "ecmaVersion": 8
   },
-  "plugins": [
-    "@typescript-eslint",
-    "json"
-  ],
+  "plugins": ["@typescript-eslint", "json"],
   "rules": {
-    "json/*": ["error", {"allowComments": true}]
+    "json/*": ["error", { "allowComments": true }]
   },
   "env": {
     "node": true,
