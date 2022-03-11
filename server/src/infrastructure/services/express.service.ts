@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import swaggerJSDoc from 'swagger-jsdoc';
 import { serve, setup } from 'swagger-ui-express';
 import { Container, InjectMany, Service } from 'typedi';
 import CommonRoutes from '../../http/routes/common.routes';
 import errorHandler from '../../http/errors/errorHandler';
 import logger from '../logger';
 import { requestLogger, errorLogger } from '../middlewares/logger.middleware';
-import TechnologyRoutes from '../../http/routes/technology.routes';
 import RateRoutes from '../../http/routes/rate.routes';
+import TechnologyRoutes from '../../http/routes/technology.routes';
+import swagger from '../../config/swagger.config';
 
 @Service()
 export default class ExpressService {
@@ -29,27 +29,7 @@ export default class ExpressService {
       logger.info(`Routes configured for ${route.getName()}`);
     });
 
-    const options: swaggerJSDoc.Options = {
-      definition: {
-        openapi: '3.0.0',
-        info: {
-          title: 'Dev salary calculator',
-          description: 'Trabajo final para la materia Metodología de Sistemas I - UTN San Francisco.',
-          version: '1.0.0',
-          servers: ['http://localhost:3000'],
-        },
-      },
-      apis: [
-        `${__dirname}/http/routes/*.routes.ts`,
-        `${__dirname}/domain/entities/*.entity.ts`,
-        `${__dirname}/application/commands/**/*.command.ts`,
-        `${__dirname}/http/errors/errorHandler.ts`,
-      ],
-    };
-
-    const swaggerSpec = swaggerJSDoc(options);
-
-    this.app.use('/api', serve, setup(swaggerSpec));
+    this.app.use('/api', serve, setup(swagger));
 
     this.app.use(errorLogger);
 
