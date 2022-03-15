@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
+import ActionInterface from '../action.interface';
 import { Rate } from '../../../domain/entities/rate.entity';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 
-class ListRateAction {
-  async run(_req: Request, res: Response) {
+class ListRateAction implements ActionInterface {
+  async run(_req: Request, res: Response): Promise<Response> {
     const rates: Rate[] = await RateRepository.findAll();
 
     return res.status(200).json(rates);

@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import ActionInterface from '../action.interface';
 import DeleteRateCommand from '../../../application/commands/rates/delete.rate.command';
 import DeleteRateHandler from '../../../application/handlers/rates/delete.rate.handler';
 
-class DeleteRateAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+class DeleteRateAction implements ActionInterface {
+  async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     const command: DeleteRateCommand = new DeleteRateCommand(req.params.id);
 
     try {

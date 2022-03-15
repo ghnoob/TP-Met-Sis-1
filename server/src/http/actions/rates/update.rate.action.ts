@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import UpdateRateCommand from '../../../application/commands/rates/update.rate.command';
 import updateRateHandler from '../../../application/handlers/rates/update.rate.handler';
+import ActionInterface from '../action.interface';
 
-class UpdateRateAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+class UpdateRateAction implements ActionInterface {
+  async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: UpdateRateCommand = new UpdateRateCommand(
         req.params.id,

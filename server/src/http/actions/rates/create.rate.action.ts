@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import ActionInterface from '../action.interface';
 import CreateRateHandler from '../../../application/handlers/rates/create.rate.handler';
 import CreateRateCommand from '../../../application/commands/rates/create.rate.command';
 
-class CreateRateAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+class CreateRateAction implements ActionInterface {
+  async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: CreateRateCommand = new CreateRateCommand(
         req.body.technology,
