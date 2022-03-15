@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
+import { Service } from 'typedi';
 import ActionInterface from '../action.interface';
 import FindTechnologyByIdCommand from '../../../application/commands/technologies/find.technology.by.id.command';
 import findTechnologyByIdHandler from '../../../application/handlers/technologies/find.technology.by.id.handler';
 
-class FindTechnologyByIdAction implements ActionInterface {
+@Service()
+export default class FindTechnologyByIdAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     const command: FindTechnologyByIdCommand = new FindTechnologyByIdCommand(req.params.id);
 
@@ -14,5 +16,3 @@ class FindTechnologyByIdAction implements ActionInterface {
     }
   }
 }
-
-export default new FindTechnologyByIdAction();

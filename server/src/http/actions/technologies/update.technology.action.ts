@@ -2,8 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import ActionInterface from '../action.interface';
 import UpdateTechnologyCommand from '../../../application/commands/technologies/update.technology.command';
 import UpdateTechnologyHandler from '../../../application/handlers/technologies/update.technology.handler';
+import { Service } from 'typedi';
 
-class UpdateTechnologyAction implements ActionInterface {
+@Service()
+export default class UpdateTechnologyAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
@@ -16,5 +18,3 @@ class UpdateTechnologyAction implements ActionInterface {
     }
   }
 }
-
-export default new UpdateTechnologyAction();
