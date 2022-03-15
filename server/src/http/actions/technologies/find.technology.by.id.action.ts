@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import ActionInterface from '../action.interface';
 import FindTechnologyByIdCommand from '../../../application/commands/technologies/find.technology.by.id.command';
 import findTechnologyByIdHandler from '../../../application/handlers/technologies/find.technology.by.id.handler';
 
-class FindRateByIdAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+class FindTechnologyByIdAction implements ActionInterface {
+  async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     const command: FindTechnologyByIdCommand = new FindTechnologyByIdCommand(req.params.id);
 
     try {
@@ -14,4 +15,4 @@ class FindRateByIdAction {
   }
 }
 
-export default new FindRateByIdAction();
+export default new FindTechnologyByIdAction();

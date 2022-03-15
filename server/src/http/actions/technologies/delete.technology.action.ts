@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import ActionInterface from '../action.interface';
 import DeleteTechnologyCommand from '../../../application/commands/technologies/delete.technology.command';
 import DeleteTechnologyHandler from '../../../application/handlers/technologies/delete.technology.handler';
 
-class DeleteTechnologyAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+class DeleteTechnologyAction implements ActionInterface {
+  async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     const command: DeleteTechnologyCommand = new DeleteTechnologyCommand(req.params.id);
 
     try {
