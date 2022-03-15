@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import { Rate } from '../../../domain/entities/rate.entity';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import UpdateRateCommand from '../../../application/commands/rates/update.rate.command';
 import updateRateHandler from '../../../application/handlers/rates/update.rate.handler';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 
 class UpdateRateAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

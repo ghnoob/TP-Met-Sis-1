@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import UpdateTechnologyCommand from '../../../application/commands/technologies/update.technology.command';
 import UpdateTechnologyHandler from '../../../application/handlers/technologies/update.technology.handler';
 import { Service } from 'typedi';

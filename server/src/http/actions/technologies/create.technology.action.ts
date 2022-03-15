@@ -3,7 +3,7 @@ import { Service } from 'typedi';
 import CreateTechnologyCommand from '../../../application/commands/technologies/create.technology.command';
 import CreateTechnologyHandler from '../../../application/handlers/technologies/create.technology.handler';
 import type { Technology } from '../../../domain/entities/technology.entity';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 
 @Service()
 export default class CreateTechnologyAction implements ActionInterface {

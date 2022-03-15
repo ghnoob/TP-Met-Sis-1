@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import FindRateByIdCommand from '../../../application/commands/rates/find.rate.by.id.command';
 import findRateByIdHandler from '../../../application/handlers/rates/find.rate.by.id.handler';
 

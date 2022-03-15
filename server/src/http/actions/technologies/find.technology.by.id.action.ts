@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Service } from 'typedi';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import FindTechnologyByIdCommand from '../../../application/commands/technologies/find.technology.by.id.command';
 import findTechnologyByIdHandler from '../../../application/handlers/technologies/find.technology.by.id.handler';
 

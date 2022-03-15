@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import type ActionInterface from '../action.interface';
+import type ActionInterface from '../../../domain/interfaces/action.interface';
 import FilterRateHandler from '../../../application/handlers/rates/filter.rate.handler';
 import FilterRatesCommand from '../../../application/commands/rates/filter.rates.command';
 import type { Rate } from '../../../domain/entities/rate.entity';

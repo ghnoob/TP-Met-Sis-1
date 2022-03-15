@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Service } from 'typedi';
-import ActionInterface from '../action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import technologyRepository from '../../../infrastructure/repositories/technology.repository';
 
 @Service()
