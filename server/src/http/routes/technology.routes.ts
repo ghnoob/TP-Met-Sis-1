@@ -19,6 +19,7 @@ import validate from '../middlewares/validator.middleware';
 class TechnologyRoutes extends CommonRoutes {
   constructor() {
     super('/technologies');
+    this.setUpRoutes();
   }
 
   /**
@@ -166,7 +167,7 @@ class TechnologyRoutes extends CommonRoutes {
    *             statusCode: 422
    *             message: A technology with that name already exists.
    */
-  setUpRoutes(): Router {
+  protected setUpRoutes(): Router {
     this.getRouter().get('/', ListTechnologyAction.run);
 
     this.getRouter().get('/:id', findTechnologyByIdAction.run);

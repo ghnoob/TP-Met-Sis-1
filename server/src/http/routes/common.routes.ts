@@ -7,7 +7,6 @@ export default abstract class CommonRoutes {
   constructor(name: string) {
     this.router = Router();
     this.name = name;
-    this.setUpRoutes();
   }
 
   public getName() {
@@ -18,5 +17,5 @@ export default abstract class CommonRoutes {
     return this.router;
   }
 
-  abstract setUpRoutes(): Router;
+  protected abstract setUpRoutes(): Router;
 }

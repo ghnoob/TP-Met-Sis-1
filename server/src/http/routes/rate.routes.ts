@@ -22,6 +22,7 @@ import validate from '../middlewares/validator.middleware';
 class RateRoutes extends CommonRoutes {
   constructor() {
     super('/rates');
+    this.setUpRoutes();
   }
 
   /**
@@ -186,7 +187,7 @@ class RateRoutes extends CommonRoutes {
    *               statusCode: 404
    *               message: Rate not found.
    */
-  setUpRoutes(): Router {
+  protected setUpRoutes(): Router {
     this.getRouter().get('/', ListRateAction.run);
 
     this.getRouter().get('/:id', findRateByIdAction.run);
