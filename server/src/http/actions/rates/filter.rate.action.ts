@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
+import { Service } from 'typedi';
 import type ActionInterface from '../../../domain/interfaces/action.interface';
 import FilterRateHandler from '../../../application/handlers/rates/filter.rate.handler';
 import FilterRatesCommand from '../../../application/commands/rates/filter.rates.command';
 import type { Rate } from '../../../domain/entities/rate.entity';
 
-class FilterRateAction implements ActionInterface {
+@Service()
+export default class FilterRateAction implements ActionInterface {
   async run(req: Request, res: Response): Promise<Response> {
     const command: FilterRatesCommand = new FilterRatesCommand(
       req.body.technologyIds,
@@ -17,5 +19,3 @@ class FilterRateAction implements ActionInterface {
     return res.status(200).json(filteredRates);
   }
 }
-
-export default new FilterRateAction();

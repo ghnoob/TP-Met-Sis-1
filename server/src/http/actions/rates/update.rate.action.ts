@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
+import { Service } from 'typedi';
 import UpdateRateCommand from '../../../application/commands/rates/update.rate.command';
 import updateRateHandler from '../../../application/handlers/rates/update.rate.handler';
 import ActionInterface from '../../../domain/interfaces/action.interface';
 
-class UpdateRateAction implements ActionInterface {
+@Service()
+export default class UpdateRateAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: UpdateRateCommand = new UpdateRateCommand(
@@ -20,5 +22,3 @@ class UpdateRateAction implements ActionInterface {
     }
   }
 }
-
-export default new UpdateRateAction();
