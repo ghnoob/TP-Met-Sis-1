@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import ExpressService from '../infrastructure/services/express.service';
+import ExpressService from '../domain/services/express.service';
 
 @Service()
 export default class Application {
