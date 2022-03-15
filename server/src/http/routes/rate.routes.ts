@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
 import CommonRoutes from './common.routes';
+import ActionInterface from '../../domain/interfaces/action.interface';
 import CreateRateAction from '../actions/rates/create.rate.action';
 import ListRateAction from '../actions/rates/list.rate.action';
 import FilterRateAction from '../actions/rates/filter.rate.action';
 import UpdateRateAction from '../actions/rates/update.rate.action';
 import DeleteRateAction from '../actions/rates/delete.rate.action';
-import findRateByIdAction from '../actions/rates/find.rate.by.id.action';
+import FindRateByIdAction from '../actions/rates/find.rate.by.id.action';
 import createRateValidator from '../middlewares/validators/create.rate.validator';
 import updateRateValidator from '../middlewares/validators/update.rate.validator';
 import filterRateSanitizer from '../middlewares/validators/filter.rate.validator';
@@ -20,7 +21,25 @@ import validate from '../middlewares/validator.middleware';
  */
 @Service({ id: 'routes', multiple: true })
 class RateRoutes extends CommonRoutes {
-  constructor() {
+  constructor(
+    @Inject(() => ListRateAction)
+    private readonly listRateAction: ActionInterface,
+
+    @Inject(() => FindRateByIdAction)
+    private readonly findRateByIdAction: ActionInterface,
+
+    @Inject(() => CreateRateAction)
+    private readonly createRateAction: ActionInterface,
+
+    @Inject(() => UpdateRateAction)
+    private readonly updateRateAction: ActionInterface,
+
+    @Inject(() => DeleteRateAction)
+    private readonly deleteRateAction: ActionInterface,
+
+    @Inject(() => FilterRateAction)
+    private readonly filterRateAction: ActionInterface,
+  ) {
     super('/rates');
     this.setUpRoutes();
   }
@@ -188,17 +207,17 @@ class RateRoutes extends CommonRoutes {
    *               message: Rate not found.
    */
   protected setUpRoutes(): Router {
-    this.getRouter().get('/', ListRateAction.run);
+    this.getRouter().get('/', this.listRateAction.run);
 
-    this.getRouter().get('/:id', findRateByIdAction.run);
+    this.getRouter().get('/:id', this.findRateByIdAction.run);
 
-    this.getRouter().post('/', createRateValidator, validate, CreateRateAction.run);
+    this.getRouter().post('/', createRateValidator, validate, this.createRateAction.run);
 
-    this.getRouter().patch('/:id', updateRateValidator, validate, UpdateRateAction.run);
+    this.getRouter().patch('/:id', updateRateValidator, validate, this.updateRateAction.run);
 
-    this.getRouter().delete('/:id', DeleteRateAction.run);
+    this.getRouter().delete('/:id', this.deleteRateAction.run);
 
-    this.getRouter().post('/filter', filterRateSanitizer, FilterRateAction.run);
+    this.getRouter().post('/filter', filterRateSanitizer, this.filterRateAction.run);
 
     return this.getRouter();
   }
