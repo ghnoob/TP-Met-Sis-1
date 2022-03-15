@@ -6,8 +6,8 @@ import ListTechnologyAction from '../actions/technologies/list.technology.action
 import findTechnologyByIdAction from '../actions/technologies/find.technology.by.id.action';
 import UpdateTechnologyAction from '../actions/technologies/update.technology.action';
 import CommonRoutes from './common.routes';
-import createTechnologyValidator from '../../infrastructure/middlewares/validators/create.technology.validator';
-import validate from '../../infrastructure/middlewares/validator.middleware';
+import createTechnologyValidator from '../middlewares/validators/create.technology.validator';
+import validate from '../middlewares/validator.middleware';
 
 /**
  * @swagger

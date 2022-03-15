@@ -5,7 +5,7 @@ import { Container, InjectMany, Service } from 'typedi';
 import CommonRoutes from '../../http/routes/common.routes';
 import errorHandler from '../../http/errors/errorHandler';
 import logger from '../../infrastructure/logger';
-import { requestLogger, errorLogger } from '../../infrastructure/middlewares/logger.middleware';
+import { requestLogger, errorLogger } from '../../http/middlewares/logger.middleware';
 import RateRoutes from '../../http/routes/rate.routes';
 import TechnologyRoutes from '../../http/routes/technology.routes';
 import swagger from '../../config/swagger.config';

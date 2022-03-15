@@ -7,10 +7,10 @@ import FilterRateAction from '../actions/rates/filter.rate.action';
 import UpdateRateAction from '../actions/rates/update.rate.action';
 import DeleteRateAction from '../actions/rates/delete.rate.action';
 import findRateByIdAction from '../actions/rates/find.rate.by.id.action';
-import createRateValidator from '../../infrastructure/middlewares/validators/create.rate.validator';
-import updateRateValidator from '../../infrastructure/middlewares/validators/update.rate.validator';
-import filterRateSanitizer from '../../infrastructure/middlewares/validators/filter.rate.validator';
-import validate from '../../infrastructure/middlewares/validator.middleware';
+import createRateValidator from '../middlewares/validators/create.rate.validator';
+import updateRateValidator from '../middlewares/validators/update.rate.validator';
+import filterRateSanitizer from '../middlewares/validators/filter.rate.validator';
+import validate from '../middlewares/validator.middleware';
 
 /**
  * @swagger
