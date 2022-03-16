@@ -1,16 +1,23 @@
-import { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+import type { NextFunction, Request, Response } from 'express';
+import { Inject, Service } from 'typedi';
+import type ActionInterface from '../../../domain/interfaces/action.interface';
+import type HandlerInterface from '../../../domain/interfaces/handler.interface';
 import UpdateTechnologyCommand from '../../../application/commands/technologies/update.technology.command';
 import UpdateTechnologyHandler from '../../../application/handlers/technologies/update.technology.handler';
+import type { Technology } from '../../../domain/entities/technology.entity';
 
-class UpdateTechnologyAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+@Service()
+export default class UpdateTechnologyAction implements ActionInterface {
+  constructor(
+    @Inject(() => UpdateTechnologyHandler)
+    private readonly handler: HandlerInterface<Technology>,
+  ) {}
+
+  async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      validationResult(req).throw();
-
       const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
 
-      const technology = await UpdateTechnologyHandler.execute(command);
+      const technology = await this.handler.execute(command);
 
       return res.status(200).json(technology);
     } catch (error) {
@@ -18,5 +25,3 @@ class UpdateTechnologyAction {
     }
   }
 }
-
-export default new UpdateTechnologyAction();

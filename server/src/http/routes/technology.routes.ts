@@ -1,11 +1,14 @@
-import { Application } from 'express';
-import CreateTechnologyAction from '../actions/technologies/create.technology.action';
-import DeleteTechnologyAction from '../actions/technologies/delete.technology.action';
-import ListTechnologyAction from '../actions/technologies/list.technology.action';
-import findTechnologyByIdAction from '../actions/technologies/find.technology.by.id.action';
-import UpdateTechnologyAction from '../actions/technologies/update.technology.action';
+import type { Request, Response, NextFunction, Router } from 'express';
+import { Inject, Service } from 'typedi';
+import type ActionInterface from '../../domain/interfaces/action.interface';
 import CommonRoutes from './common.routes';
-import createTechnologyValidator from '../../application/validators/create.technology.validator';
+import createTechnologyValidator from '../middlewares/validators/create.technology.validator';
+import validate from '../middlewares/validator.middleware';
+import ListTechnologyAction from '../actions/technologies/list.technology.action';
+import FindTechnologyByIdAction from '../actions/technologies/find.technology.by.id.action';
+import CreateTechnologyAction from '../actions/technologies/create.technology.action';
+import UpdateTechnologyAction from '../actions/technologies/update.technology.action';
+import DeleteTechnologyAction from '../actions/technologies/delete.technology.action';
 
 /**
  * @swagger
@@ -13,9 +16,26 @@ import createTechnologyValidator from '../../application/validators/create.techn
  *   name: Technologies
  *   description: All about /technologies
  */
+@Service({ id: 'routes', multiple: true })
 class TechnologyRoutes extends CommonRoutes {
-  constructor(app: Application) {
-    super(app, 'Technologies');
+  constructor(
+    @Inject(() => ListTechnologyAction)
+    private readonly listTechnologyAction: ActionInterface,
+
+    @Inject(() => FindTechnologyByIdAction)
+    private readonly findTechnologyByIdAction: ActionInterface,
+
+    @Inject(() => CreateTechnologyAction)
+    private readonly createTechnologyAction: ActionInterface,
+
+    @Inject(() => UpdateTechnologyAction)
+    private readonly updateTechnologyAction: ActionInterface,
+
+    @Inject(() => DeleteTechnologyAction)
+    private readonly deleteTechnologyAction: ActionInterface,
+  ) {
+    super('/technologies');
+    this.setUpRoutes();
   }
 
   /**
@@ -163,18 +183,31 @@ class TechnologyRoutes extends CommonRoutes {
    *             statusCode: 422
    *             message: A technology with that name already exists.
    */
-  setUpRoutes(): Application {
-    this.app.get('/technologies', ListTechnologyAction.run);
+  protected setUpRoutes(): Router {
+    this.getRouter().get('/', (req: Request, res: Response, next: NextFunction) =>
+      this.listTechnologyAction.run(req, res, next),
+    );
 
-    this.app.get('/technologies/:id', findTechnologyByIdAction.run);
+    this.getRouter().get('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.findTechnologyByIdAction.run(req, res, next),
+    );
 
-    this.app.post('/technologies', createTechnologyValidator.validate(), CreateTechnologyAction.run);
+    this.getRouter().post('/', createTechnologyValidator, validate, (req: Request, res: Response, next: NextFunction) =>
+      this.createTechnologyAction.run(req, res, next),
+    );
 
-    this.app.patch('/technologies/:id', createTechnologyValidator.validate(), UpdateTechnologyAction.run);
+    this.getRouter().patch(
+      '/:id',
+      createTechnologyValidator,
+      validate,
+      (req: Request, res: Response, next: NextFunction) => this.updateTechnologyAction.run(req, res, next),
+    );
 
-    this.app.delete('/technologies/:id', DeleteTechnologyAction.run);
+    this.getRouter().delete('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.deleteTechnologyAction.run(req, res, next),
+    );
 
-    return this.app;
+    return this.getRouter();
   }
 }
 export default TechnologyRoutes;

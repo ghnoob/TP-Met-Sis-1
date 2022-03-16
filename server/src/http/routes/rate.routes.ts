@@ -1,13 +1,17 @@
-import { Application } from 'express';
+import type { Request, Response, NextFunction, Router } from 'express';
+import { Inject, Service } from 'typedi';
 import CommonRoutes from './common.routes';
+import ActionInterface from '../../domain/interfaces/action.interface';
 import CreateRateAction from '../actions/rates/create.rate.action';
 import ListRateAction from '../actions/rates/list.rate.action';
 import FilterRateAction from '../actions/rates/filter.rate.action';
 import UpdateRateAction from '../actions/rates/update.rate.action';
 import DeleteRateAction from '../actions/rates/delete.rate.action';
-import findRateByIdAction from '../actions/rates/find.rate.by.id.action';
-import createRateValidator from '../../application/validators/create.rate.validator';
-import updateRateValidator from '../../application/validators/update.rate.validator';
+import FindRateByIdAction from '../actions/rates/find.rate.by.id.action';
+import createRateValidator from '../middlewares/validators/create.rate.validator';
+import updateRateValidator from '../middlewares/validators/update.rate.validator';
+import filterRateSanitizer from '../middlewares/validators/filter.rate.validator';
+import validate from '../middlewares/validator.middleware';
 
 /**
  * @swagger
@@ -15,9 +19,29 @@ import updateRateValidator from '../../application/validators/update.rate.valida
  *   name: Rates
  *   description: All about /rates
  */
+@Service({ id: 'routes', multiple: true })
 class RateRoutes extends CommonRoutes {
-  constructor(app: Application) {
-    super(app, 'Rate');
+  constructor(
+    @Inject(() => ListRateAction)
+    private readonly listRateAction: ActionInterface,
+
+    @Inject(() => FindRateByIdAction)
+    private readonly findRateByIdAction: ActionInterface,
+
+    @Inject(() => CreateRateAction)
+    private readonly createRateAction: ActionInterface,
+
+    @Inject(() => UpdateRateAction)
+    private readonly updateRateAction: ActionInterface,
+
+    @Inject(() => DeleteRateAction)
+    private readonly deleteRateAction: ActionInterface,
+
+    @Inject(() => FilterRateAction)
+    private readonly filterRateAction: ActionInterface,
+  ) {
+    super('/rates');
+    this.setUpRoutes();
   }
 
   /**
@@ -182,20 +206,32 @@ class RateRoutes extends CommonRoutes {
    *               statusCode: 404
    *               message: Rate not found.
    */
-  setUpRoutes(): Application {
-    this.app.get('/rates', ListRateAction.run);
+  protected setUpRoutes(): Router {
+    this.getRouter().get('/', (req: Request, res: Response, next: NextFunction) =>
+      this.listRateAction.run(req, res, next),
+    );
 
-    this.app.get('/rates/:id', findRateByIdAction.run);
+    this.getRouter().get('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.findRateByIdAction.run(req, res, next),
+    );
 
-    this.app.post('/rates', createRateValidator.validate(), CreateRateAction.run);
+    this.getRouter().post('/', createRateValidator, validate, (req: Request, res: Response, next: NextFunction) =>
+      this.createRateAction.run(req, res, next),
+    );
 
-    this.app.patch('/rates/:id', updateRateValidator.validate(), UpdateRateAction.run);
+    this.getRouter().patch('/:id', updateRateValidator, validate, (req: Request, res: Response, next: NextFunction) =>
+      this.updateRateAction.run(req, res, next),
+    );
 
-    this.app.delete('/rates/:id', DeleteRateAction.run);
+    this.getRouter().delete('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.deleteRateAction.run(req, res, next),
+    );
 
-    this.app.post('/rates/filter', FilterRateAction.run);
+    this.getRouter().post('/filter', filterRateSanitizer, (req: Request, res: Response, next: NextFunction) =>
+      this.filterRateAction.run(req, res, next),
+    );
 
-    return this.app;
+    return this.getRouter();
   }
 }
 export default RateRoutes;

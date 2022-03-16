@@ -1,13 +1,20 @@
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
+import { Inject, Service } from 'typedi';
+import type ActionInterface from '../../../domain/interfaces/action.interface';
 import CreateRateHandler from '../../../application/handlers/rates/create.rate.handler';
 import CreateRateCommand from '../../../application/commands/rates/create.rate.command';
-import { validationResult } from 'express-validator';
+import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import type { Rate } from '../../../domain/entities/rate.entity';
 
-class CreateRateAction {
-  async run(req: Request, res: Response, next: NextFunction) {
+@Service()
+export default class CreateRateAction implements ActionInterface {
+  constructor(
+    @Inject(() => CreateRateHandler)
+    private readonly handler: HandlerInterface<Rate>,
+  ) {}
+
+  async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      validationResult(req).throw();
-
       const command: CreateRateCommand = new CreateRateCommand(
         req.body.technology,
         req.body.seniority,
@@ -17,7 +24,7 @@ class CreateRateAction {
         req.body.currency,
       );
 
-      const rate = await CreateRateHandler.execute(command);
+      const rate = await this.handler.execute(command);
 
       return res.status(201).json(rate);
     } catch (error) {
@@ -25,5 +32,3 @@ class CreateRateAction {
     }
   }
 }
-
-export default new CreateRateAction();
