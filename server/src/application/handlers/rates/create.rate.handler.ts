@@ -6,7 +6,7 @@ import Rate from '../../../domain/entities/rate.entity';
 import RateAlreadyExistsError from '../../customErrors/rates/rate.already.exists.error';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 import RateTechnologyIdNotValidError from '../../customErrors/rates/rate.technology.id.not.valid.error';
-import { Technology } from '../../../domain/entities/technology.entity';
+import Technology from '../../../domain/entities/technology.entity';
 
 @Service()
 export default class CreateRateHandler implements HandlerInterface<Rate> {

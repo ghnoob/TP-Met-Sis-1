@@ -4,7 +4,7 @@ import ActionInterface from '../../../domain/interfaces/action.interface';
 import FindTechnologyByIdCommand from '../../../application/commands/technologies/find.technology.by.id.command';
 import FindTechnologyByIdHandler from '../../../application/handlers/technologies/find.technology.by.id.handler';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
-import { Technology } from '../../../domain/entities/technology.entity';
+import Technology from '../../../domain/entities/technology.entity';
 
 @Service()
 export default class FindTechnologyByIdAction implements ActionInterface {

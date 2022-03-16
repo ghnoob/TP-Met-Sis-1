@@ -1,4 +1,4 @@
-import { Technology } from '../../domain/entities/technology.entity';
+import Technology from '../../domain/entities/technology.entity';
 
 class TechnologyRepository {
   private technologies: Technology[];

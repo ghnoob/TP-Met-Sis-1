@@ -4,7 +4,7 @@ import ActionInterface from '../../../domain/interfaces/action.interface';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import UpdateTechnologyCommand from '../../../application/commands/technologies/update.technology.command';
 import UpdateTechnologyHandler from '../../../application/handlers/technologies/update.technology.handler';
-import { Technology } from '../../../domain/entities/technology.entity';
+import Technology from '../../../domain/entities/technology.entity';
 
 @Service()
 export default class UpdateTechnologyAction implements ActionInterface {

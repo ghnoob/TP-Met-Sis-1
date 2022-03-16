@@ -20,7 +20,7 @@ import shortid from 'shortid';
  *           description: The technology name.
  *           example: javascript
  */
-export class Technology {
+export default class Technology {
   private id: string;
   private name: string;
 
