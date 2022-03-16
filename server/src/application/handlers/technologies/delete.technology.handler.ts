@@ -1,3 +1,4 @@
+import { Service } from 'typedi';
 import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 import DeleteTechnologyCommand from '../../commands/technologies/delete.technology.command';
@@ -5,7 +6,8 @@ import TechnologyNotFoundError from '../../customErrors/technologies/technology.
 import TechnologyHasRatesError from '../../customErrors/technologies/technology.has.rates.error';
 import type HandlerInterface from '../../../domain/interfaces/handler.interface';
 
-class DeleteTechnologyHandler implements HandlerInterface<void> {
+@Service()
+export default class DeleteTechnologyHandler implements HandlerInterface<void> {
   async execute(command: DeleteTechnologyCommand): Promise<void> {
     const technology = await TechnologyRepository.findOneById(command.getId());
 
@@ -20,4 +22,3 @@ class DeleteTechnologyHandler implements HandlerInterface<void> {
     await TechnologyRepository.deleteById(technology.getId());
   }
 }
-export default new DeleteTechnologyHandler();

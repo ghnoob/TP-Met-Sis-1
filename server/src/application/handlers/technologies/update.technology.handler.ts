@@ -1,3 +1,4 @@
+import { Service } from 'typedi';
 import type { Technology } from '../../../domain/entities/technology.entity';
 import type HandlerInterface from '../../../domain/interfaces/handler.interface';
 import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
@@ -5,7 +6,8 @@ import UpdateTechnologyCommand from '../../commands/technologies/update.technolo
 import TechnologyAlreadyExistsError from '../../customErrors/technologies/technology.already.exists.error';
 import TechnologyNotFoundError from '../../customErrors/technologies/technology.not.found.error';
 
-class UpdateTechnologyHandler implements HandlerInterface<Technology> {
+@Service()
+export default class UpdateTechnologyHandler implements HandlerInterface<Technology> {
   async execute(command: UpdateTechnologyCommand): Promise<Technology> {
     const technology: Technology | null = await TechnologyRepository.findOneById(command.getId());
 
@@ -24,4 +26,3 @@ class UpdateTechnologyHandler implements HandlerInterface<Technology> {
     return technology;
   }
 }
-export default new UpdateTechnologyHandler();
