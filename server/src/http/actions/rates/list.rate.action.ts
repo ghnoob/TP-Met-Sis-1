@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Service } from 'typedi';
 import ActionInterface from '../../../domain/interfaces/action.interface';
-import { Rate } from '../../../domain/entities/rate.entity';
+import Rate from '../../../domain/entities/rate.entity';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 
 @Service()

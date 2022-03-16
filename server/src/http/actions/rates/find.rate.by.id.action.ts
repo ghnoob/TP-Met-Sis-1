@@ -4,7 +4,7 @@ import ActionInterface from '../../../domain/interfaces/action.interface';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import FindRateByIdCommand from '../../../application/commands/rates/find.rate.by.id.command';
 import FindRateByIdHandler from '../../../application/handlers/rates/find.rate.by.id.handler';
-import { Rate } from '../../../domain/entities/rate.entity';
+import Rate from '../../../domain/entities/rate.entity';
 
 @Service()
 export default class FindRateByIdAction implements ActionInterface {

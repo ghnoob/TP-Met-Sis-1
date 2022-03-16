@@ -4,7 +4,7 @@ import ActionInterface from '../../../domain/interfaces/action.interface';
 import CreateRateHandler from '../../../application/handlers/rates/create.rate.handler';
 import CreateRateCommand from '../../../application/commands/rates/create.rate.command';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
-import { Rate } from '../../../domain/entities/rate.entity';
+import Rate from '../../../domain/entities/rate.entity';
 
 @Service()
 export default class CreateRateAction implements ActionInterface {

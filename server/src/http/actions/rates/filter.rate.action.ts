@@ -4,7 +4,7 @@ import ActionInterface from '../../../domain/interfaces/action.interface';
 import FilterRateHandler from '../../../application/handlers/rates/filter.rate.handler';
 import FilterRatesCommand from '../../../application/commands/rates/filter.rates.command';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
-import { Rate } from '../../../domain/entities/rate.entity';
+import Rate from '../../../domain/entities/rate.entity';
 
 @Service()
 export default class FilterRateAction implements ActionInterface {

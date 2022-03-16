@@ -1,4 +1,4 @@
-import { Rate } from '../../domain/entities/rate.entity';
+import Rate from '../../domain/entities/rate.entity';
 import { Technology } from '../../domain/entities/technology.entity';
 import { LanguageEnum } from '../../domain/enums/language.enum';
 import { SeniorityEnum } from '../../domain/enums/seniority.enum';

@@ -53,7 +53,7 @@ import { Technology } from './technology.entity';
  *             - 'ARS'
  *             - 'USD'
  */
-export class Rate {
+export default class Rate {
   private id: string;
   private technology: Technology;
   private seniority: SeniorityEnum;
