@@ -2,7 +2,7 @@ import { Service } from 'typedi';
 import DeleteRateCommand from '../../commands/rates/delete.rate.command';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
-import RateNotFoundError from '../../customErrors/rates/rate.not.found.error';
+import RateNotFoundError from '../../errors/rates/rate.not.found.error';
 
 @Service()
 export default class DeleteRateHandler implements HandlerInterface<void> {

@@ -3,9 +3,9 @@ import CreateRateCommand from '../../commands/rates/create.rate.command';
 import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import Rate from '../../../domain/entities/rate.entity';
-import RateAlreadyExistsError from '../../customErrors/rates/rate.already.exists.error';
+import RateAlreadyExistsError from '../../errors/rates/rate.already.exists.error';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
-import RateTechnologyIdNotValidError from '../../customErrors/rates/rate.technology.id.not.valid.error';
+import RateTechnologyIdNotValidError from '../../errors/rates/rate.technology.id.not.valid.error';
 import Technology from '../../../domain/entities/technology.entity';
 
 @Service()

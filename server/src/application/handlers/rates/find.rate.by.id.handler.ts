@@ -2,7 +2,7 @@ import { Service } from 'typedi';
 import FindRateByIdCommand from '../../commands/rates/find.rate.by.id.command';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import Rate from '../../../domain/entities/rate.entity';
-import RateNotFoundError from '../../customErrors/rates/rate.not.found.error';
+import RateNotFoundError from '../../errors/rates/rate.not.found.error';
 import rateRepository from '../../../infrastructure/repositories/rate.repository';
 
 @Service()

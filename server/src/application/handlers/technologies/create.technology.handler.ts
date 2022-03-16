@@ -3,7 +3,7 @@ import Technology from '../../../domain/entities/technology.entity';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
 import CreateTechnologyCommand from '../../commands/technologies/create.technology.command';
-import TechnologyAlreadyExistsError from '../../customErrors/technologies/technology.already.exists.error';
+import TechnologyAlreadyExistsError from '../../errors/technologies/technology.already.exists.error';
 
 @Service()
 export default class CreateTechologyHandler implements HandlerInterface<Technology> {
