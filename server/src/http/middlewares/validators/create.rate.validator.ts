@@ -1,5 +1,5 @@
 import { body, ValidationChain } from 'express-validator';
-import { CurrencyEnum } from '../../../domain/enums/currency.enum';
+import CurrencyEnum from '../../../domain/enums/currency.enum';
 import LanguageEnum from '../../../domain/enums/language.enum';
 import { SeniorityEnum } from '../../../domain/enums/seniority.enum';
 
