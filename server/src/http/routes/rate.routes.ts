@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import type { Request, Response, NextFunction, Router } from 'express';
 import { Inject, Service } from 'typedi';
 import CommonRoutes from './common.routes';
 import ActionInterface from '../../domain/interfaces/action.interface';
@@ -207,17 +207,29 @@ class RateRoutes extends CommonRoutes {
    *               message: Rate not found.
    */
   protected setUpRoutes(): Router {
-    this.getRouter().get('/', this.listRateAction.run);
+    this.getRouter().get('/', (req: Request, res: Response, next: NextFunction) =>
+      this.listRateAction.run(req, res, next),
+    );
 
-    this.getRouter().get('/:id', this.findRateByIdAction.run);
+    this.getRouter().get('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.findRateByIdAction.run(req, res, next),
+    );
 
-    this.getRouter().post('/', createRateValidator, validate, this.createRateAction.run);
+    this.getRouter().post('/', createRateValidator, validate, (req: Request, res: Response, next: NextFunction) =>
+      this.createRateAction.run(req, res, next),
+    );
 
-    this.getRouter().patch('/:id', updateRateValidator, validate, this.updateRateAction.run);
+    this.getRouter().patch('/:id', updateRateValidator, validate, (req: Request, res: Response, next: NextFunction) =>
+      this.updateRateAction.run(req, res, next),
+    );
 
-    this.getRouter().delete('/:id', this.deleteRateAction.run);
+    this.getRouter().delete('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.deleteRateAction.run(req, res, next),
+    );
 
-    this.getRouter().post('/filter', filterRateSanitizer, this.filterRateAction.run);
+    this.getRouter().post('/filter', filterRateSanitizer, (req: Request, res: Response, next: NextFunction) =>
+      this.filterRateAction.run(req, res, next),
+    );
 
     return this.getRouter();
   }

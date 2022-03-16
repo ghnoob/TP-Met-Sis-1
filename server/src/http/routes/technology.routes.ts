@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import type { Request, Response, NextFunction, Router } from 'express';
 import { Inject, Service } from 'typedi';
 import type ActionInterface from '../../domain/interfaces/action.interface';
 import CommonRoutes from './common.routes';
@@ -184,15 +184,28 @@ class TechnologyRoutes extends CommonRoutes {
    *             message: A technology with that name already exists.
    */
   protected setUpRoutes(): Router {
-    this.getRouter().get('/', this.listTechnologyAction.run);
+    this.getRouter().get('/', (req: Request, res: Response, next: NextFunction) =>
+      this.listTechnologyAction.run(req, res, next),
+    );
 
-    this.getRouter().get('/:id', this.findTechnologyByIdAction.run);
+    this.getRouter().get('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.findTechnologyByIdAction.run(req, res, next),
+    );
 
-    this.getRouter().post('/', createTechnologyValidator, validate, this.createTechnologyAction.run);
+    this.getRouter().post('/', createTechnologyValidator, validate, (req: Request, res: Response, next: NextFunction) =>
+      this.createTechnologyAction.run(req, res, next),
+    );
 
-    this.getRouter().patch('/:id', createTechnologyValidator, validate, this.updateTechnologyAction.run);
+    this.getRouter().patch(
+      '/:id',
+      createTechnologyValidator,
+      validate,
+      (req: Request, res: Response, next: NextFunction) => this.updateTechnologyAction.run(req, res, next),
+    );
 
-    this.getRouter().delete('/:id', this.deleteTechnologyAction.run);
+    this.getRouter().delete('/:id', (req: Request, res: Response, next: NextFunction) =>
+      this.deleteTechnologyAction.run(req, res, next),
+    );
 
     return this.getRouter();
   }
