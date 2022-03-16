@@ -1,10 +1,10 @@
-import type { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Inject, Service } from 'typedi';
-import type ActionInterface from '../../../domain/interfaces/action.interface';
-import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import UpdateTechnologyCommand from '../../../application/commands/technologies/update.technology.command';
 import UpdateTechnologyHandler from '../../../application/handlers/technologies/update.technology.handler';
-import type { Technology } from '../../../domain/entities/technology.entity';
+import { Technology } from '../../../domain/entities/technology.entity';
 
 @Service()
 export default class UpdateTechnologyAction implements ActionInterface {

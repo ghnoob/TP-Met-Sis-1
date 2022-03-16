@@ -4,7 +4,7 @@ import RateRepository from '../../../infrastructure/repositories/rate.repository
 import DeleteTechnologyCommand from '../../commands/technologies/delete.technology.command';
 import TechnologyNotFoundError from '../../customErrors/technologies/technology.not.found.error';
 import TechnologyHasRatesError from '../../customErrors/technologies/technology.has.rates.error';
-import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 
 @Service()
 export default class DeleteTechnologyHandler implements HandlerInterface<void> {

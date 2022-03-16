@@ -1,9 +1,9 @@
-import type { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Inject, Service } from 'typedi';
-import type ActionInterface from '../../../domain/interfaces/action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import DeleteRateCommand from '../../../application/commands/rates/delete.rate.command';
 import DeleteRateHandler from '../../../application/handlers/rates/delete.rate.handler';
-import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 
 @Service()
 export default class DeleteRateAction implements ActionInterface {

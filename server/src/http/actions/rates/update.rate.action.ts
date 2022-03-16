@@ -1,10 +1,10 @@
-import type { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Inject, Service } from 'typedi';
-import type ActionInterface from '../../../domain/interfaces/action.interface';
-import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import UpdateRateCommand from '../../../application/commands/rates/update.rate.command';
 import UpdateRateHandler from '../../../application/handlers/rates/update.rate.handler';
-import type { Rate } from '../../../domain/entities/rate.entity';
+import { Rate } from '../../../domain/entities/rate.entity';
 
 @Service()
 export default class UpdateRateAction implements ActionInterface {

@@ -1,6 +1,6 @@
-import type { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import { Inject, Service } from 'typedi';
-import type ActionInterface from '../../domain/interfaces/action.interface';
+import ActionInterface from '../../domain/interfaces/action.interface';
 import CommonRoutes from './common.routes';
 import createTechnologyValidator from '../middlewares/validators/create.technology.validator';
 import validate from '../middlewares/validator.middleware';

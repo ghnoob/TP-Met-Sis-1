@@ -1,6 +1,6 @@
 import { Service } from 'typedi';
-import type { Technology } from '../../../domain/entities/technology.entity';
-import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import { Technology } from '../../../domain/entities/technology.entity';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
 import UpdateTechnologyCommand from '../../commands/technologies/update.technology.command';
 import TechnologyAlreadyExistsError from '../../customErrors/technologies/technology.already.exists.error';

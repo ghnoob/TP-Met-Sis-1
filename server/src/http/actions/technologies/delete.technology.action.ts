@@ -1,9 +1,9 @@
-import type { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Inject, Service } from 'typedi';
-import type ActionInterface from '../../../domain/interfaces/action.interface';
+import ActionInterface from '../../../domain/interfaces/action.interface';
 import DeleteTechnologyCommand from '../../../application/commands/technologies/delete.technology.command';
 import DeleteTechnologyHandler from '../../../application/handlers/technologies/delete.technology.handler';
-import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 
 @Service()
 export default class DeleteTechnologyAction implements ActionInterface {

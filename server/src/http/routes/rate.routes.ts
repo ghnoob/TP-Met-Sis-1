@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import { Inject, Service } from 'typedi';
 import CommonRoutes from './common.routes';
 import ActionInterface from '../../domain/interfaces/action.interface';
