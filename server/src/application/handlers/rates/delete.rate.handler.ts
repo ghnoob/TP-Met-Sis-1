@@ -1,9 +1,11 @@
+import { Service } from 'typedi';
 import DeleteRateCommand from '../../commands/rates/delete.rate.command';
 import type HandlerInterface from '../../../domain/interfaces/handler.interface';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 import RateNotFoundError from '../../customErrors/rates/rate.not.found.error';
 
-class DeleteRateHandler implements HandlerInterface<void> {
+@Service()
+export default class DeleteRateHandler implements HandlerInterface<void> {
   async execute(command: DeleteRateCommand) {
     const rate = await RateRepository.findOneById(command.getId());
 
@@ -14,4 +16,3 @@ class DeleteRateHandler implements HandlerInterface<void> {
     await RateRepository.deleteById(rate.getId());
   }
 }
-export default new DeleteRateHandler();

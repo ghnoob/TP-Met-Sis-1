@@ -1,3 +1,4 @@
+import { Service } from 'typedi';
 import CreateRateCommand from '../../commands/rates/create.rate.command';
 import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
 import type HandlerInterface from '../../../domain/interfaces/handler.interface';
@@ -7,7 +8,8 @@ import RateRepository from '../../../infrastructure/repositories/rate.repository
 import RateTechnologyIdNotValidError from '../../customErrors/rates/rate.technology.id.not.valid.error';
 import type { Technology } from '../../../domain/entities/technology.entity';
 
-class CreateRateHandler implements HandlerInterface<Rate> {
+@Service()
+export default class CreateRateHandler implements HandlerInterface<Rate> {
   async execute(command: CreateRateCommand): Promise<Rate> {
     const technology: Technology | null = await TechnologyRepository.findOneById(command.getTechnology());
 
@@ -40,4 +42,3 @@ class CreateRateHandler implements HandlerInterface<Rate> {
     return rate;
   }
 }
-export default new CreateRateHandler();
