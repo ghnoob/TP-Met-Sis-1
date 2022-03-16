@@ -1,4 +1,4 @@
-import { SeniorityEnum } from '../../../domain/enums/seniority.enum';
+import SeniorityEnum from '../../../domain/enums/seniority.enum';
 import LanguageEnum from '../../../domain/enums/language.enum';
 
 /**
