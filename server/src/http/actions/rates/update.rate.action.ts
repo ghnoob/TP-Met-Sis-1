@@ -1,11 +1,18 @@
-import { NextFunction, Request, Response } from 'express';
-import { Service } from 'typedi';
+import type { NextFunction, Request, Response } from 'express';
+import { Inject, Service } from 'typedi';
+import type ActionInterface from '../../../domain/interfaces/action.interface';
+import type HandlerInterface from '../../../domain/interfaces/handler.interface';
 import UpdateRateCommand from '../../../application/commands/rates/update.rate.command';
-import updateRateHandler from '../../../application/handlers/rates/update.rate.handler';
-import ActionInterface from '../../../domain/interfaces/action.interface';
+import UpdateRateHandler from '../../../application/handlers/rates/update.rate.handler';
+import type { Rate } from '../../../domain/entities/rate.entity';
 
 @Service()
 export default class UpdateRateAction implements ActionInterface {
+  constructor(
+    @Inject(() => UpdateRateHandler)
+    private readonly handler: HandlerInterface<Rate>,
+  ) {}
+
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: UpdateRateCommand = new UpdateRateCommand(
@@ -14,7 +21,7 @@ export default class UpdateRateAction implements ActionInterface {
         req.body.grossMargin,
       );
 
-      const rate = await updateRateHandler.execute(command);
+      const rate = await this.handler.execute(command);
 
       return res.status(201).json(rate);
     } catch (error) {
