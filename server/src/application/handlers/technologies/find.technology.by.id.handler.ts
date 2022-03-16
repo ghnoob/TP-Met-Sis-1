@@ -2,8 +2,9 @@ import TechnologyRepository from '../../../infrastructure/repositories/technolog
 import TechnologyNotFoundError from '../../customErrors/technologies/technology.not.found.error';
 import FindTechnologyByIdCommand from '../../commands/technologies/find.technology.by.id.command';
 import { Technology } from '../../../domain/entities/technology.entity';
+import type HandlerInterface from '../../../domain/interfaces/handler.interface';
 
-class DeleteTechnologyHandler {
+class DeleteTechnologyHandler implements HandlerInterface<Technology> {
   async execute(command: FindTechnologyByIdCommand): Promise<Technology> {
     const technology = await TechnologyRepository.findOneById(command.getId());
 
