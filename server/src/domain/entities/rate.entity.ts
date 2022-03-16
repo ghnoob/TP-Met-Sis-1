@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import { LanguageEnum } from '../enums/language.enum';
+import LanguageEnum from '../enums/language.enum';
 import { SeniorityEnum } from '../enums/seniority.enum';
 import { Technology } from './technology.entity';
 

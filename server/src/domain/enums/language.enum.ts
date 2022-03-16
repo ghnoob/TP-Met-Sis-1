@@ -1,4 +1,6 @@
-export enum LanguageEnum {
+enum LanguageEnum {
   english = 'en',
   spanish = 'es',
 }
+
+export default LanguageEnum;

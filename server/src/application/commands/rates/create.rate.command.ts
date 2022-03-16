@@ -1,5 +1,5 @@
 import { SeniorityEnum } from '../../../domain/enums/seniority.enum';
-import { LanguageEnum } from '../../../domain/enums/language.enum';
+import LanguageEnum from '../../../domain/enums/language.enum';
 import { CurrencyEnum } from '../../../domain/enums/currency.enum';
 
 /**
