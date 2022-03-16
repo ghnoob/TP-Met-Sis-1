@@ -1,9 +1,10 @@
+import type HandlerInterface from '../../../domain/interfaces/handler.interface';
+import type { Rate } from '../../../domain/entities/rate.entity';
+import RateNotFoundError from '../../customErrors/rates/rate.not.found.error';
 import RateRepository from '../../../infrastructure/repositories/rate.repository';
 import UpdateRateCommand from '../../commands/rates/update.rate.command';
-import RateNotFoundError from '../../customErrors/rates/rate.not.found.error';
-import { Rate } from '../../../domain/entities/rate.entity';
 
-class UpdateRateHandler {
+class UpdateRateHandler implements HandlerInterface<Rate> {
   async execute(command: UpdateRateCommand): Promise<Rate> {
     const rate: Rate | null = await RateRepository.findOneById(command.getId());
 
