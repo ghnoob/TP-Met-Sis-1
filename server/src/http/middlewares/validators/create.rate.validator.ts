@@ -1,8 +1,12 @@
 import { body, ValidationChain } from 'express-validator';
 import CurrencyEnum from '../../../domain/enums/currency.enum';
+import isNumber from './isnumber.validator';
 import LanguageEnum from '../../../domain/enums/language.enum';
 import SeniorityEnum from '../../../domain/enums/seniority.enum';
 
+/**
+ * Adds validation info to the request when a rate is created.
+ */
 const createRateValidator: ValidationChain[] = [
   body('technology', 'value must not be empty').trim().notEmpty(),
 
@@ -16,10 +20,7 @@ const createRateValidator: ValidationChain[] = [
     .toLowerCase()
     .isIn(Object.values(LanguageEnum)),
 
-  body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
-    .isString()
-    .trim()
-    .matches(/^\d+(\.\d{1,2})?$/),
+  body(['averageSalary', 'grossMargin']).custom(value => isNumber(value, { min: 0 })),
 
   body('currency', `invalid value. Allowed: ${Object.values(CurrencyEnum).join(', ')}`)
     .trim()
