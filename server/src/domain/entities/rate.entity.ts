@@ -77,7 +77,7 @@ export default class Rate {
   /**
    * Technology of the rate.
    */
-  @ManyToOne(() => Technology, { eager: true })
+  @ManyToOne(() => Technology)
   private technology: Technology;
 
   /**
