@@ -1,81 +1,127 @@
+import { EntityRepository, Repository } from 'typeorm';
 import Rate from '../../domain/entities/rate.entity';
-import Technology from '../../domain/entities/technology.entity';
+import CurrencyEnum from '../../domain/enums/currency.enum';
 import LanguageEnum from '../../domain/enums/language.enum';
 import SeniorityEnum from '../../domain/enums/seniority.enum';
 
-class RateRepository {
-  private rates: Rate[];
-
-  constructor() {
-    this.rates = [];
+/**
+ * Manages database Rate entities
+ */
+@EntityRepository(Rate)
+export default class RateRepository extends Repository<Rate> {
+  /**
+   * Returns all rates
+   */
+  findAll(): Promise<Rate[]> {
+    return this.createQueryBuilder('rate')
+      .leftJoinAndSelect('rate.technology', 'technology')
+      .select([
+        'rate.id',
+        'technology.id',
+        'technology.name',
+        'rate.seniority',
+        'rate.language',
+        'rate.averageSalary',
+        'rate.grossMargin',
+        'rate.currency',
+        'rate.createdAt',
+        'rate.updatedAt',
+      ])
+      .getMany();
   }
 
-  async findOneById(id: string): Promise<Rate | null> {
-    const rate = this.rates.find(r => r.getId() === id);
-
-    return rate ? rate : null;
+  /**
+   * Finds and retuns the rate with the given id.
+   */
+  findOneById(id: number): Promise<Rate | undefined> {
+    return this.createQueryBuilder('rate')
+      .leftJoinAndSelect('rate.technology', 'technology')
+      .select([
+        'rate.id',
+        'technology.id',
+        'technology.name',
+        'rate.seniority',
+        'rate.language',
+        'rate.averageSalary',
+        'rate.grossMargin',
+        'rate.currency',
+        'rate.createdAt',
+        'rate.updatedAt',
+      ])
+      .where('rate.id = :id', { id })
+      .getOne();
   }
 
-  async findAll(): Promise<Rate[]> {
-    return this.rates;
-  }
-
-  async save(rate: Rate): Promise<void> {
-    this.rates.push(rate);
-  }
-
-  async deleteById(id: string): Promise<void> {
-    this.rates = this.rates.filter(r => r.getId() !== id);
-  }
-
-  async findAllBy(
-    technologyIds?: string[],
+  /**
+   * Returns all rates that match the filters.
+   * @param technologyIds IDs of the technologies that the rates can have.
+   * @param seniority Seniority level the rates that the rates can have.
+   * @param language Language that the rates can have.
+   * @param currency Currency that the rates can have
+   */
+  filter(
+    technologyIds?: number[],
     seniority?: SeniorityEnum,
     language?: LanguageEnum,
     currency?: string,
   ): Promise<Rate[]> {
-    let rates = this.rates;
+    const query = this.createQueryBuilder('rate')
+      .leftJoinAndSelect('rate.technology', 'technology')
+      .select([
+        'rate.id',
+        'technology.id',
+        'technology.name',
+        'rate.seniority',
+        'rate.language',
+        'rate.averageSalary',
+        'rate.grossMargin',
+        'rate.currency',
+        'rate.createdAt',
+        'rate.updatedAt',
+      ]);
 
     if (technologyIds) {
-      this.rates = this.rates.filter(r => technologyIds.includes(r.getTechnology().getId()));
+      query.where('rate.technologyId IN :technologyIds', { technologyIds });
     }
 
-    if (seniority) {
-      rates = rates.filter(r => r.getSeniority() == seniority);
-    }
+    const filters = new Map<string, unknown>([
+      ['seniority', seniority],
+      ['language', language],
+      ['currency', currency],
+    ]);
 
-    if (language) {
-      rates = rates.filter(r => r.getLanguage() == language);
-    }
-
-    if (currency) {
-      rates = rates.filter(r => r.getCurrency() == currency);
-    }
-
-    return rates;
-  }
-
-  async exists(
-    technologyId: string,
-    seniority: SeniorityEnum,
-    language: LanguageEnum,
-    currency: string,
-  ): Promise<boolean> {
-    const exists = this.rates.some(element => {
-      return (
-        element.getTechnology().getId() == technologyId &&
-        element.getSeniority() == seniority &&
-        element.getLanguage() == language &&
-        element.getCurrency() == currency
-      );
+    filters.forEach((key, value) => {
+      if (value) {
+        query.andWhere(`rate.${key} = :value`, { value });
+      }
     });
 
-    return exists;
+    return query.getMany();
   }
 
-  async technologyHasRates(technology: Technology): Promise<boolean> {
-    return this.rates.filter(r => r.getTechnology() == technology).length > 0;
+  /**
+   * Returns true if a rate with the given properties exists.
+   */
+  async exists(
+    technologyId: number,
+    seniority: SeniorityEnum,
+    language: LanguageEnum,
+    currency: CurrencyEnum,
+  ): Promise<boolean> {
+    const query = this.createQueryBuilder('rate')
+      .select('id')
+      .where('rate.technologyId = :technologyId', { technologyId })
+      .andWhere('rate.seniority = :seniority', { seniority })
+      .andWhere('rate.language = :language', { language })
+      .andWhere('rate.currency = :currency', { currency });
+
+    return Boolean(await query.getOne());
+  }
+
+  /**
+   * Returns true if a rate with the given id exists.
+   */
+  async idExists(id: number) {
+    return Boolean(await this.createQueryBuilder('rate').select('rate.id').where('rate.id = :id', { id }).getOne());
   }
 }
-
-export default new RateRepository();
