@@ -12,14 +12,25 @@ import CreateTechnologyCommand from './create.technology.command';
  *           description: The technology name. Converted to lowercase.
  *           example: javascript
  */
+/**
+ * Data needed to update a technology.
+ */
 export default class UpdateTechnologyCommand extends CreateTechnologyCommand {
-  private id: string;
+  private id: number;
 
-  constructor(id: string, name: string) {
+  /**
+   * Creates a command.
+   * @param id Id of the technology.
+   * @param name New name of the technology.
+   */
+  constructor(id: number, name: string) {
     super(name);
     this.id = id;
   }
 
+  /**
+   * Gets the id property of the command
+   */
   public getId() {
     return this.id;
   }

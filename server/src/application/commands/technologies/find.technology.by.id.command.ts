@@ -1,11 +1,21 @@
+/**
+ * Data needed to find a technology by its id.
+ */
 export default class FindTechnologyByIdCommand {
-  private id: string;
+  private id: number;
 
-  constructor(id: string) {
+  /**
+   * Creates a command.
+   * @param id Id of the technology.
+   */
+  constructor(id: number) {
     this.id = id;
   }
 
-  getId(): string {
+  /**
+   * Gets the id property of the command.
+   */
+  public getId() {
     return this.id;
   }
 }
