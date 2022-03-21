@@ -1,5 +1,20 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import statusCodeMapper from '../errors/statusCodeMapper';
+import { StatusCodes } from '../../domain/enums/status.codes.enum';
+
+/**
+ * Maps application errors to HTTP status codes.
+ */
+const statusCodeMap = new Map<string, number>([
+  ['ApplicationError', StatusCodes.InternalServerError],
+  ['RateAlreadyExistsError', StatusCodes.UnproccessableEntity],
+  ['RateNotFoundError', StatusCodes.NotFound],
+  ['RateTechnologyIdNotValidError', StatusCodes.BadRequest],
+  ['TechnologyAlreadyExistsError', StatusCodes.UnproccessableEntity],
+  ['TechnologyNotFoundError', StatusCodes.NotFound],
+  ['TechnologyHasRatesError', StatusCodes.UnproccessableEntity],
+  ['SyntaxError', StatusCodes.BadRequest],
+  ['Error', StatusCodes.BadRequest], // validation error
+]);
 
 /**
  * @swagger
@@ -44,7 +59,7 @@ import statusCodeMapper from '../errors/statusCodeMapper';
 
 // eslint-disable-next-line
 const errorHandler: ErrorRequestHandler = (err: any, _req: Request, res: Response, _next: NextFunction) => {
-  const statusCode: number = statusCodeMapper(err.name);
+  const statusCode: number = statusCodeMap.get(err.name) ?? StatusCodes.InternalServerError;
 
   // los errores de validacion tiene errors y los demas message
   return res.status(statusCode).json({ statusCode, message: err.errors ?? err.message });
