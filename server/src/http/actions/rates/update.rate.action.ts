@@ -6,6 +6,9 @@ import UpdateRateCommand from '../../../application/commands/rates/update.rate.c
 import UpdateRateHandler from '../../../application/handlers/rates/update.rate.handler';
 import Rate from '../../../domain/entities/rate.entity';
 
+/**
+ * Middleware for updating a rate.
+ */
 @Service()
 export default class UpdateRateAction implements ActionInterface {
   constructor(
@@ -16,7 +19,7 @@ export default class UpdateRateAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: UpdateRateCommand = new UpdateRateCommand(
-        req.params.id,
+        Number(req.params.id),
         req.body.averageSalary,
         req.body.grossMargin,
       );

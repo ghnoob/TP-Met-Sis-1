@@ -6,6 +6,9 @@ import FindTechnologyByIdHandler from '../../../application/handlers/technologie
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import Technology from '../../../domain/entities/technology.entity';
 
+/**
+ * Middleware for finding a technology by id.
+ */
 @Service()
 export default class FindTechnologyByIdAction implements ActionInterface {
   constructor(
@@ -14,7 +17,7 @@ export default class FindTechnologyByIdAction implements ActionInterface {
   ) {}
 
   async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    const command: FindTechnologyByIdCommand = new FindTechnologyByIdCommand(req.params.id);
+    const command = new FindTechnologyByIdCommand(Number(req.params.id));
 
     try {
       return res.status(200).json(await this.handler.execute(command));

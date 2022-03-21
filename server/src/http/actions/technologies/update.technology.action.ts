@@ -6,6 +6,9 @@ import UpdateTechnologyCommand from '../../../application/commands/technologies/
 import UpdateTechnologyHandler from '../../../application/handlers/technologies/update.technology.handler';
 import Technology from '../../../domain/entities/technology.entity';
 
+/**
+ * Middleware for update a technology.
+ */
 @Service()
 export default class UpdateTechnologyAction implements ActionInterface {
   constructor(
@@ -15,7 +18,7 @@ export default class UpdateTechnologyAction implements ActionInterface {
 
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const command: UpdateTechnologyCommand = new UpdateTechnologyCommand(req.params.id, req.body.name);
+      const command = new UpdateTechnologyCommand(Number(req.params.id), req.body.name);
 
       const technology = await this.handler.execute(command);
 

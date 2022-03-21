@@ -6,6 +6,9 @@ import FindRateByIdCommand from '../../../application/commands/rates/find.rate.b
 import FindRateByIdHandler from '../../../application/handlers/rates/find.rate.by.id.handler';
 import Rate from '../../../domain/entities/rate.entity';
 
+/**
+ * Middleware for finding a rate by id.
+ */
 @Service()
 export default class FindRateByIdAction implements ActionInterface {
   constructor(
@@ -14,7 +17,7 @@ export default class FindRateByIdAction implements ActionInterface {
   ) {}
 
   async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    const command: FindRateByIdCommand = new FindRateByIdCommand(req.params.id);
+    const command = new FindRateByIdCommand(Number(req.params.id));
 
     try {
       return res.status(200).json(await this.handler.execute(command));

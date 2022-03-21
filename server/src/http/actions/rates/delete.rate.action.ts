@@ -5,6 +5,9 @@ import DeleteRateCommand from '../../../application/commands/rates/delete.rate.c
 import DeleteRateHandler from '../../../application/handlers/rates/delete.rate.handler';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 
+/**
+ * Middleware for deleting a rate.
+ */
 @Service()
 export default class DeleteRateAction implements ActionInterface {
   constructor(
@@ -13,7 +16,7 @@ export default class DeleteRateAction implements ActionInterface {
   ) {}
 
   async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    const command: DeleteRateCommand = new DeleteRateCommand(req.params.id);
+    const command = new DeleteRateCommand(Number(req.params.id));
 
     try {
       await this.handler.execute(command);
