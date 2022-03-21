@@ -1,4 +1,4 @@
-import { StatusCodes } from './statusCodes';
+import { StatusCodes } from '../../domain/enums/status.codes.enum';
 
 const statusCodeMap = new Map<string, number>([
   ['ApplicationError', StatusCodes.InternalServerError],
