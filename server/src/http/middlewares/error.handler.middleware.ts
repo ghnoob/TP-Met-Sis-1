@@ -1,5 +1,5 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import statusCodeMapper from './statusCodeMapper';
+import statusCodeMapper from '../errors/statusCodeMapper';
 
 /**
  * @swagger
