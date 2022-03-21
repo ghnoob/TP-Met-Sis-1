@@ -1,3 +1,4 @@
+import { join } from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 const swagger = swaggerJSDoc({
@@ -11,10 +12,10 @@ const swagger = swaggerJSDoc({
     },
   },
   apis: [
-    `${__dirname}/http/routes/*.routes.ts`,
-    `${__dirname}/domain/entities/*.entity.ts`,
-    `${__dirname}/application/commands/**/*.command.ts`,
-    `${__dirname}/http/errors/errorHandler.ts`,
+    join(__dirname, '..', 'http', 'routes', '*.routes.ts'),
+    join(__dirname, '..', 'domain', 'entities', '*.entity.ts'),
+    join(__dirname, '..', 'application', 'commands', '**', '*.routes.ts'),
+    join(__dirname, '..', 'http', 'errors', 'errorHandler.ts'),
   ],
 });
 

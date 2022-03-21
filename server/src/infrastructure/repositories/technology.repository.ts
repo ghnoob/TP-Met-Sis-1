@@ -1,33 +1,48 @@
+import { EntityRepository, getCustomRepository, Repository } from 'typeorm';
+import RateRepository from './rate.repository';
 import Technology from '../../domain/entities/technology.entity';
 
-class TechnologyRepository {
-  private technologies: Technology[];
-
-  constructor() {
-    this.technologies = [];
+/**
+ * Works with Technology database entities.
+ */
+@EntityRepository(Technology)
+export default class TechnologyRepository extends Repository<Technology> {
+  /**
+   * Returns true if a technology with the given name exists.
+   * @param name Name of the technology
+   */
+  async nameExists(name: string): Promise<boolean> {
+    return Boolean(
+      await this.createQueryBuilder('technology')
+        .select('technology.id')
+        .where('technology.name = :name', { name })
+        .getOne(),
+    );
   }
 
-  async findOneById(id: string): Promise<Technology | null> {
-    const technology = this.technologies.find(t => t.getId() === id);
-    return technology ? technology : null;
+  /**
+   * Returns true if at least one rate exists that is associated with the given technology id.
+   * @param id Id of the technology
+   */
+  async idExists(id: number): Promise<boolean> {
+    return Boolean(
+      await this.createQueryBuilder('technology').select('technology.id').where('technology.id = :id', { id }).getOne(),
+    );
   }
 
-  async findOneByName(name: string): Promise<Technology | null> {
-    const technology = this.technologies.find(t => t.getName() === name);
-    return technology ? technology : null;
-  }
+  /**
+   * Returns true if a technology has associated rates.
+   * @param id Id of the technology
+   */
+  async hasRates(id: number): Promise<boolean> {
+    const ratesRepository = getCustomRepository(RateRepository);
 
-  async findAll(): Promise<Technology[]> {
-    return this.technologies;
-  }
+    const query = ratesRepository
+      .createQueryBuilder('rate')
+      .select('rate.id')
+      .loadAllRelationIds()
+      .where('rate.technology.id = :id', { id });
 
-  async save(technology: Technology): Promise<void> {
-    this.technologies.push(technology);
-  }
-
-  async deleteById(id: string): Promise<void> {
-    this.technologies = this.technologies.filter(t => t.getId() !== id);
+    return Boolean(await query.getOne());
   }
 }
-
-export default new TechnologyRepository();

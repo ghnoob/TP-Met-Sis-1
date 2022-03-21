@@ -1,24 +1,37 @@
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import { Service } from 'typedi';
-import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
-import RateRepository from '../../../infrastructure/repositories/rate.repository';
+import { DeleteResult } from 'typeorm';
 import DeleteTechnologyCommand from '../../commands/technologies/delete.technology.command';
+import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import TechnologyNotFoundError from '../../errors/technologies/technology.not.found.error';
 import TechnologyHasRatesError from '../../errors/technologies/technology.has.rates.error';
-import HandlerInterface from '../../../domain/interfaces/handler.interface';
+import TechnologyRepository from '../../../infrastructure/repositories/technology.repository';
 
+/**
+ * Handler for deleting a technology.
+ */
 @Service()
-export default class DeleteTechnologyHandler implements HandlerInterface<void> {
-  async execute(command: DeleteTechnologyCommand): Promise<void> {
-    const technology = await TechnologyRepository.findOneById(command.getId());
+export default class DeleteTechnologyHandler implements HandlerInterface<DeleteResult> {
+  constructor(
+    @InjectRepository(TechnologyRepository)
+    private readonly repository: TechnologyRepository,
+  ) {}
 
-    if (!technology) {
+  /**
+   * Soft deletes a technology from the database.
+   * @param command DTO with information to delete the rate.
+   * @throws {TechnologyNotFoundError} The technology was not found in the database.
+   * @returns  Object indicating the success of the operation.
+   */
+  async execute(command: DeleteTechnologyCommand): Promise<DeleteResult> {
+    if (!(await this.repository.idExists(command.getId()))) {
       throw new TechnologyNotFoundError();
     }
 
-    if (await RateRepository.technologyHasRates(technology)) {
+    if (await this.repository.hasRates(command.getId())) {
       throw new TechnologyHasRatesError();
     }
 
-    await TechnologyRepository.deleteById(technology.getId());
+    return this.repository.softDelete(command.getId());
   }
 }

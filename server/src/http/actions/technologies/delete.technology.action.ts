@@ -5,6 +5,9 @@ import DeleteTechnologyCommand from '../../../application/commands/technologies/
 import DeleteTechnologyHandler from '../../../application/handlers/technologies/delete.technology.handler';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 
+/**
+ * Middleware for deleting a technology.
+ */
 @Service()
 export default class DeleteTechnologyAction implements ActionInterface {
   constructor(
@@ -13,12 +16,12 @@ export default class DeleteTechnologyAction implements ActionInterface {
   ) {}
 
   async run(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    const command: DeleteTechnologyCommand = new DeleteTechnologyCommand(req.params.id);
+    const command = new DeleteTechnologyCommand(Number(req.params.id));
 
     try {
       await this.handler.execute(command);
 
-      return res.status(204).end();
+      return res.status(200).json({ message: 'Deleted' });
     } catch (error) {
       return next(error);
     }

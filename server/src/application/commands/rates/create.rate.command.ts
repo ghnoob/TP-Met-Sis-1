@@ -48,50 +48,80 @@ import CurrencyEnum from '../../../domain/enums/currency.enum';
  *             - 'ARS'
  *             - 'USD'
  */
+/**
+ * Data needed to create a rate.
+ */
 export default class CreateRateCommand {
-  private technology: string;
+  private technologyId: number;
   private seniority: SeniorityEnum;
   private language: LanguageEnum;
-  private averageSalary: string;
-  private grossMargin: string;
+  private averageSalary: number;
+  private grossMargin: number;
   private currency: CurrencyEnum;
 
+  /**
+   * Creates a command.
+   * @param technologyId Id of the rate.
+   * @param seniority Seniority of the rate.
+   * @param language Language of the rate.
+   * @param averageSalary Average salary of the rate.
+   * @param grossMargin Gross margin of the rate.
+   * @param currency Currency of the rate.
+   */
   constructor(
-    technology: string,
+    technologyId: number,
     seniority: SeniorityEnum,
     language: LanguageEnum,
-    averageSalary: string,
-    grossMargin: string,
+    averageSalary: number,
+    grossMargin: number,
     currency: CurrencyEnum,
   ) {
-    this.technology = technology;
+    this.technologyId = technologyId;
     this.seniority = seniority;
     this.language = language;
-    this.averageSalary = averageSalary?.toString() ?? '0';
-    this.grossMargin = grossMargin?.toString() ?? '0';
+    this.averageSalary = averageSalary;
+    this.grossMargin = grossMargin;
     this.currency = currency;
   }
 
-  public getTechnology() {
-    return this.technology;
+  /**
+   * Gets the technology id attribute of the command.
+   */
+  public getTechnologyId() {
+    return this.technologyId;
   }
 
+  /**
+   * Gets the seniority attribute of the command.
+   */
   public getSeniority() {
     return this.seniority;
   }
 
+  /**
+   * Gets the language attribute of the command.
+   */
   public getLanguage() {
     return this.language;
   }
 
+  /**
+   * Gets the averageSalary attribute of the command.
+   */
   public getAverageSalary() {
     return this.averageSalary;
   }
 
+  /**
+   * Gets the grossMargin attribute of the command.
+   */
   public getGrossMargin() {
     return this.grossMargin;
   }
 
+  /**
+   * Gets the currency attribute of the command.
+   */
   public getCurrency() {
     return this.currency;
   }

@@ -1,11 +1,13 @@
 import { body, ValidationChain } from 'express-validator';
+import isNumber from './isnumber.validator';
 
+/**
+ * Adds validation info to the request when a rate is updated.
+ */
 const updateRateValidator: ValidationChain[] = [
-  body(['averageSalary', 'grossMargin'], 'value must be a numeric string, positive, up to 2 decimal places')
+  body(['averageSalary', 'grossMargin'])
     .optional()
-    .isString()
-    .trim()
-    .matches(/^\d+(\.\d{1,2})?$/),
+    .custom(value => isNumber(value, { min: 0 })),
 ];
 
 export default updateRateValidator;

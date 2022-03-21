@@ -28,31 +28,54 @@ import LanguageEnum from '../../../domain/enums/language.enum';
  *           description: Currenct of the rate, as a 3 letter ISO code
  *           example: ARS
  */
+/**
+ * Data needed to filter rates.
+ */
 export default class FilterRatesCommand {
-  private technologies?: string[];
+  private technologyIds?: number[];
   private seniority?: SeniorityEnum;
   private language?: LanguageEnum;
   private currency?: string;
 
-  constructor(technologies?: string[], seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string) {
-    this.technologies = technologies;
+  /**
+   * Creates a command.
+   * @param technologyIds Array of ids to filter the rate.
+   * @param seniority Seniority of the rate.
+   * @param language Language of the rate.
+   * @param currency Currency of the rate.
+   */
+  constructor(technologyIds?: number[], seniority?: SeniorityEnum, language?: LanguageEnum, currency?: string) {
+    this.technologyIds = technologyIds;
     this.seniority = seniority;
     this.language = language;
     this.currency = currency;
   }
 
-  public getTechnologies() {
-    return this.technologies;
+  /**
+   * Gets the technology ids property of the command.
+   * @returns An array of technology ids.
+   */
+  public getTechnologyIds() {
+    return this.technologyIds;
   }
 
+  /**
+   * Gets the seniority property of the command.
+   */
   public getSeniority() {
     return this.seniority;
   }
 
+  /**
+   * Gets the language property of the command.
+   */
   public getLanguage() {
     return this.language;
   }
 
+  /**
+   * Gets the currency property of the command.
+   */
   public getCurrency() {
     return this.currency;
   }
