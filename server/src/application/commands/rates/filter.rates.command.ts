@@ -8,13 +8,13 @@ import LanguageEnum from '../../../domain/enums/language.enum';
  *     FilterRatesCommand:
  *       type: object
  *       properties:
- *         technologies:
+ *         technologyIds:
  *           type: array
  *           description: Array of technology ids
  *           items:
- *             type: string
+ *             type: number
  *           example:
- *             - eWRhpRV
+ *             - 1
  *         seniority:
  *           type: string
  *           description: The seniority level required for the rate

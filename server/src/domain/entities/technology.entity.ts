@@ -18,6 +18,7 @@ import EntityInterface from '../interfaces/entity.interface';
  *       required:
  *         - id
  *         - name
+ *         - createdAt
  *       properties:
  *         id:
  *           type: number
@@ -28,6 +29,16 @@ import EntityInterface from '../interfaces/entity.interface';
  *           type: string
  *           description: The technology name.
  *           example: javascript
+ *         createdAt:
+ *           type: Date
+ *           readOnly: true
+ *           description: Creation date of the technology.
+ *           example: 2022-03-21T22:31:00Z
+ *         updatedAt:
+ *           type: Date
+ *           readOnly: true
+ *           description: Creation date of the technology.
+ *           example: 2022-03-21T22:31:00Z
  */
 /**
  * Represents a technology that a rate can belong to.

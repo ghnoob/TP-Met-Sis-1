@@ -6,13 +6,13 @@
  *       type: object
  *       properties:
  *         averageSalary:
- *           type: string
- *           description: Average salary of the devs with this rate, as a numeric string
- *           example: '75000'
+ *           type: number
+ *           description: Average salary of the devs with this rate.
+ *           example: 75000
  *         grossMargin:
- *           type: string
+ *           type: number
  *           description: Gross margin taken as a retribution to the community. Usually it's 1% of the salary
- *           example: '750'
+ *           example: 750
  */
 /**
  * Data needed to update a rate.

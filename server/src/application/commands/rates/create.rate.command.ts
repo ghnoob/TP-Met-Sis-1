@@ -16,10 +16,10 @@ import CurrencyEnum from '../../../domain/enums/currency.enum';
  *         - grossMargin
  *         - currency
  *       properties:
- *         technology:
- *           type: string
+ *         technologyId:
+ *           type: number
  *           description: The id of the associated technology
- *           example: eWRhpRV
+ *           example: 1
  *         seniority:
  *           type: string
  *           description: The seniority level required for the rate
@@ -34,13 +34,13 @@ import CurrencyEnum from '../../../domain/enums/currency.enum';
  *             - 'en'
  *             - 'es'
  *         averageSalary:
- *           type: string
- *           description: Average salary of the devs with this rate, as a numeric string
- *           example: '75000'
+ *           type: number
+ *           description: Average salary of the devs with this rate
+ *           example: 75000
  *         grossMargin:
- *           type: string
+ *           type: number
  *           description: Gross margin taken as a retribution to the community. Usually it's 1% of the salary
- *           example: '750'
+ *           example: 750
  *         currency:
  *           type: string
  *           description: Currenct of the rate, as a 3 letter ISO code

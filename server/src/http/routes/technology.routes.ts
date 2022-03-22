@@ -82,8 +82,8 @@ class TechnologyRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
-   *         type: string
-   *         example: eWRhpRV
+   *         type: number
+   *         example: 1
    *         required: true
    *         description: id of the technology to get
    *     responses:
@@ -101,9 +101,9 @@ class TechnologyRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
-   *         type: string
+   *         type: number
    *         required: true
-   *         example: eWRhpRV
+   *         example: 1
    *     requestBody:
    *       description: The properties to update
    *       content:
@@ -129,12 +129,12 @@ class TechnologyRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
-   *         type: string
+   *         type: number
    *         required: true
-   *         example: eWRhpRV
+   *         example: 1
    *     responses:
-   *       '204':
-   *         description: Technology deleted sucessfully
+   *       '200':
+   *         $ref: '#/components/responses/Deleted'
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
@@ -145,6 +145,7 @@ class TechnologyRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/ErrorResponse'
    *             example:
    *               statusCode: 422
+   *               name: Unproccessable Entity
    *               message: This technology has rates associated with it. Delete them before deleting this.
    *
    * components:
@@ -157,6 +158,7 @@ class TechnologyRoutes extends CommonRoutes {
    *             $ref: '#/components/schemas/ErrorResponse'
    *           example:
    *             statusCode: 404
+   *             name: Not Found
    *             message: Technology not found.
    *
    *     TechnologyValidationError:
@@ -167,6 +169,7 @@ class TechnologyRoutes extends CommonRoutes {
    *             $ref: '#/components/schemas/ErrorResponse'
    *           example:
    *             statusCode: 400
+   *             name: Bad Request
    *             message:
    *               - value: ''
    *                 message: value must not be empty
@@ -181,6 +184,7 @@ class TechnologyRoutes extends CommonRoutes {
    *             $ref: '#/components/schemas/ErrorResponse'
    *           example:
    *             statusCode: 422
+   *             name: Unproccessable Entity
    *             message: A technology with that name already exists.
    */
   protected setUpRoutes(): Router {

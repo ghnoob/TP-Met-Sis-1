@@ -77,14 +77,9 @@ class RateRoutes extends CommonRoutes {
    *             schema:
    *               $ref: '#/components/schemas/Rate'
    *       '400':
-   *         description: Validation error or technology does not exist
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/ErrorResponse'
-   *             example:
-   *               statusCode: 400
-   *               message: The id of an existent technology must be provided in the request body.
+   *         $ref: '#/components/responses/RateValidationError'
+   *       '404':
+   *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
    *         description: The rate already exists
    *         content:
@@ -93,6 +88,7 @@ class RateRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/ErrorResponse'
    *             example:
    *               statusCode: 422
+   *               name: Unprocessable Entity
    *               message: Rate already exists.
    *
    * /rates/{id}:
@@ -102,9 +98,9 @@ class RateRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
-   *         exampple: 23TplPdS
+   *         exampple: 1
    *         schema:
-   *           type: string
+   *           type: number
    *         required: true
    *         description: id of the rate to get
    *     responses:
@@ -122,9 +118,9 @@ class RateRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
-   *         example: 23TplPdS
+   *         example: 1
    *         schema:
-   *           type: string
+   *           type: number
    *         required: true
    *         description: id of the rate to edit
    *     requestBody:
@@ -141,18 +137,7 @@ class RateRoutes extends CommonRoutes {
    *             schema:
    *               $ref: '#/components/schemas/Rate'
    *       '400':
-   *         description: Validation error
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/ErrorResponse'
-   *             example:
-   *               statusCode: 400
-   *               message:
-   *                 - value: abc
-   *                   msg: value must be a numeric string, positive, up to 2 decimal places
-   *                   param: averageSalary
-   *                   location: body
+   *         $ref: '#/components/responses/RateValidationError'
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
    *   delete:
@@ -161,14 +146,14 @@ class RateRoutes extends CommonRoutes {
    *     parameters:
    *       - in: path
    *         name: id
-   *         example: 23TplPdS
+   *         example: 1
    *         schema:
-   *           type: string
+   *           type: number
    *         required: true
    *         description: id of the rate to delete
    *     responses:
-   *       '204':
-   *         description: Rate delete sucessfully
+   *       '200':
+   *         $ref: '#/components/responses/Deleted'
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
    *
@@ -204,7 +189,32 @@ class RateRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/ErrorResponse'
    *             example:
    *               statusCode: 404
+   *               name: Not Found
    *               message: Rate not found.
+   *     RateValidationError:
+   *       description: Validation error
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/ErrorResponse'
+   *           example:
+   *             statusCode: 400
+   *             name: Bad Request
+   *             message:
+   *               - value: abc
+   *                 msg: value must be a number
+   *                 param: averageSalary
+   *                 location: body
+   *     Deleted:
+   *       description: Deleted successfully
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               message:
+   *                 type: string
+   *                 example: Deleted
    */
   protected setUpRoutes(): Router {
     this.getRouter().get('/', (req: Request, res: Response, next: NextFunction) =>

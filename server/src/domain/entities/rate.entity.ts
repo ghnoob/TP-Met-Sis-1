@@ -28,6 +28,7 @@ import Technology from './technology.entity';
  *         - averageSalary
  *         - grossMargin
  *         - currency
+ *         - createdAt
  *       properties:
  *         id:
  *           type: 1
@@ -59,10 +60,20 @@ import Technology from './technology.entity';
  *           example: 750
  *         currency:
  *           type: string
- *           description: Currenct of the rate, as a 3 letter ISO code
+ *           description: Currency of the rate, as a 3 letter ISO code
  *           enum:
  *             - 'ARS'
  *             - 'USD'
+ *         createdAt:
+ *           type: Date
+ *           readOnly: true
+ *           description: Creation date of the rate.
+ *           example: 2022-03-21T22:31:00Z
+ *         updatedAt:
+ *           type: Date
+ *           readOnly: true
+ *           description: Creation date of the rate.
+ *           example: 2022-03-21T22:31:00Z
  */
 /**
  * Represents the average rate of a developer with certain characteristcs.
