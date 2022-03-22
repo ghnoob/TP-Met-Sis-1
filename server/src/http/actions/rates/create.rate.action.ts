@@ -19,7 +19,7 @@ export default class CreateRateAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: CreateRateCommand = new CreateRateCommand(
-        req.body.technology,
+        req.body.technologyId,
         req.body.seniority,
         req.body.language,
         req.body.averageSalary,
