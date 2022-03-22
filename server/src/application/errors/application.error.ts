@@ -1,4 +1,11 @@
+/**
+ * Base class for application errors.
+ */
 export default abstract class ApplicationError extends Error {
+  /**
+   * Creates a new Application Error.
+   * @param message Error description.
+   */
   constructor(message?: string) {
     super();
 
