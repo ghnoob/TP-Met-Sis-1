@@ -1,6 +1,51 @@
 import { STATUS_CODES } from 'http';
 
 /**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         statusCode:
+ *           type: integer
+ *           description: response status code
+ *           default: 500
+ *           readOnly: true
+ *         name:
+ *           type: string
+ *           description: short error description
+ *           default: Internal Server Error
+ *           readonly: true
+ *         message:
+ *           oneOf:
+ *             - type: string
+ *             - type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   value:
+ *                     type: any
+ *                     description: submitted value
+ *                     example: 'abc123'
+ *                   msg:
+ *                     type: string
+ *                     description: error message
+ *                     example: The value must be a number.
+ *                   param:
+ *                     type: string
+ *                     description: parameter name
+ *                     example: quantity
+ *                   location:
+ *                     type: string
+ *                     description: location of the error
+ *                     enum: [body, query, params, cookies, headers]
+ *                     example: body
+ *           description: error detailed description
+ *           default: An error ocurred. Please try again.
+ *           readOnly: true
+ */
+/**
  * Represents an HTTP error with status code and description.
  */
 export default class HttpError extends Error {
