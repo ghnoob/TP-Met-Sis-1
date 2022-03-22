@@ -1,4 +1,5 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import { ErrorRequestHandler } from 'express';
+import HttpError from '../errors/http.error';
 import { StatusCodes } from '../../domain/enums/status.codes.enum';
 
 /**
@@ -28,6 +29,11 @@ const statusCodeMap = new Map<string, number>([
  *           description: response status code
  *           default: 500
  *           readOnly: true
+ *         name:
+ *           type: string
+ *           description: short error description
+ *           default: Internal Server Error
+ *           readonly: true
  *         message:
  *           oneOf:
  *             - type: string
@@ -52,17 +58,22 @@ const statusCodeMap = new Map<string, number>([
  *                     description: location of the error
  *                     enum: [body, query, params, cookies, headers]
  *                     example: body
- *           description: error description
+ *           description: error detailed description
  *           default: An error ocurred. Please try again.
  *           readOnly: true
  */
+/**
+ * Middleware for handling application errors.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
+  if (err instanceof Error) {
+    const statusCode: number = statusCodeMap.get(err.name) ?? StatusCodes.InternalServerError;
 
-// eslint-disable-next-line
-const errorHandler: ErrorRequestHandler = (err: any, _req: Request, res: Response, _next: NextFunction) => {
-  const statusCode: number = statusCodeMap.get(err.name) ?? StatusCodes.InternalServerError;
+    return res.status(statusCode).json(new HttpError(statusCode, err.message));
+  }
 
-  // los errores de validacion tiene errors y los demas message
-  return res.status(statusCode).json({ statusCode, message: err.errors ?? err.message });
+  return res.status(StatusCodes.InternalServerError).json(new HttpError(StatusCodes.InternalServerError));
 };
 
 export default errorHandler;
