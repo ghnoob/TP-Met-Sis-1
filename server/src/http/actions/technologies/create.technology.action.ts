@@ -6,6 +6,9 @@ import Technology from '../../../domain/entities/technology.entity';
 import ActionInterface from '../../../domain/interfaces/action.interface';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 
+/**
+ * Middleware for creating a new technology.
+ */
 @Service()
 export default class CreateTechnologyAction implements ActionInterface {
   constructor(

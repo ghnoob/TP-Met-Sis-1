@@ -6,6 +6,9 @@ import CreateRateCommand from '../../../application/commands/rates/create.rate.c
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import Rate from '../../../domain/entities/rate.entity';
 
+/**
+ * Middleware for creating a new rate.
+ */
 @Service()
 export default class CreateRateAction implements ActionInterface {
   constructor(

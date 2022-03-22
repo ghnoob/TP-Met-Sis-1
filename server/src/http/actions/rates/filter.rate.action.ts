@@ -6,6 +6,9 @@ import FilterRatesCommand from '../../../application/commands/rates/filter.rates
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import Rate from '../../../domain/entities/rate.entity';
 
+/**
+ * Middleware for filtering rates.
+ */
 @Service()
 export default class FilterRateAction implements ActionInterface {
   constructor(
