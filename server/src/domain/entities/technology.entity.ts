@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import EntityInterface from '../interfaces/entity.interface';
 
 /**
  * @swagger
@@ -32,7 +33,7 @@ import {
  * Represents a technology that a rate can belong to.
  */
 @Entity()
-export default class Technology {
+export default class Technology implements EntityInterface {
   @PrimaryGeneratedColumn()
   private id?: number;
 
@@ -49,6 +50,10 @@ export default class Technology {
   @DeleteDateColumn({ select: false })
   private deletedAt?: Date;
 
+  /**
+   * Creates a new technology.
+   * @param name Name of the technology @example C#
+   */
   constructor(name: string) {
     this.name = name;
   }
@@ -57,10 +62,16 @@ export default class Technology {
     return this.id;
   }
 
+  /**
+   * Gets the name of the technology.
+   */
   public getName() {
     return this.name;
   }
 
+  /**
+   * Sets the name of the technology.
+   */
   public setName(name: string) {
     this.name = name;
   }

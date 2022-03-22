@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import CurrencyEnum from '../enums/currency.enum';
+import EntityInterface from '../interfaces/entity.interface';
 import LanguageEnum from '../enums/language.enum';
 import SeniorityEnum from '../enums/seniority.enum';
 import Technology from './technology.entity';
@@ -67,67 +68,40 @@ import Technology from './technology.entity';
  * Represents the average rate of a developer with certain characteristcs.
  */
 @Entity()
-export default class Rate {
-  /**
-   * Id of the rate.
-   */
+export default class Rate implements EntityInterface {
   @PrimaryGeneratedColumn()
   private id?: number;
 
-  /**
-   * Technology of the rate.
-   */
   @ManyToOne(() => Technology)
   private technology: Technology;
 
-  /**
-   * Seniority level of the rate
-   */
   @Column({ type: 'text' })
   private seniority: SeniorityEnum;
 
-  /**
-   * Language for the rate.
-   */
   @Column({ type: 'text' })
   private language: LanguageEnum;
 
-  /**
-   * Average salary of the developers with these characteristics.
-   */
   @Column({ type: 'real' })
   private averageSalary: number;
 
-  /**
-   * Gross margin taken by the community as a retribution.
-   */
   @Column({ type: 'real' })
   private grossMargin: number;
 
-  /**
-   * Currency of the average salary and gross margin values.
-   */
   @Column({ type: 'text' })
   private currency: CurrencyEnum;
 
-  /**
-   * Rate creation date
-   */
   @CreateDateColumn()
   private createdAt?: Date;
 
-  /**
-   * Rate last update date
-   */
   @UpdateDateColumn()
   private updatedAt?: Date;
 
-  /**
-   * Rate deletion date
-   */
   @DeleteDateColumn({ select: false })
   private deletedAt?: Date;
 
+  /**
+   * Creates a new rate.
+   */
   constructor(
     technology: Technology,
     seniority: SeniorityEnum,
@@ -144,9 +118,6 @@ export default class Rate {
     this.currency = currency;
   }
 
-  /**
-   * Gets the id of the rate
-   */
   public getId() {
     return this.id;
   }
@@ -235,23 +206,14 @@ export default class Rate {
     this.currency = currency;
   }
 
-  /**
-   * Gets the date when the rate was created
-   */
   public getCreationDate() {
     return this.createdAt;
   }
 
-  /**
-   * Gets the date when the rate was last updated
-   */
   public getUpdateDate() {
     return this.updatedAt;
   }
 
-  /**
-   * Gets the date when the rate was deleted
-   */
   public getDeletionDate() {
     return this.deletedAt;
   }
