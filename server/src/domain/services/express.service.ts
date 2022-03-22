@@ -10,6 +10,9 @@ import RateRoutes from '../../http/routes/rate.routes';
 import TechnologyRoutes from '../../http/routes/technology.routes';
 import swagger from '../../config/swagger.config';
 
+/**
+ * Creates a Express server as an injectable service.
+ */
 @Service()
 export default class ExpressService {
   private readonly app: express.Application;
