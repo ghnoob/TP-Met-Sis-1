@@ -1,3 +1,6 @@
+/**
+ * Contains seniority levels.
+ */
 enum SeniorityEnum {
   junior = 'junior',
   semi_senior = 'semi senior',
