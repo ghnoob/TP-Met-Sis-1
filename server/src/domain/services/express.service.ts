@@ -6,6 +6,7 @@ import CommonRoutes from '../../http/routes/common.routes';
 import errorHandler from '../../http/middlewares/error.handler.middleware';
 import logger from '../../infrastructure/logger';
 import { requestLogger, errorLogger } from '../../http/middlewares/logger.middleware';
+import AuthRoutes from '../../http/routes/auth.routes';
 import RateRoutes from '../../http/routes/rate.routes';
 import TechnologyRoutes from '../../http/routes/technology.routes';
 import swagger from '../../config/swagger.config';
@@ -18,7 +19,7 @@ export default class ExpressService {
   private readonly app: express.Application;
 
   constructor(@InjectMany('routes') private readonly routes: CommonRoutes[]) {
-    Container.import([TechnologyRoutes, RateRoutes]);
+    Container.import([TechnologyRoutes, RateRoutes, AuthRoutes]);
 
     this.app = express();
 
