@@ -15,6 +15,8 @@ const statusCodeMap = new Map<string, number>([
   ['TechnologyHasRatesError', StatusCodes.UnproccessableEntity],
   ['SyntaxError', StatusCodes.BadRequest],
   ['EmailInUseError', StatusCodes.Conflict],
+  ['EmailNotFoundError', StatusCodes.BadRequest],
+  ['WrongPasswordError', StatusCodes.Unauthorized],
 ]);
 
 /**
