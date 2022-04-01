@@ -12,6 +12,6 @@ export default class Application {
    * Starts the application.
    */
   bootstrap() {
-    this.server.listen(3000);
+    this.server.listen(Number(process.env.SERVER_PORT) ?? 3000);
   }
 }
