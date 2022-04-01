@@ -16,4 +16,16 @@ export default class UserRepository extends Repository<User> {
       await this.createQueryBuilder('user').select('user.id').where('user.email = :email', { email }).getOne(),
     );
   }
+
+  /**
+   * Finds an user by its email address
+   * @param email Email address to search.
+   * @returns If the user was found, its `id` and `password`, else `undefined`.
+   */
+  findByEmail(email: string): Promise<User | undefined> {
+    return this.createQueryBuilder('user')
+      .select(['user.id', 'user.password'])
+      .where('user.email = :email', { email })
+      .getOne();
+  }
 }
