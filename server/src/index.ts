@@ -1,8 +1,11 @@
 import 'reflect-metadata';
+import { config } from 'dotenv';
 import { Container } from 'typedi';
 import { createConnection, useContainer } from 'typeorm';
 import Application from './config/application';
 import logger from './infrastructure/logger';
+
+config();
 
 useContainer(Container);
 
