@@ -42,7 +42,7 @@ export default class ExpressService {
 
   listen(port: number) {
     this.app.listen(port, () => {
-      logger.info('Server listening on port 3000');
+      logger.info(`Server listening on port ${port}`);
     });
   }
 }
