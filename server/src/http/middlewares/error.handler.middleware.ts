@@ -18,6 +18,8 @@ const statusCodeMap = new Map<string, number>([
   ['EmailInUseError', StatusCodes.Conflict],
   ['EmailNotFoundError', StatusCodes.BadRequest],
   ['WrongPasswordError', StatusCodes.Unauthorized],
+  ['JsonWebTokenError', StatusCodes.Unauthorized],
+  ['UserNotFoundError', StatusCodes.NotFound],
 ]);
 
 /**
