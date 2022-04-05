@@ -81,15 +81,7 @@ class RateRoutes extends CommonRoutes {
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
-   *         description: The rate already exists
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/ErrorResponse'
-   *             example:
-   *               statusCode: 422
-   *               name: Unprocessable Entity
-   *               message: Rate already exists.
+   *         $ref: '#/components/responses/RateAlreadyExists'
    *
    * /rates/{id}:
    *   get:
@@ -181,30 +173,6 @@ class RateRoutes extends CommonRoutes {
    *
    * components:
    *   responses:
-   *     RateNotFound:
-   *         description: 'Rate not found'
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/ErrorResponse'
-   *             example:
-   *               statusCode: 404
-   *               name: Not Found
-   *               message: Rate not found.
-   *     RateValidationError:
-   *       description: Validation error
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/ErrorResponse'
-   *           example:
-   *             statusCode: 400
-   *             name: Bad Request
-   *             message:
-   *               - value: abc
-   *                 msg: value must be a number
-   *                 param: averageSalary
-   *                 location: body
    *     Deleted:
    *       description: Deleted successfully
    *       content:
