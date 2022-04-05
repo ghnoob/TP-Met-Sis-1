@@ -3,7 +3,7 @@ import { ValidationError } from 'express-validator';
 /**
  * Base class for application errors.
  */
-export default abstract class ApplicationError extends Error {
+export default class ApplicationError extends Error {
   /**
    * Creates a new Application Error.
    * @param message Error description.
