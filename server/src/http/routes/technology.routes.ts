@@ -138,54 +138,7 @@ class TechnologyRoutes extends CommonRoutes {
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
-   *         description: The technology cannot be deleted bacause there are rates associated with it
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/ErrorResponse'
-   *             example:
-   *               statusCode: 422
-   *               name: Unproccessable Entity
-   *               message: This technology has rates associated with it. Delete them before deleting this.
-   *
-   * components:
-   *   responses:
-   *     TechnologyNotFound:
-   *       description: 'Technology not found'
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/ErrorResponse'
-   *           example:
-   *             statusCode: 404
-   *             name: Not Found
-   *             message: Technology not found.
-   *
-   *     TechnologyValidationError:
-   *       description: Validation error
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/ErrorResponse'
-   *           example:
-   *             statusCode: 400
-   *             name: Bad Request
-   *             message:
-   *               - value: ''
-   *                 message: value must not be empty
-   *                 param: name
-   *                 location: body
-   *
-   *     TechnologyAlreadyExists:
-   *       description: The technology already exists
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/ErrorResponse'
-   *           example:
-   *             statusCode: 422
-   *             name: Unproccessable Entity
-   *             message: A technology with that name already exists.
+   *         $ref: '#/components/responses/TechnologyHasRates'
    */
   protected setUpRoutes(): Router {
     this.getRouter().get('/', (req: Request, res: Response, next: NextFunction) =>
