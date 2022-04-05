@@ -13,9 +13,10 @@ const swagger = swaggerJSDoc({
   },
   apis: [
     join(__dirname, '..', 'http', 'routes', '*.routes.ts'),
+    join(__dirname, '..', 'http', 'errors', '*.error.ts'),
     join(__dirname, '..', 'domain', 'entities', '*.entity.ts'),
     join(__dirname, '..', 'application', 'commands', '**', '*.command.ts'),
-    join(__dirname, '..', 'http', 'errors', '*.error.ts'),
+    join(__dirname, '..', 'application', 'errors', '**', '*.error.ts'),
   ],
 });
 
