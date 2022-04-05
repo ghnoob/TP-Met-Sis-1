@@ -1,6 +1,7 @@
 import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
+import config from '../../../config';
 import EmailNotFoundError from '../../errors/auth/email.not.found.error';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import LoginCommand from '../../commands/auth/login.command';
@@ -27,7 +28,7 @@ export default class LoginHandler implements HandlerInterface<unknown> {
       throw new WrongPasswordError();
     }
 
-    const token = sign({ id: user.getId() }, process.env.JWT_SECRET_KEY ?? 'default');
+    const token = sign({ id: user.getId() }, config.jwtSecretKey);
 
     return { token };
   }
