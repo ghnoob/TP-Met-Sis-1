@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { Inject, Service } from 'typedi';
 import ActionInterface from '../../domain/interfaces/action.interface';
 import CommonRoutes from './common.routes';
+import authenticate from '../middlewares/authentication.middleware';
 import createTechnologyValidator from '../middlewares/validators/create.technology.validator';
 import validate from '../middlewares/validator.middleware';
 import ListTechnologyAction from '../actions/technologies/list.technology.action';
@@ -56,6 +57,8 @@ class TechnologyRoutes extends CommonRoutes {
    *   post:
    *     summary: create a new technology.
    *     tags: [Technologies]
+   *     security:
+   *       - bearerAuth: []
    *     requestBody:
    *       description: The technology to create
    *       required: true
@@ -72,6 +75,10 @@ class TechnologyRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/Technology'
    *       '400':
    *         $ref: '#/components/responses/TechnologyValidationError'
+   *       '401':
+   *         $ref: '#/components/responses/InvalidToken'
+   *       '404':
+   *         $ref: '#/components/responses/JwtUserNotFound'
    *       '422':
    *         $ref: '#/components/responses/TechnologyAlreadyExists'
    *
@@ -98,6 +105,8 @@ class TechnologyRoutes extends CommonRoutes {
    *   patch:
    *     summary: Edit an existing technology.
    *     tags: [Technologies]
+   *     security:
+   *       - bearerAuth: []
    *     parameters:
    *       - in: path
    *         name: id
@@ -119,6 +128,8 @@ class TechnologyRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/Technology'
    *       '400':
    *         $ref: '#/components/responses/TechnologyValidationError'
+   *       '401':
+   *         $ref: '#/components/responses/InvalidToken'
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
@@ -126,6 +137,8 @@ class TechnologyRoutes extends CommonRoutes {
    *   delete:
    *     summary: Delete a technology.
    *     tags: [Technologies]
+   *     security:
+   *       - bearerAuth: []
    *     parameters:
    *       - in: path
    *         name: id
@@ -135,6 +148,8 @@ class TechnologyRoutes extends CommonRoutes {
    *     responses:
    *       '200':
    *         $ref: '#/components/responses/Deleted'
+   *       '401':
+   *         $ref: '#/components/responses/InvalidToken'
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
@@ -149,18 +164,23 @@ class TechnologyRoutes extends CommonRoutes {
       this.findTechnologyByIdAction.run(req, res, next),
     );
 
-    this.getRouter().post('/', createTechnologyValidator, validate, (req: Request, res: Response, next: NextFunction) =>
-      this.createTechnologyAction.run(req, res, next),
+    this.getRouter().post(
+      '/',
+      authenticate,
+      createTechnologyValidator,
+      validate,
+      (req: Request, res: Response, next: NextFunction) => this.createTechnologyAction.run(req, res, next),
     );
 
     this.getRouter().patch(
       '/:id',
+      authenticate,
       createTechnologyValidator,
       validate,
       (req: Request, res: Response, next: NextFunction) => this.updateTechnologyAction.run(req, res, next),
     );
 
-    this.getRouter().delete('/:id', (req: Request, res: Response, next: NextFunction) =>
+    this.getRouter().delete('/:id', authenticate, (req: Request, res: Response, next: NextFunction) =>
       this.deleteTechnologyAction.run(req, res, next),
     );
 
