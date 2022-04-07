@@ -13,6 +13,25 @@ import CommonRoutes from './common.routes';
  *   name: Auth
  *   description: Authentication endpoints
  *
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
+ *   responses:
+ *     InvalidToken:
+ *       description: A valid JWT must be provided in the Authorization header to access this endpoint.
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ErrorResponse'
+ *           example:
+ *             statusCode: 401
+ *             name: Unauthorized
+ *             messsage: jwt must be provided.
+ *
  * /auth/signup:
  *   post:
  *     summary: Creates a new user account.
