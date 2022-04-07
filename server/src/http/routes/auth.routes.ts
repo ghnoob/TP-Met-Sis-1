@@ -13,23 +13,6 @@ import CommonRoutes from './common.routes';
  *   name: Auth
  *   description: Authentication endpoints
  *
- * components:
- *   responses:
- *     AuthValidationError:
- *       description: Validation error
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/ErrorResponse'
- *           example:
- *             statusCode: 400
- *             name: Bad Request
- *             message:
- *               - value: 'this is not an email'
- *                 message: value must be an email
- *                 param: email
- *                 location: body
- *
  * /auth/signup:
  *   post:
  *     summary: Creates a new user account.
@@ -51,15 +34,7 @@ import CommonRoutes from './common.routes';
  *       400:
  *         $ref: '#/components/responses/AuthValidationError'
  *       409:
- *         description: 'The provided email is currently in use'
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *             example:
- *               statusCode: 409
- *               name: Conflict
- *               message: This email is already registered with another account.
+ *         $ref: '#/components/responses/EmailInUse'
  * /auth/login:
  *   post:
  *     summary: Logs in with an already created account.
@@ -85,25 +60,9 @@ import CommonRoutes from './common.routes';
  *                   description: The generated JSON Web Token
  *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.amQMkQV_5SLABZpVALQoqE1xr1MfujMtaoJIqrNfNbg
  *       400:
- *         description: Incorrect email.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *             example:
- *               statusCode: 400
- *               name: Bad Request
- *               message: Incorrect email.
+ *         $ref: '#/components/responses/EmailNotFound'
  *       401:
- *         descrption: Incorrect password.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *             example:
- *               statusCode: 401
- *               name: Unauthorized
- *               message: Incorrect password.
+ *         $ref: '#/components/responses/WrongPassword'
  */
 /**
  * Authentication endpoints.
