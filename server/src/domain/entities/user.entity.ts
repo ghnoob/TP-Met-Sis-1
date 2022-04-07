@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -30,11 +29,14 @@ import EntityInterface from '../interfaces/entity.interface';
  *           example: abc@mockdomain.com
  *         createdAt:
  *           description: The date when the user was created.
- *           type: date
+ *           type: string
+ *           format: date-time
  *           example: 2022-01-01T00:00:00Z
  *           readonly: true
  *         updatedAt:
  *           description: The date when the user information was last updated.
+ *           type: string
+ *           format: date-time
  *           example: 2022-01-01T00:00:00Z
  *       required:
  *         - id
@@ -50,7 +52,6 @@ export default class User implements EntityInterface {
   private id?: number;
 
   @Column()
-  @Index({ unique: true })
   private email: string;
 
   @Column({ select: false })
