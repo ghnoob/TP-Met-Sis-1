@@ -5,6 +5,7 @@ import CreateRateHandler from '../../../application/handlers/rates/create.rate.h
 import CreateRateCommand from '../../../application/commands/rates/create.rate.command';
 import HandlerInterface from '../../../domain/interfaces/handler.interface';
 import Rate from '../../../domain/entities/rate.entity';
+import User from '../../../domain/entities/user.entity';
 
 /**
  * Middleware for creating a new rate.
@@ -19,6 +20,7 @@ export default class CreateRateAction implements ActionInterface {
   async run(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const command: CreateRateCommand = new CreateRateCommand(
+        req.user as User,
         req.body.technologyId,
         req.body.seniority,
         req.body.language,
