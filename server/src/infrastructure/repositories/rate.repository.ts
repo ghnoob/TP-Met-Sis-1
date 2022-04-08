@@ -15,8 +15,11 @@ export default class RateRepository extends Repository<Rate> {
   findAll(): Promise<Rate[]> {
     return this.createQueryBuilder('rate')
       .leftJoinAndSelect('rate.technology', 'technology')
+      .leftJoinAndSelect('rate.author', 'author')
       .select([
         'rate.id',
+        'author.id',
+        'author.email',
         'technology.id',
         'technology.name',
         'rate.seniority',
@@ -24,8 +27,6 @@ export default class RateRepository extends Repository<Rate> {
         'rate.averageSalary',
         'rate.grossMargin',
         'rate.currency',
-        'rate.createdAt',
-        'rate.updatedAt',
       ])
       .getMany();
   }
@@ -36,8 +37,11 @@ export default class RateRepository extends Repository<Rate> {
   findOneById(id: number): Promise<Rate | undefined> {
     return this.createQueryBuilder('rate')
       .leftJoinAndSelect('rate.technology', 'technology')
+      .leftJoinAndSelect('rate.author', 'author')
       .select([
         'rate.id',
+        'author.id',
+        'author.email',
         'technology.id',
         'technology.name',
         'rate.seniority',
@@ -67,8 +71,11 @@ export default class RateRepository extends Repository<Rate> {
   ): Promise<Rate[]> {
     const query = this.createQueryBuilder('rate')
       .leftJoinAndSelect('rate.technology', 'technology')
+      .leftJoinAndSelect('rate.author', 'author')
       .select([
         'rate.id',
+        'author.id',
+        'author.email',
         'technology.id',
         'technology.name',
         'rate.seniority',
@@ -76,8 +83,6 @@ export default class RateRepository extends Repository<Rate> {
         'rate.averageSalary',
         'rate.grossMargin',
         'rate.currency',
-        'rate.createdAt',
-        'rate.updatedAt',
       ]);
 
     if (technologyIds) {
