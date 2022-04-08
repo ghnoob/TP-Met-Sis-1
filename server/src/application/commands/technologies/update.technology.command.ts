@@ -1,5 +1,3 @@
-import CreateTechnologyCommand from './create.technology.command';
-
 /**
  * @swagger
  * components:
@@ -15,8 +13,9 @@ import CreateTechnologyCommand from './create.technology.command';
 /**
  * Data needed to update a technology.
  */
-export default class UpdateTechnologyCommand extends CreateTechnologyCommand {
+export default class UpdateTechnologyCommand {
   private id: number;
+  private name: string;
 
   /**
    * Creates a command.
@@ -24,8 +23,8 @@ export default class UpdateTechnologyCommand extends CreateTechnologyCommand {
    * @param name New name of the technology.
    */
   constructor(id: number, name: string) {
-    super(name);
     this.id = id;
+    this.name = name;
   }
 
   /**
@@ -33,5 +32,12 @@ export default class UpdateTechnologyCommand extends CreateTechnologyCommand {
    */
   public getId() {
     return this.id;
+  }
+
+  /**
+   * Gets the name property of the command
+   */
+  public getName() {
+    return this.name;
   }
 }

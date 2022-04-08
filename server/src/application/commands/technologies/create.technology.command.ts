@@ -1,3 +1,5 @@
+import User from '../../../domain/entities/user.entity';
+
 /**
  * @swagger
  * components:
@@ -16,14 +18,24 @@
  * Data to create a technology.
  */
 export default class CreateTechnologyCommand {
+  private author: User;
   private name: string;
 
   /**
    * Creates a command.
+   * @param author User who creates the technology.
    * @param name Name of the technology.
    */
-  constructor(name: string) {
+  constructor(author: User, name: string) {
+    this.author = author;
     this.name = name;
+  }
+
+  /**
+   * Gets the user who is creating the technology.
+   */
+  public getAuthor() {
+    return this.author;
   }
 
   /**
