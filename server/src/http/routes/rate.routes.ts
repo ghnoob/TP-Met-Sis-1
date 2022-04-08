@@ -8,6 +8,7 @@ import FilterRateAction from '../actions/rates/filter.rate.action';
 import UpdateRateAction from '../actions/rates/update.rate.action';
 import DeleteRateAction from '../actions/rates/delete.rate.action';
 import FindRateByIdAction from '../actions/rates/find.rate.by.id.action';
+import authenticate from '../middlewares/authentication.middleware';
 import createRateValidator from '../middlewares/validators/create.rate.validator';
 import updateRateValidator from '../middlewares/validators/update.rate.validator';
 import filterRateSanitizer from '../middlewares/validators/filter.rate.validator';
@@ -18,6 +19,9 @@ import validate from '../middlewares/validator.middleware';
  * tags:
  *   name: Rates
  *   description: All about /rates
+ */
+/**
+ * Routes for rate resource.
  */
 @Service({ id: 'routes', multiple: true })
 class RateRoutes extends CommonRoutes {
@@ -62,6 +66,8 @@ class RateRoutes extends CommonRoutes {
    *   post:
    *     summary: create a new rate.
    *     tags: [Rates]
+   *     security:
+   *       - bearerAuth: []
    *     requestBody:
    *       description: The rate to create
    *       required: true
@@ -78,6 +84,8 @@ class RateRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/Rate'
    *       '400':
    *         $ref: '#/components/responses/RateValidationError'
+   *       '401':
+   *         $ref: '#/components/responses/InvalidToken'
    *       '404':
    *         $ref: '#/components/responses/TechnologyNotFound'
    *       '422':
@@ -107,6 +115,8 @@ class RateRoutes extends CommonRoutes {
    *   patch:
    *     summary: Edit an existing rate.
    *     tags: [Rates]
+   *     security:
+   *       - bearerAuth: []
    *     parameters:
    *       - in: path
    *         name: id
@@ -130,11 +140,15 @@ class RateRoutes extends CommonRoutes {
    *               $ref: '#/components/schemas/Rate'
    *       '400':
    *         $ref: '#/components/responses/RateValidationError'
+   *       '401':
+   *         $ref: '#/components/responses/InvalidToken'
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
    *   delete:
    *     summary: Delete a rate.
    *     tags: [Rates]
+   *     security:
+   *       - bearerAuth: []
    *     parameters:
    *       - in: path
    *         name: id
@@ -146,6 +160,8 @@ class RateRoutes extends CommonRoutes {
    *     responses:
    *       '200':
    *         $ref: '#/components/responses/Deleted'
+   *       '401':
+   *         $ref: '#/components/responses/InvalidToken'
    *       '404':
    *         $ref: '#/components/responses/RateNotFound'
    *
@@ -193,15 +209,23 @@ class RateRoutes extends CommonRoutes {
       this.findRateByIdAction.run(req, res, next),
     );
 
-    this.getRouter().post('/', createRateValidator, validate, (req: Request, res: Response, next: NextFunction) =>
-      this.createRateAction.run(req, res, next),
+    this.getRouter().post(
+      '/',
+      authenticate,
+      createRateValidator,
+      validate,
+      (req: Request, res: Response, next: NextFunction) => this.createRateAction.run(req, res, next),
     );
 
-    this.getRouter().patch('/:id', updateRateValidator, validate, (req: Request, res: Response, next: NextFunction) =>
-      this.updateRateAction.run(req, res, next),
+    this.getRouter().patch(
+      '/:id',
+      authenticate,
+      updateRateValidator,
+      validate,
+      (req: Request, res: Response, next: NextFunction) => this.updateRateAction.run(req, res, next),
     );
 
-    this.getRouter().delete('/:id', (req: Request, res: Response, next: NextFunction) =>
+    this.getRouter().delete('/:id', authenticate, (req: Request, res: Response, next: NextFunction) =>
       this.deleteRateAction.run(req, res, next),
     );
 
