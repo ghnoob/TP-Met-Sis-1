@@ -13,8 +13,13 @@ const statusCodeMap = new Map<string, number>([
   ['TechnologyAlreadyExistsError', StatusCodes.UnproccessableEntity],
   ['TechnologyNotFoundError', StatusCodes.NotFound],
   ['TechnologyHasRatesError', StatusCodes.UnproccessableEntity],
+  ['ValidationError', StatusCodes.BadRequest],
   ['SyntaxError', StatusCodes.BadRequest],
-  ['Error', StatusCodes.BadRequest], // validation error
+  ['EmailInUseError', StatusCodes.Conflict],
+  ['EmailNotFoundError', StatusCodes.BadRequest],
+  ['WrongPasswordError', StatusCodes.Unauthorized],
+  ['JsonWebTokenError', StatusCodes.Unauthorized],
+  ['UserNotFoundError', StatusCodes.NotFound],
 ]);
 
 /**

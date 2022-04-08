@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { LoggerOptions } from 'express-winston';
 import winston from 'winston';
+import config from '.';
 
 /**
  * Winston config.
@@ -23,7 +24,7 @@ const loggerOptions: LoggerOptions = {
     winston.format.prettyPrint(),
     winston.format.colorize({ all: true }),
   ),
-  meta: Boolean(process.env.DEBUG),
+  meta: config.debug,
 };
 
 export default loggerOptions;
