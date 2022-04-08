@@ -8,7 +8,7 @@ import SeniorityEnum from '../../../domain/enums/seniority.enum';
  * Adds validation info to the request when a rate is created.
  */
 const createRateValidator: ValidationChain[] = [
-  body('technology', 'value must not be empty').trim().notEmpty(),
+  body('technologyId', 'value must not be empty').trim().notEmpty(),
 
   body('seniority', `invalid value. Allowed: ${Object.values(SeniorityEnum).join(', ')}`)
     .trim()
