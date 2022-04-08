@@ -1,13 +1,14 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
-  Index,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import EntityInterface from '../interfaces/entity.interface';
+import User from './user.entity';
 
 /**
  * @swagger
@@ -16,27 +17,28 @@ import EntityInterface from '../interfaces/entity.interface';
  *     Technology:
  *       type: object
  *       required:
- *         - id
  *         - name
- *         - createdAt
  *       properties:
  *         id:
  *           type: number
  *           readOnly: true
  *           description: The technology ID.
  *           example: 1
+ *         author:
+ *           $ref: '#/components/schemas/User'
  *         name:
  *           type: string
  *           description: The technology name.
  *           example: javascript
  *         createdAt:
- *           type: Date
+ *           type: string
+ *           format: date-time
  *           readOnly: true
  *           description: Creation date of the technology.
  *           example: 2022-03-21T22:31:00Z
  *         updatedAt:
- *           type: Date
- *           readOnly: true
+ *           type: string
+ *           format: date-time
  *           description: Creation date of the technology.
  *           example: 2022-03-21T22:31:00Z
  */
@@ -48,7 +50,9 @@ export default class Technology implements EntityInterface {
   @PrimaryGeneratedColumn()
   private id?: number;
 
-  @Index({ unique: true })
+  @ManyToOne(() => User)
+  private author: User;
+
   @Column()
   private name: string;
 
@@ -63,14 +67,23 @@ export default class Technology implements EntityInterface {
 
   /**
    * Creates a new technology.
+   * @param author User who creates the technology.
    * @param name Name of the technology @example C#
    */
-  constructor(name: string) {
+  constructor(author: User, name: string) {
+    this.author = author;
     this.name = name;
   }
 
   public getId() {
     return this.id;
+  }
+
+  /**
+   * Gets the user who created the rate.
+   */
+  public getAuthor() {
+    return this.author;
   }
 
   /**
