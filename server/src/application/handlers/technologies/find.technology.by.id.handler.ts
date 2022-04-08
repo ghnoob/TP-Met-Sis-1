@@ -23,7 +23,7 @@ export default class FindTechnologyByIdHandler implements HandlerInterface<Techn
    * @returns The found technology.
    */
   async execute(command: FindTechnologyByIdCommand): Promise<Technology> {
-    const technology = await this.repository.findOne(command.getId());
+    const technology = await this.repository.findOneById(command.getId());
 
     if (!technology) {
       throw new TechnologyNotFoundError();

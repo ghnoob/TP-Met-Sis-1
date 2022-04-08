@@ -15,7 +15,7 @@ export default class ListTechnologyAction implements ActionInterface {
   ) {}
 
   async run(_req: Request, res: Response): Promise<Response> {
-    const technologies = await this.repository.find();
+    const technologies = await this.repository.findAll();
 
     return res.status(200).json(technologies);
   }
