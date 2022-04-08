@@ -47,6 +47,7 @@ export default class CreateRateHandler implements HandlerInterface<Rate> {
 
     const rate = await this.repository.save(
       new Rate(
+        command.getAuthor(),
         technology,
         command.getSeniority(),
         command.getLanguage(),

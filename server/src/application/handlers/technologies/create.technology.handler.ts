@@ -28,7 +28,7 @@ export default class CreateTechologyHandler implements HandlerInterface<Technolo
       throw new TechnologyAlreadyExistsError();
     }
 
-    const technology = await this.repository.save(new Technology(command.getName()));
+    const technology = await this.repository.save(new Technology(command.getAuthor(), command.getName()));
 
     return plainToInstance(Technology, {
       id: technology.getId(),
