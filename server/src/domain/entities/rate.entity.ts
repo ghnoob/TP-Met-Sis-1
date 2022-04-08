@@ -12,6 +12,7 @@ import EntityInterface from '../interfaces/entity.interface';
 import LanguageEnum from '../enums/language.enum';
 import SeniorityEnum from '../enums/seniority.enum';
 import Technology from './technology.entity';
+import User from './user.entity';
 
 /**
  * Represents a rate.
@@ -21,20 +22,20 @@ import Technology from './technology.entity';
  *     Rate:
  *       type: object
  *       required:
- *         - id
  *         - technology
  *         - seniority
  *         - language
  *         - averageSalary
  *         - grossMargin
  *         - currency
- *         - createdAt
  *       properties:
  *         id:
  *           type: 1
  *           readOnly: true
  *           description: The rate ID.
  *           example: 1
+ *         author:
+ *           $ref: '#/components/schemas/User'
  *         technology:
  *           $ref: '#/components/schemas/Technology'
  *         seniority:
@@ -83,6 +84,9 @@ export default class Rate implements EntityInterface {
   @PrimaryGeneratedColumn()
   private id?: number;
 
+  @ManyToOne(() => User)
+  private author: User;
+
   @ManyToOne(() => Technology)
   private technology: Technology;
 
@@ -114,6 +118,7 @@ export default class Rate implements EntityInterface {
    * Creates a new rate.
    */
   constructor(
+    author: User,
     technology: Technology,
     seniority: SeniorityEnum,
     language: LanguageEnum,
@@ -121,6 +126,7 @@ export default class Rate implements EntityInterface {
     grossMargin: number,
     currency: CurrencyEnum,
   ) {
+    this.author = author;
     this.technology = technology;
     this.seniority = seniority;
     this.language = language;
@@ -131,6 +137,13 @@ export default class Rate implements EntityInterface {
 
   public getId() {
     return this.id;
+  }
+
+  /**
+   * Gets the user who created the rate.
+   */
+  public getAuthor() {
+    return this.author;
   }
 
   /**
