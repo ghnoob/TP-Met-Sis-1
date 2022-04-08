@@ -1,6 +1,7 @@
 import SeniorityEnum from '../../../domain/enums/seniority.enum';
 import LanguageEnum from '../../../domain/enums/language.enum';
 import CurrencyEnum from '../../../domain/enums/currency.enum';
+import User from '../../../domain/entities/user.entity';
 
 /**
  * @swagger
@@ -9,7 +10,7 @@ import CurrencyEnum from '../../../domain/enums/currency.enum';
  *     CreateRateCommand:
  *       type: object
  *       required:
- *         - technology
+ *         - technologyId
  *         - seniority
  *         - language
  *         - averageSalary
@@ -53,6 +54,7 @@ import CurrencyEnum from '../../../domain/enums/currency.enum';
  */
 export default class CreateRateCommand {
   private technologyId: number;
+  private author: User;
   private seniority: SeniorityEnum;
   private language: LanguageEnum;
   private averageSalary: number;
@@ -61,6 +63,7 @@ export default class CreateRateCommand {
 
   /**
    * Creates a command.
+   * @param author User who crates the rate.
    * @param technologyId Id of the rate.
    * @param seniority Seniority of the rate.
    * @param language Language of the rate.
@@ -69,6 +72,7 @@ export default class CreateRateCommand {
    * @param currency Currency of the rate.
    */
   constructor(
+    author: User,
     technologyId: number,
     seniority: SeniorityEnum,
     language: LanguageEnum,
@@ -76,12 +80,20 @@ export default class CreateRateCommand {
     grossMargin: number,
     currency: CurrencyEnum,
   ) {
+    this.author = author;
     this.technologyId = technologyId;
     this.seniority = seniority;
     this.language = language;
     this.averageSalary = averageSalary;
     this.grossMargin = grossMargin;
     this.currency = currency;
+  }
+
+  /**
+   * Gets the user who creates the rate
+   */
+  public getAuthor() {
+    return this.author;
   }
 
   /**
