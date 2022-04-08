@@ -8,6 +8,36 @@ import Technology from '../../domain/entities/technology.entity';
 @EntityRepository(Technology)
 export default class TechnologyRepository extends Repository<Technology> {
   /**
+   * Finds and returns all the technologies.
+   */
+  findAll(): Promise<Technology[]> {
+    return this.createQueryBuilder('technology')
+      .leftJoinAndSelect('technology.author', 'author')
+      .select(['technology.id', 'technology.name', 'author.id', 'author.email'])
+      .getMany();
+  }
+
+  /**
+   * Finds a technologu by its id
+   * @param id Id of the technology
+   * @returns The found technology or `undefined` if it an entity with the provided id does not exist.
+   */
+  findOneById(id: number): Promise<Technology | undefined> {
+    return this.createQueryBuilder('technology')
+      .leftJoinAndSelect('technology.author', 'author')
+      .select([
+        'technology.id',
+        'technology.name',
+        'technology.createdAt',
+        'technology.updatedAt',
+        'author.id',
+        'author.email',
+      ])
+      .where('technology.id = :id', { id })
+      .getOne();
+  }
+
+  /**
    * Returns true if a technology with the given name exists.
    * @param name Name of the technology
    */
